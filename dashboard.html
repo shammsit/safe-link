@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Dashboard - Safe Link</title>
+
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="../logo.png">
+            <div class="logo-text">
+                <h2>SAFE LINK</h2>
+                <p>Tech Gen</p>
+            </div>
+        </div>
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <!-- Login button REMOVED -->
+    <button class="side-btn" onclick="logoutUser()">🚪 Logout</button>
+    <button class="side-btn" onclick="goHome()">🏠 Home</button>
+<button class="side-btn">🚨 Emergency</button>
+<button class="side-btn">👤 Profile</button>
+<button class="side-btn">⚙ Settings</button>
+<button class="side-btn">📢 Notification</button>
+<button class="side-btn">🔍 Search</button>
+<button class="side-btn">ℹ About</button>
+<button class="side-btn">🌐 Change Language</button>
+<button class="side-btn">📞 Contact Us</button>
+<button class="side-btn">💬 Feedback</button>
+<button class="side-btn">📅 Meeting</button>
+<button class="side-btn">🆕 What’s New</button>
+<button class="side-btn">🚩 Report</button>
+<button class="side-btn disabled">💝 Donation (Coming Soon)</button>
+</div>
+
+<!-- DASHBOARD CONTENT -->
+<div class="dashboard-container">
+    <h1>Welcome</h1>
+    <p id="welcomeEmail"></p>
+
+    <div class="dashboard-box">
+        <p>Working in process.</p>
+        <p>Further details coming soon.</p>
+        <p>Thanks for your interest ❤️</p>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAuNAVuoWegrP4fo3PKNCofwJmyFWVeAsg",
+  authDomain: "safe-link-ff43f.firebaseapp.com",
+  projectId: "safe-link-ff43f",
+  storageBucket: "safe-link-ff43f.firebasestorage.app",
+  messagingSenderId: "113197826531",
+  appId: "1:113197826531:web:b63cfe24415e82e4d5e0d6"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+</script>
+
+<script src="../options.js"></script>
+<script src="dashboard.js"></script>
+
+</body>
+</html>
