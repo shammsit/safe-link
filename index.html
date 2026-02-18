@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Safe Link</title>
+
+<link rel="icon" type="image/png" href="favicon.png">
+
+<!-- ================= LEAFLET ================= -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- ================= ROUTING ================= -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+<!-- ================= CSS ================= -->
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- ================= ECG HEARTBEAT LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+
+    <audio id="heartbeatSound"
+    src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-1055.mp3"
+    preload="auto"></audio>
+</div>
+
+
+<!-- ================= TOP NAVIGATION ================= -->
+<div class="top-nav">
+
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button class="nav-btn">👤</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn">⚠</button>
+        <button class="nav-btn">📞</button>
+        <button class="nav-btn">🔔</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+
+</div>
+
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Safe Link Logo">
+            <div class="logo-text">
+                <h2>SAFE LINK</h2>
+                <p>Tech Gen</p>
+            </div>
+        </div>
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <!-- Logged user email -->
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <!-- Common Menu -->
+    <button class="side-btn" onclick="goHome(); closeSidebar();">🏠 Home</button>
+    <button class="side-btn">🚨 Emergency without Login</button>
+    <button class="side-btn">👤 Profile</button>
+    <button class="side-btn">⚙ Settings</button>
+    <button class="side-btn">🔔 Notification</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn">ℹ About</button>
+    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+    <button class="side-btn">📞 Contact Us</button>
+    <button class="side-btn">💬 Feedback / Suggestion</button>
+    <button class="side-btn">📅 Meeting</button>
+    <button class="side-btn">📢 Report</button>
+    <button class="side-btn disabled">💰 Donation (Coming Soon)</button>
+
+    <!-- Dynamic Auth Buttons -->
+    <button class="side-btn side-btn-login" onclick="goLogin(); closeSidebar();">🔐 Login / Signup</button>
+    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard(); closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser(); closeSidebar();">🚪 Logout</button>
+
+    <div class="sidebar-footer">
+        Thank you for using our app ❤️
+    </div>
+
+</div>
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<h1 class="main-title">SAFE LINK</h1>
+
+<button id="sosBtn">🚨 SOS EMERGENCY</button>
+<p id="status"></p>
+
+<div id="alertBanner" class="hidden banner">
+    🚨 EMERGENCY ALERT RECEIVED 🚨
+</div>
+
+<audio id="alertSound"
+src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg">
+</audio>
+
+<div id="map"></div>
+
+
+<!-- ================= FIREBASE ================= -->
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAuNAVuoWegrP4fo3PKNCofwJmyFWVeAsg",
+  authDomain: "safe-link-ff43f.firebaseapp.com",
+  projectId: "safe-link-ff43f",
+  storageBucket: "safe-link-ff43f.firebasestorage.app",
+  messagingSenderId: "113197826531",
+  appId: "1:113197826531:web:b63cfe24415e82e4d5e0d6"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+</script>
+
+
+<!-- ================= SCRIPTS ================= -->
+<script src="options.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
