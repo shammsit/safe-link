@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Safe Link</title>
+<link rel="icon" type="image/png" href="favicon.png">
+
+<link rel="stylesheet" href="style.css">
+
+
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "f70c4548-4928-4dd7-ae92-396974f595a7",
+    });
+  });
+</script>
+
+</head>
+
+<body>
+
+<!-- ECG LOADER -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+    <audio id="heartbeatSound"
+    src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-1055.mp3"
+    preload="auto"></audio>
+</div>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button id="headerProfileBtn" class="nav-btn">👤</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn">⚠</button>
+        <button class="nav-btn">📞</button>
+        <button class="nav-btn">🔔</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Safe Link Logo">
+            <div class="logo-text">
+                <h2>SAFE LINK</h2>
+                <p>Tech Gen</p>
+            </div>
+        </div>
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+   <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button class="side-btn" onclick="goEmergency();closeSidebar();">🚨 Emergency Alert</button>
+    <button class="side-btn">🚨 Emergency without Login</button>
+    <button id="profileBtn" class="side-btn">👤 Profile</button>
+    <button class="side-btn">⚙ Settings</button>
+    <button class="side-btn">🔔 Notification</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn">ℹ About</button>
+    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+    <button class="side-btn">📞 Contact Us</button>
+    <button class="side-btn">💬 Feedback / Suggestion</button>
+    <button class="side-btn">📅 Meeting</button>
+    <button class="side-btn">📢 Report</button>
+    <button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+
+    <div class="sidebar-footer">
+        Thank you for using our app ❤️
+    </div>
+
+</div>
+
+<!-- MAIN -->
+<h1 class="main-title">SAFE LINK</h1>
+
+<div style="margin-top:60px; text-align:center; color:#ccc;">
+    <p>System Under Upgrade</p>
+</div>
+
+<!-- FOOTER -->
+<footer style="
+    margin-top:100px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
+    <div style="margin-bottom:8px;">
+        © 2026 Safe Link. All Rights Reserved.
+    </div>
+    <div style="font-size:13px; color:#666;">
+        Designed & Developed by Tech Gen
+    </div>
+</footer>
+
+<!-- FIREBASE CORE (Only Auth + Firestore) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBYA30tHjQ6sttfJbqlMdJ-T7Ky_UBVjM4",
+  authDomain: "safelink-dc5da.firebaseapp.com",
+  projectId: "safelink-dc5da",
+  storageBucket: "safelink-dc5da.firebasestorage.app",
+  messagingSenderId: "1012554783730",
+  appId: "1:1012554783730:web:7879c3085943b038ba696b"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
+
+<script src="options.js"></script>
+
+</body>
+</html>

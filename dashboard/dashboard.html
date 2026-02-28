@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Dashboard - Safe Link</title>
+
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+
+</head>
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+    <audio id="heartbeatSound"
+    src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-1055.mp3"
+    preload="auto"></audio>
+</div>
+
+<!-- ================= TOP NAV ================= -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button id="headerProfileBtn" class="nav-btn">👤</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn">⚠</button>
+        <button class="nav-btn">📞</button>
+        <button class="nav-btn">🔔</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="../logo.png" alt="Safe Link Logo">
+            <div class="logo-text">
+                <h2>SAFE LINK</h2>
+                <p>Tech Gen</p>
+            </div>
+        </div>
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <!-- AUTH BLOCK -->
+    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <!-- ALL OPTIONS -->
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button class="side-btn" onclick="goEmergency();closeSidebar();">🚨 Emergency Alert</button>
+    <button class="side-btn">🚨 Emergency without Login</button>
+    <button id="profileBtn" class="side-btn">👤 Profile</button>
+    <button class="side-btn">⚙ Settings</button>
+    <button class="side-btn">🔔 Notification</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn">ℹ About</button>
+    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+    <button class="side-btn">📞 Contact Us</button>
+    <button class="side-btn">💬 Feedback / Suggestion</button>
+    <button class="side-btn">📅 Meeting</button>
+    <button class="side-btn">📢 Report</button>
+
+    <button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+
+    <div class="sidebar-footer">
+        Thank you for using our app ❤️
+    </div>
+
+</div>
+
+<!-- ================= DASHBOARD CONTENT ================= -->
+<div style="padding:100px 20px; text-align:center;">
+    <h1>Welcome to Safe Link</h1>
+
+<div style="margin-top:20px;">
+    <button onclick="goEmergency()" style="
+        padding:12px 30px;
+        background:#e53935;
+        color:white;
+        border:none;
+        border-radius:5px;
+        font-size:16px;
+        cursor:pointer;
+    ">
+        🚨 Emergency Alert System
+    </button>
+</div>
+
+
+    <p style="margin-top:20px; font-size:18px;">
+        Your account has been successfully verified.
+    </p>
+
+    <p style="margin-top:15px; color:#ccc;">
+        Our dashboard features are currently under development.
+        More updates and powerful tools are coming soon.
+    </p>
+
+    <p style="margin-top:25px;">
+        Thank you for your interest ❤️
+    </p>
+</div>
+
+<!-- ================= FIREBASE ================= -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBYA30tHjQ6sttfJbqlMdJ-T7Ky_UBVjM4",
+  authDomain: "safelink-dc5da.firebaseapp.com",
+  projectId: "safelink-dc5da",
+  storageBucket: "safelink-dc5da.firebasestorage.app",
+  messagingSenderId: "1012554783730",
+  appId: "1:1012554783730:web:7879c3085943b038ba696b"
+};
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+const auth = firebase.auth();
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+.catch(function(error){
+    console.log("Persistence error:", error);
+});
+</script>
+
+<script src="../options.js"></script>
+
+<script>
+// ================= PROTECT DASHBOARD =================
+auth.onAuthStateChanged(function(user){
+    if(!user){
+        window.location.href = "../login.html";
+    } else {
+        document.getElementById("userEmailDisplay").innerText =
+            "Logged in: " + user.email;
+    }
+});
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</body>
+</html>
