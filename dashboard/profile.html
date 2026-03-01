@@ -327,5 +327,35 @@ const firebaseConfig = {
     Profile Saved Successfully ✅
 </div>
 <script src="profile.js"></script>
+<footer style="
+    background-color:#111;
+    color:#fff;
+    padding:20px 10px;
+    text-align:center;
+    font-family:Arial, sans-serif;
+    font-size:14px;
+">
+
+    <p style="margin:5px 0;">
+        © <span id="year"></span> Safe Link. All Rights Reserved.
+    </p>
+
+    <p style="margin:5px 0;">
+        Developed by <strong>TechGen</strong>
+    </p>
+
+    <p style="margin:5px 0;">
+        Contact Us:
+        <a href="mailto:contact_us@techgen.online"
+           style="color:#00bfff; text-decoration:none;">
+           contact_us@techgen.online
+        </a>
+    </p>
+
+</footer>
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>

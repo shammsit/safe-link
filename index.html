@@ -110,22 +110,35 @@
 
 <!-- FOOTER -->
 <footer style="
-    margin-top:100px;
-    padding:25px 0;
-    background:#0d0d0d;
-    color:#aaa;
+    background-color:#111;
+    color:#fff;
+    padding:20px 10px;
     text-align:center;
+    font-family:Arial, sans-serif;
     font-size:14px;
-    border-top:1px solid #222;
 ">
-    <div style="margin-bottom:8px;">
-        © 2026 Safe Link. All Rights Reserved.
-    </div>
-    <div style="font-size:13px; color:#666;">
-        Designed & Developed by Tech Gen
-    </div>
+
+    <p style="margin:5px 0;">
+        © <span id="year"></span> Safe Link. All Rights Reserved.
+    </p>
+
+    <p style="margin:5px 0;">
+        Developed by <strong>TechGen</strong>
+    </p>
+
+    <p style="margin:5px 0;">
+        Contact Us:
+        <a href="mailto:contact_us@techgen.online"
+           style="color:#00bfff; text-decoration:none;">
+           contact_us@techgen.online
+        </a>
+    </p>
+
 </footer>
 
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 <!-- FIREBASE CORE (Only Auth + Firestore) -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
