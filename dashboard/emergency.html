@@ -12,24 +12,46 @@
 
 
 <script>
+
+let map;
+let marker;
+
 window.initMap = function () {
 
-    const location = { lat: 22.5726, lng: 88.3639 }; // Kolkata
+    const defaultLocation = { lat: 22.5726, lng: 88.3639 };
 
-    const map = new google.maps.Map(
+    map = new google.maps.Map(
         document.getElementById("map"),
         {
-            zoom: 12,
-            center: location
+            zoom: 14,
+            center: defaultLocation
         }
     );
 
-    new google.maps.Marker({
-        position: location,
-        map: map
+    marker = new google.maps.Marker({
+        position: defaultLocation,
+        map: map,
+        icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
     });
 
+    if (navigator.geolocation) {
+
+        navigator.geolocation.getCurrentPosition(function(position){
+
+            const userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            map.setCenter(userLocation);
+            marker.setPosition(userLocation);
+
+        });
+
+    }
+
 };
+
 </script>
 
  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE4YGmA3rvJJ43kUARokA3NPQSVFM3AGE&callback=initMap" async defer></script>  
