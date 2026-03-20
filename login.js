@@ -46,7 +46,8 @@ async function signup(){
     const msg = document.getElementById("authMsg");
 
     if(captchaInput !== signupCaptcha){
-        msg.innerText = "❌ Invalid CAPTCHA";
+        console.error(err);
+        msg.innerText = "❌ Invalid CAPTCHA" + err.message;
         return;
     }
 
