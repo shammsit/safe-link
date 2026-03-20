@@ -119,93 +119,79 @@ window.addEventListener("load", function(){
 
 /* ================= AUTH UI CONTROL ================= */
 
+/* ================= AUTH UI CONTROL (FINAL) ================= */
+
 async function handleAuthUI(){
 
     if(typeof supabaseClient === "undefined") return;
 
     const { data: { session } } = await supabaseClient.auth.getSession();
-
     const isLoggedIn = !!session;
 
-    // Sidebar elements
     const loginBtn = document.querySelector(".side-btn-login");
     const logoutBtn = document.querySelector(".side-btn-logout");
     const dashboardBtn = document.querySelector(".side-btn-dashboard");
     const profileBtn = document.getElementById("profileBtn");
 
-    // Other sidebar buttons (by text match)
-    const allButtons = document.querySelectorAll(".side-btn");
-
-    let emergencyNoLoginBtn = null;
-    let settingsBtn = null;
-    let contactBtn = null;
-
-    allButtons.forEach(btn=>{
-        const text = btn.innerText.toLowerCase();
-
-        if(text.includes("without login")) emergencyNoLoginBtn = btn;
-        if(text.includes("settings")) settingsBtn = btn;
-        if(text.includes("contact")) contactBtn = btn;
-    });
-
-    // Header elements
-    const headerProfileBtn = document.getElementById("headerProfileBtn");
+    const allSideBtns = document.querySelectorAll(".side-btn");
     const navBtns = document.querySelectorAll(".nav-btn");
 
-    let callBtn = null;
+    let settingsBtn = null;
+    let emergencyAlertBtn = null;
+    let emergencyNoLoginBtn = null;
+
+    allSideBtns.forEach(btn=>{
+        const text = btn.innerText.toLowerCase();
+
+        if(text.includes("settings")) settingsBtn = btn;
+        if(text.includes("emergency alert")) emergencyAlertBtn = btn;
+        if(text.includes("without login")) emergencyNoLoginBtn = btn;
+    });
+
     let settingsIcon = null;
+    const headerProfileBtn = document.getElementById("headerProfileBtn");
 
     navBtns.forEach(btn=>{
-        if(btn.innerText.includes("📞")) callBtn = btn;
         if(btn.innerText.includes("⚙")) settingsIcon = btn;
     });
 
-    /* ================= WHEN LOGGED IN ================= */
+    /* ================= LOGGED IN ================= */
     if(isLoggedIn){
 
         if(loginBtn) loginBtn.style.display = "none";
         if(logoutBtn) logoutBtn.style.display = "block";
         if(dashboardBtn) dashboardBtn.style.display = "block";
+        if(profileBtn) profileBtn.style.display = "block";
 
         if(emergencyNoLoginBtn) emergencyNoLoginBtn.style.display = "none";
 
-        if(profileBtn) profileBtn.onclick = goProfile;
-        if(headerProfileBtn) headerProfileBtn.onclick = goProfile;
+        if(settingsBtn) settingsBtn.style.display = "block";
+        if(settingsIcon) settingsIcon.style.display = "inline-block";
 
+        if(headerProfileBtn) headerProfileBtn.onclick = goProfile;
     }
 
-    /* ================= WHEN NOT LOGGED IN ================= */
+    /* ================= NOT LOGGED IN ================= */
     else{
 
         if(loginBtn) loginBtn.style.display = "block";
         if(logoutBtn) logoutBtn.style.display = "none";
-        if(dashboardBtn) dashboardBtn.style.display = "none";
 
+        // ❌ HIDE THESE
+        if(dashboardBtn) dashboardBtn.style.display = "none";
         if(profileBtn) profileBtn.style.display = "none";
         if(settingsBtn) settingsBtn.style.display = "none";
-
         if(settingsIcon) settingsIcon.style.display = "none";
+
+        // ❌ hide emergency alert
+        if(emergencyAlertBtn) emergencyAlertBtn.style.display = "none";
+
+        // ✔ keep this visible
+        if(emergencyNoLoginBtn) emergencyNoLoginBtn.style.display = "block";
 
         if(headerProfileBtn){
             headerProfileBtn.onclick = goLogin;
         }
-
-        // Hide emergency alert button (sidebar)
-        allButtons.forEach(btn=>{
-            if(btn.innerText.toLowerCase().includes("emergency alert")){
-                btn.style.display = "none";
-            }
-        });
-    }
-
-    /* ================= CONTACT REDIRECT ================= */
-
-    if(contactBtn){
-        contactBtn.onclick = goContact;
-    }
-
-    if(callBtn){
-        callBtn.onclick = goContact;
     }
 }
 

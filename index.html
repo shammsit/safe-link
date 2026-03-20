@@ -36,7 +36,7 @@
 
     <div class="nav-right">
         <button class="nav-btn">❤️</button>
-        <button class="nav-btn">⚠</button>
+        <button class="nav-btn" onclick="goAbout()">!</button>
         <button class="nav-btn" onclick="goContact()">📞</button>
         <button class="nav-btn">🔔</button>
         <button class="nav-btn" onclick="goBack()">🔙</button>
@@ -71,7 +71,7 @@
     <button class="side-btn">⚙ Settings</button>
     <button class="side-btn">🔔 Notification</button>
     <button class="side-btn">🔍 Search</button>
-    <button class="side-btn">ℹ About</button>
+    <button class="side-btn" onclick="goAbout()">ℹ About</button>
     <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
     <button class="side-btn" onclick="goContact()">📞 Contact Us</button>
     <button class="side-btn">💬 Feedback / Suggestion</button>
@@ -131,7 +131,14 @@
         </a>
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const supabaseClient = supabase.createClient(
+    "https://amvjwubiaedasynbiuua.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
+);
+</script>
 <script src="options.js"></script>
 
 <script>
