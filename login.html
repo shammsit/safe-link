@@ -48,10 +48,9 @@
 
 <!-- ================= SIDEBAR ================= -->
 <div id="sidebar" class="sidebar">
-
     <div class="sidebar-header">
         <div class="sidebar-logo">
-            <img src="logo.png" alt="Safe Link Logo">
+            <img src="logo.png">
             <div class="logo-text">
                 <h2>SAFE LINK</h2>
                 <p>Tech Gen</p>
@@ -69,148 +68,71 @@
     <hr style="border:1px solid #222; margin:10px 0;">
 
     <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
-    <button class="side-btn">🚨 Emergency without Login</button>
-    <button class="side-btn">⚙ Settings</button>
-    <button class="side-btn">🔔 Notification</button>
-    <button class="side-btn">🔍 Search</button>
-    <button class="side-btn">ℹ About</button>
-    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
-    <button class="side-btn">📞 Contact Us</button>
-    <button class="side-btn">💬 Feedback / Suggestion</button>
-    <button class="side-btn">📅 Meeting</button>
-    <button class="side-btn">📢 Report</button>
-    <button id="donationBtn" class="side-btn disabled">💰 Donation</button>
-
-    <div class="sidebar-footer">
-        Thank you for using our app ❤️
-    </div>
-
 </div>
 
-<!-- ================= AUTH SECTION ================= -->
+<!-- ================= AUTH ================= -->
 <div class="auth-container">
-    <div class="auth-box">
+<div class="auth-box">
 
-        <div class="auth-logo">
-            <img src="logo.png" alt="Safe Link Logo">
-            <h2>SAFE LINK</h2>
-            <p>Tech Gen</p>
-        </div>
-
-        <div class="auth-toggle">
-            <button id="loginTab" onclick="showLogin()">Login</button>
-            <button id="signupTab" onclick="showSignup()">Signup</button>
-        </div>
-
-        <!-- LOGIN -->
-        <div id="loginBlock">
-
-            <input type="email" id="loginEmail" placeholder="Email">
-            <input type="password" id="loginPassword" placeholder="Password">
-
-            <div class="captcha-box">
-                <span id="loginCaptchaText"></span>
-                <button onclick="generateLoginCaptcha()">↻</button>
-            </div>
-
-            <input type="text" id="loginCaptchaInput" placeholder="Enter CAPTCHA">
-
-            <button class="auth-btn" onclick="login()">Login</button>
-            <button class="reset-btn" onclick="resetPassword()">Forgot Password?</button>
-
-        </div>
-
-        <!-- SIGNUP -->
-        <div id="signupBlock" style="display:none;">
-
-            <input type="email" id="signupEmail" placeholder="Email">
-            <input type="password" id="signupPassword" placeholder="Password">
-
-            <div class="strength-meter">
-                <div id="strengthBar"></div>
-            </div>
-
-            <div class="captcha-box">
-                <span id="signupCaptchaText"></span>
-                <button onclick="generateSignupCaptcha()">↻</button>
-            </div>
-
-            <input type="text" id="signupCaptchaInput" placeholder="Enter CAPTCHA">
-
-            <button class="auth-btn" onclick="signup()">Create Account</button>
-
-        </div>
-
-        <p id="authMsg"></p>
-
-        <div style="margin-top:15px; font-size:13px;">
-            <span style="cursor:pointer; color:#00bfff;" onclick="toggleMailHelp()">
-                Mail not received?
-            </span>
-
-            <div id="mailHelpBox" style="display:none; margin-top:10px; color:#ccc;">
-                Please check your mail's Spam Section.<br><br>
-                <button class="side-btn disabled">Contact Us</button>
-            </div>
-        </div>
-
-    </div>
+<div class="auth-logo">
+<img src="logo.png">
+<h2>SAFE LINK</h2>
+<p>Tech Gen</p>
 </div>
 
+<div class="auth-toggle">
+<button onclick="showLogin()">Login</button>
+<button onclick="showSignup()">Signup</button>
+</div>
 
-<!-- ADD THIS JUST BEFORE options.js -->
+<div id="loginBlock">
+<input type="email" id="loginEmail">
+<input type="password" id="loginPassword">
+
+<div class="captcha-box">
+<span id="loginCaptchaText"></span>
+<button onclick="generateLoginCaptcha()">↻</button>
+</div>
+
+<input type="text" id="loginCaptchaInput">
+
+<button onclick="login()">Login</button>
+</div>
+
+<div id="signupBlock" style="display:none;">
+<input type="email" id="signupEmail">
+<input type="password" id="signupPassword">
+
+<div class="captcha-box">
+<span id="signupCaptchaText"></span>
+<button onclick="generateSignupCaptcha()">↻</button>
+</div>
+
+<input type="text" id="signupCaptchaInput">
+
+<button onclick="signup()">Create Account</button>
+</div>
+
+<p id="authMsg"></p>
+
+</div>
+</div>
+
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-/* ================= SUPABASE INIT ================= */
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_KEY";
 
-// 🔴 PASTE YOUR SUPABASE KEYS HERE
-const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co"; // <-- paste here
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"; // <-- paste here
-
-// Initialize Supabase
-const supabase = window.supabase.createClient(
+const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
 );
 </script>
+
 <script src="options.js"></script>
 <script src="login.js"></script>
 
-<script>
-function toggleMailHelp(){
-    const box=document.getElementById("mailHelpBox");
-    box.style.display = box.style.display==="none" ? "block" : "none";
-}
-</script>
-
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<!-- ================= PROFESSIONAL FOOTER ================= -->
-<footer style="
-    margin-top:80px;
-    padding:25px 0;
-    background:#0d0d0d;
-    color:#aaa;
-    text-align:center;
-    font-size:14px;
-    border-top:1px solid #222;
-">
-    <div style="margin-bottom:8px;">
-        © <span id="year"></span> Safe Link. All Rights Reserved.
-    </div>
-    <div style="font-size:13px; color:#666;">
-        Designed & Developed by Tech Gen
-    </div>
-    <div style="margin-bottom:8px;">
-        Contact Us:
-        <a href="mailto:contact_us@techgen.online"
-           style="color:#00bfff; text-decoration:none;">
-           contact_us@techgen.online
-        </a>
-    </div>
-</footer>
-<script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-</script>
 </body>
 </html>
