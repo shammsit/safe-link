@@ -76,7 +76,7 @@ async function login(){
     }else{
         msg.innerText = "✅ Login successful";
         setTimeout(()=>{
-            window.location.href="../dashboard.html";
+            window.location.href="/dashboard/dashboard.html";
         },1000);
     }
 }
