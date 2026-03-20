@@ -5,27 +5,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Safe Link</title>
-<link rel="icon" type="image/png" href="favicon.png">
+<title>Emergency Alert - Safe Link</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
 
-
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "f70c4548-4928-4dd7-ae92-396974f595a7",
+let map;
+let marker;
+
+window.initMap = function () {
+
+    const defaultLocation = { lat: 22.5726, lng: 88.3639 };
+
+    map = new google.maps.Map(
+        document.getElementById("map"),
+        {
+            zoom: 14,
+            center: defaultLocation
+        }
+    );
+
+    marker = new google.maps.Marker({
+        position: defaultLocation,
+        map: map,
+        icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
     });
-  });
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+
+            const userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            map.setCenter(userLocation);
+            marker.setPosition(userLocation);
+
+        });
+    }
+};
 </script>
 
-</head>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE4YGmA3rvJJ43kUARokA3NPQSVFM3AGE&callback=initMap"></script>
 
+</head>
 <body>
 
-<!-- ECG LOADER -->
+<!-- LOADER -->
 <div id="loader">
     <div class="ecg-wrapper">
         <svg viewBox="0 0 500 100" class="ecg-svg">
@@ -34,9 +62,6 @@
                 class="ecg-path"/>
         </svg>
     </div>
-    <audio id="heartbeatSound"
-    src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-1055.mp3"
-    preload="auto"></audio>
 </div>
 
 <!-- TOP NAV -->
@@ -44,14 +69,14 @@
     <div class="nav-left">
         <button class="nav-btn" onclick="toggleSidebar()">☰</button>
         <button class="nav-btn" onclick="goHome()">⌂</button>
-        <button id="headerProfileBtn" class="nav-btn" onclick="goProfile()">👤</button>
+        <button id="headerProfileBtn" class="nav-btn">👤</button>
         <button class="nav-btn">🔍</button>
         <button class="nav-btn">⚙</button>
     </div>
 
     <div class="nav-right">
         <button class="nav-btn">❤️</button>
-        <button class="nav-btn" onclick="goAbout()">!</button>
+        <button class="nav-btn">⚠</button>
         <button class="nav-btn">📞</button>
         <button class="nav-btn">🔔</button>
         <button class="nav-btn" onclick="goBack()">🔙</button>
@@ -63,7 +88,7 @@
 
     <div class="sidebar-header">
         <div class="sidebar-logo">
-            <img src="logo.png" alt="Safe Link Logo">
+            <img src="../logo.png" alt="Safe Link Logo">
             <div class="logo-text">
                 <h2>SAFE LINK</h2>
                 <p>Tech Gen</p>
@@ -74,25 +99,24 @@
 
     <div id="userEmailDisplay" class="user-email"></div>
 
-    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
-    <button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
-    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+    <button class="side-btn side-btn-dashboard" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-logout" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
 
     <hr style="border:1px solid #222; margin:10px 0;">
 
-   <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
-    <button class="side-btn" onclick="goEmergency();closeSidebar();">🚨 Emergency Alert</button>
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
     <button class="side-btn">🚨 Emergency without Login</button>
-    <button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
+    <button id="profileBtn" class="side-btn">👤 Profile</button>
     <button class="side-btn">⚙ Settings</button>
     <button class="side-btn">🔔 Notification</button>
-    <button class="side-btn" >🔍 Search</button>
-    <button class="side-btn" onclick="goAbout()">ℹ About</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn">ℹ About</button>
     <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
-    <button class="side-btn">📞 Contact Us</button>
+    <button class="side-btn" onclick="goContact()">📞 Contact Us</button>
     <button class="side-btn">💬 Feedback / Suggestion</button>
     <button class="side-btn">📅 Meeting</button>
     <button class="side-btn">📢 Report</button>
+
     <button id="donationBtn" class="side-btn disabled">💰 Donation</button>
 
     <div class="sidebar-footer">
@@ -101,14 +125,20 @@
 
 </div>
 
-<!-- MAIN -->
-<h1 class="main-title">SAFE LINK</h1>
+<!-- PAGE CONTENT -->
+<div style="padding:120px 20px; text-align:center;">
 
-<div style="margin-top:60px; text-align:center; color:#ccc;">
-    <p>System Under Upgrade</p>
+    <h1>Emergency Alert System</h1>
+
+    <div id="map" style="height:500px; width:100%; margin-top:20px;"></div>
+
+    <p style="margin-top:20px; font-size:18px; color:#ccc;">
+        Feature Updating Soon...
+    </p>
+
 </div>
 
-<!-- ================= PROFESSIONAL FOOTER ================= -->
+<!-- FOOTER -->
 <footer style="
     margin-top:80px;
     padding:25px 0;
@@ -118,43 +148,53 @@
     font-size:14px;
     border-top:1px solid #222;
 ">
-    <div style="margin-bottom:8px;">
-        © <span id="year"></span> Safe Link. All Rights Reserved.
-    </div>
-    <div style="font-size:13px; color:#666;">
-        Designed & Developed by Tech Gen
-    </div>
-    <div style="margin-bottom:8px;">
-        Contact Us:
-        <a href="mailto:contact_us@techgen.online"
-           style="color:#00bfff; text-decoration:none;">
-           contact_us@techgen.online
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div>Designed & Developed by Tech Gen</div>
+    <div>
+        Contact:
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
         </a>
     </div>
 </footer>
 
-<script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-<!-- FIREBASE CORE (Only Auth + Firestore) -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBYA30tHjQ6sttfJbqlMdJ-T7Ky_UBVjM4",
-  authDomain: "safelink-dc5da.firebaseapp.com",
-  projectId: "safelink-dc5da",
-  storageBucket: "safelink-dc5da.firebasestorage.app",
-  messagingSenderId: "1012554783730",
-  appId: "1:1012554783730:web:7879c3085943b038ba696b"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const supabaseClient = supabase.createClient(
+    "https://amvjwubiaedasynbiuua.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
+);
 </script>
 
-<script src="options.js"></script>
+<!-- AUTH CHECK -->
+<script>
+async function checkUser(){
+
+    const { data: { session } } = await supabaseClient.auth.getSession();
+
+    if(!session){
+        window.location.href = "../login.html";
+        return;
+    }
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    if(user){
+        document.getElementById("userEmailDisplay").innerText =
+            "Logged in: " + user.email;
+    }
+}
+
+checkUser();
+</script>
+
+<script src="../options.js"></script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
