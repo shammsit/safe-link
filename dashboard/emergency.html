@@ -178,7 +178,17 @@ const supabaseClient = supabase.createClient(
 <script>
 async function checkUser(){
 
-    // FIRST get session
+    const path = window.location.pathname;
+
+    // ❌ DO NOT RUN on public pages
+    if(
+        path.includes("index.html") ||
+        path.includes("login.html") ||
+        path.includes("about.html")
+    ){
+        return;
+    }
+
     const { data: { session } } = await supabaseClient.auth.getSession();
 
     if(!session){
@@ -186,12 +196,13 @@ async function checkUser(){
         return;
     }
 
-    // THEN get user
     const { data: { user } } = await supabaseClient.auth.getUser();
 
     if(user){
-        document.getElementById("userEmailDisplay").innerText =
-            "Logged in: " + user.email;
+        const el = document.getElementById("userEmailDisplay");
+        if(el){
+            el.innerText = "Logged in: " + user.email;
+        }
     }
 }
 
