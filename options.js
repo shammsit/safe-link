@@ -1,7 +1,4 @@
 // ================= SIDEBAR =================
-function goAbout(){
-    window.open.href = "../about.html";
-}
 function toggleSidebar(){
     const sidebar = document.getElementById("sidebar");
     if(sidebar){
@@ -32,7 +29,9 @@ function goHome(){
         smoothRedirect("index.html");
     }
 }
-
+function goAbout(){
+    smoothRedirect("/about.html");
+}
 function goLogin(){
     if(window.location.pathname.includes("/dashboard/")){
         smoothRedirect("../login.html");
