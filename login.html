@@ -157,31 +157,23 @@
     </div>
 </div>
 
-<!-- ================= FIREBASE ================= -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+<!-- ADD THIS JUST BEFORE options.js -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBYA30tHjQ6sttfJbqlMdJ-T7Ky_UBVjM4",
-  authDomain: "safelink-dc5da.firebaseapp.com",
-  projectId: "safelink-dc5da",
-  storageBucket: "safelink-dc5da.firebasestorage.app",
-  messagingSenderId: "1012554783730",
-  appId: "1:1012554783730:web:7879c3085943b038ba696b"
-};
+/* ================= SUPABASE INIT ================= */
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
+// 🔴 PASTE YOUR SUPABASE KEYS HERE
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co"; // <-- paste here
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"; // <-- paste here
 
-const auth = firebase.auth();
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-.catch(function(error){
-    console.log("Persistence error:", error);
-});
+// Initialize Supabase
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 </script>
-
 <script src="options.js"></script>
 <script src="login.js"></script>
 
