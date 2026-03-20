@@ -1,5 +1,7 @@
 // ================= SIDEBAR =================
-
+function goAbout(){
+    window.open.href = "../about.html";
+}
 function toggleSidebar(){
     const sidebar = document.getElementById("sidebar");
     if(sidebar){

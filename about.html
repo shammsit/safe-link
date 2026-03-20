@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>About - Safe Link</title>
+
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- ================= TOP NAV ================= -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="logo.png">
+            <div class="logo-text">
+                <h2>SAFE LINK</h2>
+                <p>Tech Gen</p>
+            </div>
+        </div>
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <button class="side-btn" onclick="goHome()">🏠 Home</button>
+    <button class="side-btn" onclick="goAbout()">ℹ About</button>
+
+</div>
+
+<!-- ================= CONTENT ================= -->
+<div style="padding:120px 20px; max-width:900px; margin:auto;">
+
+    <h1 style="text-align:center;">About SafeLink</h1>
+
+    <p style="margin-top:20px; color:#ccc; line-height:1.8; font-size:16px;">
+
+SafeLink is a community-based emergency response and public safety platform designed to deliver immediate assistance during critical situations. In moments of danger—such as harassment, stalking, medical emergencies, accidents, or public threats—every second matters. SafeLink enables users to send a one-tap SOS alert that instantly shares their live location with nearby verified users, local volunteers, and relevant authorities.
+
+<br><br>
+
+By combining GPS technology, cloud infrastructure, and real-time notifications, SafeLink creates a fast and reliable safety network where communities actively support one another. Unlike traditional systems that depend solely on official response teams, SafeLink bridges the gap between citizens and government security forces to reduce response time and increase the chances of immediate help.
+
+<br><br>
+
+The platform is designed to be accessible, scalable, and compatible with low-end smartphones, ensuring inclusivity and wide adoption. With features like live tracking, emergency notifications, volunteer response systems, and future enhancements such as evidence recording and safety heatmaps, SafeLink aims to build safer streets and stronger communities.
+
+<br><br>
+
+SafeLink is more than an app — it is a step toward smarter, safer cities powered by technology and collective responsibility.
+
+    </p>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer style="
+    background:#111;
+    color:#fff;
+    padding:20px;
+    text-align:center;
+">
+    © 2026 Safe Link. All Rights Reserved.<br>
+    Developed by TechGen
+</footer>
+
+<script src="options.js"></script>
+
+<script>
+function goAbout(){
+    window.location.href = "about.html";
+}
+</script>
+
+</body>
+</html>
