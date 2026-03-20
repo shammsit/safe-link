@@ -10,9 +10,7 @@
 <link rel="icon" href="../favicon.png">
 <link rel="stylesheet" href="../style.css">
 
-
 <script>
-
 let map;
 let marker;
 
@@ -35,9 +33,7 @@ window.initMap = function () {
     });
 
     if (navigator.geolocation) {
-
         navigator.geolocation.getCurrentPosition(function(position){
-
             const userLocation = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
@@ -45,21 +41,17 @@ window.initMap = function () {
 
             map.setCenter(userLocation);
             marker.setPosition(userLocation);
-
         });
-
     }
-
 };
-
 </script>
 
- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE4YGmA3rvJJ43kUARokA3NPQSVFM3AGE&callback=initMap" async defer></script>  
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE4YGmA3rvJJ43kUARokA3NPQSVFM3AGE&callback=initMap"></script>
 
 </head>
 <body>
 
-<!-- ================= LOADER ================= -->
+<!-- LOADER -->
 <div id="loader">
     <div class="ecg-wrapper">
         <svg viewBox="0 0 500 100" class="ecg-svg">
@@ -70,7 +62,7 @@ window.initMap = function () {
     </div>
 </div>
 
-<!-- ================= TOP NAV ================= -->
+<!-- TOP NAV -->
 <div class="top-nav">
     <div class="nav-left">
         <button class="nav-btn" onclick="toggleSidebar()">☰</button>
@@ -89,7 +81,7 @@ window.initMap = function () {
     </div>
 </div>
 
-<!-- ================= SIDEBAR ================= -->
+<!-- SIDEBAR -->
 <div id="sidebar" class="sidebar">
 
     <div class="sidebar-header">
@@ -105,13 +97,11 @@ window.initMap = function () {
 
     <div id="userEmailDisplay" class="user-email"></div>
 
-    <!-- AUTH BLOCK -->
     <button class="side-btn side-btn-dashboard" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
     <button class="side-btn side-btn-logout" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
 
     <hr style="border:1px solid #222; margin:10px 0;">
 
-    <!-- ALL OPTIONS -->
     <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
     <button class="side-btn">🚨 Emergency without Login</button>
     <button id="profileBtn" class="side-btn">👤 Profile</button>
@@ -132,12 +122,13 @@ window.initMap = function () {
     </div>
 
 </div>
-<!-- ================= PAGE CONTENT ================= -->
+
+<!-- PAGE CONTENT -->
 <div style="padding:120px 20px; text-align:center;">
 
     <h1>Emergency Alert System</h1>
 
-<div id="map" style="height:500px; width:100%; margin-top:20px;"></div>
+    <div id="map" style="height:500px; width:100%; margin-top:20px;"></div>
 
     <p style="margin-top:20px; font-size:18px; color:#ccc;">
         Feature Updating Soon...
@@ -145,7 +136,7 @@ window.initMap = function () {
 
 </div>
 
-<!-- ================= PROFESSIONAL FOOTER ================= -->
+<!-- FOOTER -->
 <footer style="
     margin-top:80px;
     padding:25px 0;
@@ -170,42 +161,41 @@ window.initMap = function () {
     </div>
 </footer>
 
-<!-- ================= FIREBASE ================= -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBYA30tHjQ6sttfJbqlMdJ-T7Ky_UBVjM4",
-  authDomain: "safelink-dc5da.firebaseapp.com",
-  projectId: "safelink-dc5da",
-  storageBucket: "safelink-dc5da.firebasestorage.app",
-  messagingSenderId: "1012554783730",
-  appId: "1:1012554783730:web:7879c3085943b038ba696b"
-};
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_ANON_KEY";
 
-const auth = firebase.auth();
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 </script>
 
-<script src="../options.js"></script>
-
+<!-- AUTH CHECK -->
 <script>
-/* 🔒 PROTECT PAGE */
-auth.onAuthStateChanged(function(user){
+async function checkUser(){
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
     if(!user){
         window.location.href = "../login.html";
     } else {
         document.getElementById("userEmailDisplay").innerText =
             "Logged in: " + user.email;
     }
-});
+}
+
+checkUser();
 </script>
 
+<script src="../options.js"></script>
+
 <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent = new Date().getFullYear();
 </script>
+
 </body>
 </html>
