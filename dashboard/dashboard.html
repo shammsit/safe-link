@@ -125,45 +125,48 @@
     </p>
 </div>
 
-<!-- ================= FIREBASE ================= -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+
+
+<!-- ================= ADD SUPABASE ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBYA30tHjQ6sttfJbqlMdJ-T7Ky_UBVjM4",
-  authDomain: "safelink-dc5da.firebaseapp.com",
-  projectId: "safelink-dc5da",
-  storageBucket: "safelink-dc5da.firebasestorage.app",
-  messagingSenderId: "1012554783730",
-  appId: "1:1012554783730:web:7879c3085943b038ba696b"
-};
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g";
 
-const auth = firebase.auth();
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-.catch(function(error){
-    console.log("Persistence error:", error);
-});
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 </script>
 
 <script src="../options.js"></script>
 
+<!-- ================= PROTECT DASHBOARD (SUPABASE) ================= -->
+
 <script>
-// ================= PROTECT DASHBOARD =================
-auth.onAuthStateChanged(function(user){
+async function checkUser(){
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
     if(!user){
         window.location.href = "../login.html";
     } else {
-        document.getElementById("userEmailDisplay").innerText =
-            "Logged in: " + user.email;
+        const emailDisplay = document.getElementById("userEmailDisplay");
+        if(emailDisplay){
+            emailDisplay.innerText = "Logged in: " + user.email;
+        }
     }
-});
+}
+
+checkUser();
 </script>
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
+<!-- KEEP FOOTER SAME -->
 <footer style="
     background-color:#111;
     color:#fff;
