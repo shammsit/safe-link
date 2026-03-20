@@ -46,8 +46,7 @@ async function signup(){
     const msg = document.getElementById("authMsg");
 
     if(captchaInput !== signupCaptcha){
-        console.error(err);
-        msg.innerText = "❌ Invalid CAPTCHA" + err.message;
+        msg.innerText = "❌ Invalid CAPTCHA";
         return;
     }
 
@@ -65,7 +64,7 @@ async function signup(){
         if(error){
             msg.innerText = "❌ " + error.message;
         }else{
-            msg.innerText = "✅ Signup successful! Check your email.";
+            msg.innerText = "✅ Signup successful!";
         }
 
     }catch(err){
