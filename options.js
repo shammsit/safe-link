@@ -66,6 +66,16 @@ function goEmergency(){
     }
 }
 
+/* ================= CONTACT ================= */
+
+function goContact(){
+    if(window.location.pathname.includes("/dashboard/")){
+        smoothRedirect("../contact.html");
+    } else {
+        smoothRedirect("contact.html");
+    }
+}
+
 /* ================= BACK ================= */
 
 function goBack(){
@@ -107,13 +117,107 @@ window.addEventListener("load", function(){
 
 });
 
-/* ================= LOGOUT (SUPABASE READY) ================= */
+/* ================= AUTH UI CONTROL ================= */
+
+async function handleAuthUI(){
+
+    if(typeof supabaseClient === "undefined") return;
+
+    const { data: { session } } = await supabaseClient.auth.getSession();
+
+    const isLoggedIn = !!session;
+
+    // Sidebar elements
+    const loginBtn = document.querySelector(".side-btn-login");
+    const logoutBtn = document.querySelector(".side-btn-logout");
+    const dashboardBtn = document.querySelector(".side-btn-dashboard");
+    const profileBtn = document.getElementById("profileBtn");
+
+    // Other sidebar buttons (by text match)
+    const allButtons = document.querySelectorAll(".side-btn");
+
+    let emergencyNoLoginBtn = null;
+    let settingsBtn = null;
+    let contactBtn = null;
+
+    allButtons.forEach(btn=>{
+        const text = btn.innerText.toLowerCase();
+
+        if(text.includes("without login")) emergencyNoLoginBtn = btn;
+        if(text.includes("settings")) settingsBtn = btn;
+        if(text.includes("contact")) contactBtn = btn;
+    });
+
+    // Header elements
+    const headerProfileBtn = document.getElementById("headerProfileBtn");
+    const navBtns = document.querySelectorAll(".nav-btn");
+
+    let callBtn = null;
+    let settingsIcon = null;
+
+    navBtns.forEach(btn=>{
+        if(btn.innerText.includes("📞")) callBtn = btn;
+        if(btn.innerText.includes("⚙")) settingsIcon = btn;
+    });
+
+    /* ================= WHEN LOGGED IN ================= */
+    if(isLoggedIn){
+
+        if(loginBtn) loginBtn.style.display = "none";
+        if(logoutBtn) logoutBtn.style.display = "block";
+        if(dashboardBtn) dashboardBtn.style.display = "block";
+
+        if(emergencyNoLoginBtn) emergencyNoLoginBtn.style.display = "none";
+
+        if(profileBtn) profileBtn.onclick = goProfile;
+        if(headerProfileBtn) headerProfileBtn.onclick = goProfile;
+
+    }
+
+    /* ================= WHEN NOT LOGGED IN ================= */
+    else{
+
+        if(loginBtn) loginBtn.style.display = "block";
+        if(logoutBtn) logoutBtn.style.display = "none";
+        if(dashboardBtn) dashboardBtn.style.display = "none";
+
+        if(profileBtn) profileBtn.style.display = "none";
+        if(settingsBtn) settingsBtn.style.display = "none";
+
+        if(settingsIcon) settingsIcon.style.display = "none";
+
+        if(headerProfileBtn){
+            headerProfileBtn.onclick = goLogin;
+        }
+
+        // Hide emergency alert button (sidebar)
+        allButtons.forEach(btn=>{
+            if(btn.innerText.toLowerCase().includes("emergency alert")){
+                btn.style.display = "none";
+            }
+        });
+    }
+
+    /* ================= CONTACT REDIRECT ================= */
+
+    if(contactBtn){
+        contactBtn.onclick = goContact;
+    }
+
+    if(callBtn){
+        callBtn.onclick = goContact;
+    }
+}
+
+handleAuthUI();
+
+/* ================= LOGOUT ================= */
 
 async function logoutUser(){
 
     try{
-        if(typeof supabase !== "undefined"){
-            await supabase.auth.signOut();
+        if(typeof supabaseClient !== "undefined"){
+            await supabaseClient.auth.signOut();
         }
     }catch(e){}
 
