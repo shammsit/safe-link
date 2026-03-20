@@ -178,11 +178,18 @@ const supabaseClient = supabase.createClient(
 <script>
 async function checkUser(){
 
+    // FIRST get session
+    const { data: { session } } = await supabaseClient.auth.getSession();
+
+    if(!session){
+        window.location.href = "../login.html";
+        return;
+    }
+
+    // THEN get user
     const { data: { user } } = await supabaseClient.auth.getUser();
 
-    if(!user){
-        window.location.href = "../login.html";
-    } else {
+    if(user){
         document.getElementById("userEmailDisplay").innerText =
             "Logged in: " + user.email;
     }
@@ -190,7 +197,6 @@ async function checkUser(){
 
 checkUser();
 </script>
-
 <script src="../options.js"></script>
 
 <script>
