@@ -70,7 +70,6 @@ async function loadProfile(){
 }
 
 /* ================= SAVE PROFILE ================= */
-
 async function saveProfile(){
 
     const msg = document.getElementById("msg");
@@ -83,7 +82,6 @@ async function saveProfile(){
     const photoFile = document.getElementById("photo").files[0];
     const idFile = document.getElementById("idphoto").files[0];
 
-    // 🔒 FILE SIZE CHECK (200KB)
     if(photoFile && photoFile.size > 200000){
         msg.innerText = "❌ Profile photo must be under 200KB";
         return;
@@ -94,33 +92,43 @@ async function saveProfile(){
         return;
     }
 
-    // Upload profile photo
+    /* ================= PROFILE PHOTO ================= */
     if(photoFile){
         const { error } = await supabaseClient.storage
             .from("profile-photos")
             .upload(user.id + ".jpg", photoFile, { upsert: true });
 
-        if(!error){
-            photoUrl = supabaseClient.storage
+        if(error){
+            console.log("Upload error:", error);
+        } else {
+            const publicUrl = supabaseClient.storage
                 .from("profile-photos")
-                .getPublicUrl(user.id + ".jpg").data.publicUrl;
+                .getPublicUrl(user.id + ".jpg");
+
+            photoUrl = publicUrl.data.publicUrl;
+            console.log("Photo URL:", photoUrl);
         }
     }
 
-    // Upload ID photo
+    /* ================= ID PHOTO ================= */
     if(idFile){
         const { error } = await supabaseClient.storage
             .from("profile-photos")
             .upload("id_" + user.id + ".jpg", idFile, { upsert: true });
 
-        if(!error){
-            idUrl = supabaseClient.storage
+        if(error){
+            console.log("ID Upload error:", error);
+        } else {
+            const publicUrl = supabaseClient.storage
                 .from("profile-photos")
-                .getPublicUrl("id_" + user.id + ".jpg").data.publicUrl;
+                .getPublicUrl("id_" + user.id + ".jpg");
+
+            idUrl = publicUrl.data.publicUrl;
+            console.log("ID URL:", idUrl);
         }
     }
 
-    // ✅ IMPORTANT FIX: KEEP OLD IMAGES
+    /* ================= KEEP OLD ================= */
     const { data: existing } = await supabaseClient
         .from("profiles")
         .select("photo_url, id_proof_url")
@@ -129,6 +137,9 @@ async function saveProfile(){
 
     const finalPhoto = photoUrl || existing?.photo_url || null;
     const finalID = idUrl || existing?.id_proof_url || null;
+
+    console.log("Final Photo:", finalPhoto);
+    console.log("Final ID:", finalID);
 
     const { error } = await supabaseClient
         .from("profiles")
@@ -149,6 +160,7 @@ async function saveProfile(){
         });
 
     if(error){
+        console.log("DB error:", error);
         msg.innerText = "❌ Error saving profile";
     }else{
         msg.innerText = "✅ Profile saved successfully";
