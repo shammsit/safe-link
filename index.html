@@ -178,27 +178,7 @@ const supabaseClient = supabase.createClient(
 );
 </script>
 
-<!-- ================= AUTH CHECK ================= -->
-<script>
-async function checkUser(){
 
-    const { data: { session } } = await supabaseClient.auth.getSession();
-
-    if(!session){
-        window.location.href = "../login.html";
-        return;
-    }
-
-    const { data: { user } } = await supabaseClient.auth.getUser();
-
-    if(user){
-        document.getElementById("userEmailDisplay").innerText =
-            "Logged in: " + user.email;
-    }
-}
-
-checkUser();
-</script>
 
 <script src="../options.js"></script>
 
