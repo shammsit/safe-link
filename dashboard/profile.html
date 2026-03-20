@@ -38,12 +38,20 @@
 </select><br><br>
 
 <label>Profile Photo:</label><br>
-<img id="profilePreview" src="" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; display: none; margin-bottom: 10px;">
-<input type="file" id="photo" onchange="previewImage(event)"><br><br>
+
+<img id="photoPreview" 
+     src="" 
+     style="width:100px;height:100px;border-radius:50%;object-fit:cover;display:none;margin-bottom:10px;">
+
+<input type="file" id="photo" onchange="previewPhoto(event)"><br><br>
 
 <label>ID Proof Image:</label><br>
-<input type="file" id="idphoto"><br><br>
 
+<img id="idPreview" 
+     src="" 
+     style="width:120px;height:80px;object-fit:cover;display:none;margin-bottom:10px;">
+
+<input type="file" id="idphoto" onchange="previewID(event)"><br><br>
 <button onclick="saveProfile()">Save Profile</button>
 
 <p id="msg"></p>

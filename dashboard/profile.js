@@ -9,7 +9,25 @@ async function getUser(){
 }
 
 /* ================= LOAD PROFILE ================= */
+function previewPhoto(event){
+    const file = event.target.files[0];
+    if(file){
+        const url = URL.createObjectURL(file);
+        const img = document.getElementById("photoPreview");
+        img.src = url;
+        img.style.display = "block";
+    }
+}
 
+function previewID(event){
+    const file = event.target.files[0];
+    if(file){
+        const url = URL.createObjectURL(file);
+        const img = document.getElementById("idPreview");
+        img.src = url;
+        img.style.display = "block";
+    }
+}
 async function loadProfile(){
 
     const user = await getUser();
@@ -32,6 +50,17 @@ async function loadProfile(){
         document.getElementById("dob").value = data.date_of_birth || "";
         document.getElementById("gender").value = data.gender || "";
     }
+    if(data.photo_url){
+    const img = document.getElementById("photoPreview");
+    img.src = data.photo_url;
+    img.style.display = "block";
+}
+
+if(data.id_proof_url){
+    const img = document.getElementById("idPreview");
+    img.src = data.id_proof_url;
+    img.style.display = "block";
+}
 }
 
 /* ================= SAVE PROFILE ================= */
