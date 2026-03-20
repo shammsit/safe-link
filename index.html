@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="../style.css">
 
 <script>
+
 let map;
 let marker;
 
@@ -33,6 +34,7 @@ window.initMap = function () {
     });
 
     if (navigator.geolocation) {
+
         navigator.geolocation.getCurrentPosition(function(position){
 
             const userLocation = {
@@ -44,8 +46,11 @@ window.initMap = function () {
             marker.setPosition(userLocation);
 
         });
+
     }
+
 };
+
 </script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE4YGmA3rvJJ43kUARokA3NPQSVFM3AGE&callback=initMap"></script>
@@ -53,7 +58,7 @@ window.initMap = function () {
 </head>
 <body>
 
-<!-- LOADER -->
+<!-- ================= LOADER ================= -->
 <div id="loader">
     <div class="ecg-wrapper">
         <svg viewBox="0 0 500 100" class="ecg-svg">
@@ -64,7 +69,7 @@ window.initMap = function () {
     </div>
 </div>
 
-<!-- TOP NAV -->
+<!-- ================= TOP NAV ================= -->
 <div class="top-nav">
     <div class="nav-left">
         <button class="nav-btn" onclick="toggleSidebar()">☰</button>
@@ -83,7 +88,7 @@ window.initMap = function () {
     </div>
 </div>
 
-<!-- SIDEBAR -->
+<!-- ================= SIDEBAR ================= -->
 <div id="sidebar" class="sidebar">
 
     <div class="sidebar-header">
@@ -112,7 +117,7 @@ window.initMap = function () {
     <button class="side-btn">🔍 Search</button>
     <button class="side-btn">ℹ About</button>
     <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
-    <button class="side-btn" onclick="goContact()">📞 Contact Us</button>
+    <button class="side-btn">📞 Contact Us</button>
     <button class="side-btn">💬 Feedback / Suggestion</button>
     <button class="side-btn">📅 Meeting</button>
     <button class="side-btn">📢 Report</button>
@@ -125,7 +130,7 @@ window.initMap = function () {
 
 </div>
 
-<!-- PAGE CONTENT -->
+<!-- ================= PAGE CONTENT ================= -->
 <div style="padding:120px 20px; text-align:center;">
 
     <h1>Emergency Alert System</h1>
@@ -138,7 +143,7 @@ window.initMap = function () {
 
 </div>
 
-<!-- FOOTER -->
+<!-- ================= PROFESSIONAL FOOTER ================= -->
 <footer style="
     margin-top:80px;
     padding:25px 0;
@@ -148,17 +153,22 @@ window.initMap = function () {
     font-size:14px;
     border-top:1px solid #222;
 ">
-    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
-    <div>Designed & Developed by Tech Gen</div>
     <div>
-        Contact:
-        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
-            contact_us@techgen.online
+        © <span id="year"></span> Safe Link. All Rights Reserved.
+    </div>
+    <div>
+        Designed & Developed by Tech Gen
+    </div>
+    <div>
+        Contact Us:
+        <a href="mailto:contact_us@techgen.online"
+           style="color:#00bfff; text-decoration:none;">
+           contact_us@techgen.online
         </a>
     </div>
 </footer>
 
-<!-- SUPABASE -->
+<!-- ================= SUPABASE ================= -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -168,7 +178,7 @@ const supabaseClient = supabase.createClient(
 );
 </script>
 
-<!-- AUTH CHECK -->
+<!-- ================= AUTH CHECK ================= -->
 <script>
 async function checkUser(){
 
