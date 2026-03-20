@@ -26,7 +26,7 @@
 }
 
 .auth-toggle button{
-    width:48%;
+    width:32%; /* ✅ fixed for 3 buttons */
     padding:10px;
     border:none;
     background:#222;
@@ -42,7 +42,8 @@
 }
 
 .auth-toggle button.active{
-    background:red;
+    background:#00bfff;
+    color:#000;
 }
 
 /* ================= INPUT FIELDS ================= */
@@ -55,12 +56,25 @@
     border-radius:6px;
     outline:none;
     background:#222;
-    color:white;
+    color:#ffffff !important;   /* ✅ force visible text */
     font-size:14px;
 }
 
+/* 🔥 FIX PLACEHOLDER VISIBILITY */
 .auth-box input::placeholder{
-    color:#aaa;
+    color:#cccccc !important;
+    opacity:1; /* important for some browsers */
+}
+
+/* FOR ALL BROWSERS */
+.auth-box input::-webkit-input-placeholder{
+    color:#cccccc;
+}
+.auth-box input:-ms-input-placeholder{
+    color:#cccccc;
+}
+.auth-box input::placeholder{
+    color:#cccccc;
 }
 
 /* ================= CAPTCHA ================= */
@@ -75,13 +89,16 @@
     border-radius:6px;
 }
 
-/* Fix for BOTH login and signup captcha text */
+/* ALL CAPTCHA TEXT */
 #loginCaptchaText,
-#signupCaptchaText{
+#signupCaptchaText,
+#adminCaptchaText{
     font-weight:bold;
     letter-spacing:3px;
     font-size:18px;
     color:#00ffcc;
+    user-select:none;
+    pointer-events:none;
 }
 
 .captcha-box button{
@@ -92,25 +109,31 @@
     cursor:pointer;
 }
 
-/* ================= BUTTONS ================= */
+/* ================= UNIFIED BUTTON STYLE ================= */
 
-.auth-btn{
+.auth-btn,
+.admin-btn{
     width:100%;
     padding:12px;
     margin-top:12px;
-    border:none;
-    border-radius:6px;
-    background:red;
-    color:white;
+    border-radius:8px;
     cursor:pointer;
-    font-weight:bold;
-    transition:0.3s;
+    font-weight:600;
     font-size:15px;
+    transition:0.3s;
+
+    background:#2b2b2b;
+    color:#00bfff;
+    border:1px solid #00bfff;
 }
 
-.auth-btn:hover{
-    background:#ff2c2c;
+.auth-btn:hover,
+.admin-btn:hover{
+    background:#00bfff;
+    color:#000;
 }
+
+/* ================= RESET ================= */
 
 .reset-btn{
     margin-top:10px;
@@ -167,7 +190,7 @@
     }
 
     .auth-toggle button{
-        font-size:13px;
+        font-size:12px;
     }
 
 }
@@ -200,24 +223,12 @@
 /* ================= FIX HEADER OVERLAP ================= */
 
 .auth-container{
-    margin-top: 80px;   /* pushes below fixed header */
-    padding-bottom: 60px;  /* prevents footer overlap */
+    margin-top:80px;
+    padding-bottom:60px;
 }
-
-/* If header height changes later, adjust 80px */
 
 @media(max-width:768px){
     .auth-container{
-        margin-top: 90px;
+        margin-top:90px;
     }
-}
-
-/* Prevent selecting CAPTCHA text */
-#loginCaptchaText,
-#signupCaptchaText{
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
 }

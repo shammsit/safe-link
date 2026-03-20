@@ -81,38 +81,53 @@
 </div>
 
 <div class="auth-toggle">
-<button onclick="showLogin()">Login</button>
-<button onclick="showSignup()">Signup</button>
+<button id="loginTab" class="active" onclick="showLogin()">Login</button>
+<button id="signupTab" onclick="showSignup()">Signup</button>
+<button id="adminTab" onclick="showAdmin()">Admin Corner</button>
 </div>
 
 <div id="loginBlock">
-<input type="email" id="loginEmail">
-<input type="password" id="loginPassword">
+<input type="email" id="loginEmail" placeholder="Email Address">
+<input type="password" id="loginPassword" placeholder="Password">
 
 <div class="captcha-box">
 <span id="loginCaptchaText"></span>
 <button onclick="generateLoginCaptcha()">↻</button>
 </div>
 
-<input type="text" id="loginCaptchaInput">
+<input type="text" id="loginCaptchaInput" placeholder="Enter CAPTCHA">
 
-<button onclick="login()">Login</button>
+<button class="auth-btn" onclick="login()">Login</button>
 </div>
 
 <div id="signupBlock" style="display:none;">
-<input type="email" id="signupEmail">
-<input type="password" id="signupPassword">
+<input type="email" id="signupEmail" placeholder="Email Address">
+<input type="password" id="signupPassword" placeholder="Password">
 
 <div class="captcha-box">
 <span id="signupCaptchaText"></span>
 <button onclick="generateSignupCaptcha()">↻</button>
 </div>
 
-<input type="text" id="signupCaptchaInput">
+<input type="text" id="signupCaptchaInput" placeholder="Enter CAPTCHA">
 
-<button onclick="signup()">Create Account</button>
+<button class="auth-btn" onclick="signup()">Create Account</button>
+</div>
+<div id="adminBlock" style="display:none;">
+
+<input type="text" id="adminUser" placeholder="Admin ID">
+<input type="password" id="adminPass" placeholder="Admin Password">
+
+<div class="captcha-box">
+<span id="adminCaptchaText"></span>
+<button onclick="generateAdminCaptcha()">↻</button>
 </div>
 
+<input type="text" id="adminCaptchaInput" placeholder="Enter CAPTCHA">
+
+<button class="admin-btn" onclick="adminLogin()">Enter Admin Panel</button>
+
+</div>
 <p id="authMsg"></p>
 
 </div>
