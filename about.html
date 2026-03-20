@@ -1,101 +1,162 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html>  <html lang="en">    <head>  <meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1">  <title>About - Safe Link</title>  <link rel="icon" href="favicon.png">    
+<link rel="stylesheet" href="style.css">  </head>    
+<body>  <!-- ECG LOADER -->  <div id="loader">    
+    <div class="ecg-wrapper">    
+        <svg viewBox="0 0 500 100" class="ecg-svg">    
+            <polyline     
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"    
+                class="ecg-path"/>    
+        </svg>    
+    </div>    
+    <audio id="heartbeatSound"    
+    src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-1055.mp3"    
+    preload="auto"></audio>    
+</div>  <!-- TOP NAV -->  <div class="top-nav">    
+    <div class="nav-left">    
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>    
+        <button class="nav-btn" onclick="goHome()">⌂</button>    
+        <button id="headerProfileBtn" class="nav-btn">👤</button>    
+        <button class="nav-btn">🔍</button>    
+        <button class="nav-btn">⚙</button>    
+    </div>  <div class="nav-right">    
+    <button class="nav-btn">❤️</button>    
+    <button class="nav-btn" onclick="goAbout()">!</button>    
+    <button class="nav-btn">📞</button>    
+    <button class="nav-btn">🔔</button>    
+    <button class="nav-btn" onclick="goBack()">🔙</button>    
+</div>  </div>  <div style="    
+    position:absolute;    
+    top:80px;    
+    right:30px;    
+    display:flex;    
+    gap:8px;    
+    z-index:10;    
+">  <button id="btnENG" onclick="setActiveLang('eng')" style="    
+    padding:6px 14px;    
+    font-size:13px;    
+    border-radius:20px;    
+    border:1px solid #00bfff;    
+    background:#00bfff;    
+    color:#000;    
+    cursor:pointer;    
+    transition:0.3s;    
+">    
+    ENG    
+</button>    <button id="btnHIN" onclick="setActiveLang('hin')" style="    
+padding:6px 14px;    
+font-size:13px;    
+border-radius:20px;    
+border:1px solid #444;    
+background:#1a1a1a;    
+color:#aaa;    
+cursor:pointer;    
+transition:0.3s;    
+">
+हिंदी
+</button>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<button id="btnBN" onclick="setActiveLang('bn')" style="    
+padding:6px 14px;    
+font-size:13px;    
+border-radius:20px;    
+border:1px solid #444;    
+background:#1a1a1a;    
+color:#aaa;    
+cursor:pointer;    
+transition:0.3s;    
+">
+বাংলা
+</button>
+<script>
+function setActiveLang(lang){
 
-<title>About - Safe Link</title>
+    const eng = document.getElementById("btnENG");
+    const hin = document.getElementById("btnHIN");
+    const bn = document.getElementById("btnBN");
 
-<link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+    const contentENG = document.getElementById("contentENG");
+    const contentBN = document.getElementById("contentBN");
+    const contentHIN = document.getElementById("contentHIN");
 
-</head>
-<body>
+    // RESET BUTTONS
+    [eng, hin, bn].forEach(btn => {
+        btn.style.background = "#1a1a1a";
+        btn.style.color = "#aaa";
+        btn.style.border = "1px solid #444";
+    });
 
-<!-- ECG LOADER -->
-<div id="loader">
-    <div class="ecg-wrapper">
-        <svg viewBox="0 0 500 100" class="ecg-svg">
-            <polyline 
-                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
-                class="ecg-path"/>
-        </svg>
-    </div>
-    <audio id="heartbeatSound"
-    src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-1055.mp3"
-    preload="auto"></audio>
-</div>
+    // HIDE ALL
+    contentENG.style.display = "none";
+    contentBN.style.display = "none";
+    contentHIN.style.display = "none";
 
-<!-- TOP NAV -->
-<div class="top-nav">
-    <div class="nav-left">
-        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
-        <button class="nav-btn" onclick="goHome()">⌂</button>
-        <button id="headerProfileBtn" class="nav-btn">👤</button>
-        <button class="nav-btn">🔍</button>
-        <button class="nav-btn">⚙</button>
-    </div>
 
-    <div class="nav-right">
-        <button class="nav-btn">❤️</button>
-        <button class="nav-btn" onclick="goAbout()">!</button>
-        <button class="nav-btn">📞</button>
-        <button class="nav-btn">🔔</button>
-        <button class="nav-btn" onclick="goBack()">🔙</button>
-    </div>
-</div>
+    if(lang === "eng"){
+        eng.style.background = "#00bfff";
+        eng.style.color = "#000";
+        eng.style.border = "1px solid #00bfff";
 
-<!-- SIDEBAR -->
-<div id="sidebar" class="sidebar">
+        contentENG.style.display = "block";
+    }
 
-    <div class="sidebar-header">
-        <div class="sidebar-logo">
-            <img src="logo.png" alt="Safe Link Logo">
-            <div class="logo-text">
-                <h2>SAFE LINK</h2>
-                <p>Tech Gen</p>
-            </div>
-        </div>
-        <button class="close-btn" onclick="toggleSidebar()">✖</button>
-    </div>
+    else if(lang === "bn"){
+        bn.style.background = "#00bfff";
+        bn.style.color = "#000";
+        bn.style.border = "1px solid #00bfff";
 
-    <div id="userEmailDisplay" class="user-email"></div>
+        contentBN.style.display = "block";
+    }
 
-    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
-    <button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
-    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+    else if(lang === "hin"){
+        hin.style.background = "#00bfff";
+        hin.style.color = "#000";
+        hin.style.border = "1px solid #00bfff";
 
-    <hr style="border:1px solid #222; margin:10px 0;">
+        contentHIN.style.display = "block";
+    }
+}
+</script>
+ </div> 
+ <!-- SIDEBAR -->  <div id="sidebar" class="sidebar">  <div class="sidebar-header">    <div class="sidebar-logo">    
+    <img src="logo.png" alt="Safe Link Logo">    
+    <div class="logo-text">    
+        <h2>SAFE LINK</h2>    
+        <p>Tech Gen</p>    
+    </div>    
+</div>    
+<button class="close-btn" onclick="toggleSidebar()">✖</button>
 
-   <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
-    <button class="side-btn" onclick="goEmergency();closeSidebar();">🚨 Emergency Alert</button>
-    <button class="side-btn">🚨 Emergency without Login</button>
-    <button id="profileBtn" class="side-btn">👤 Profile</button>
-    <button class="side-btn">⚙ Settings</button>
-    <button class="side-btn">🔔 Notification</button>
-    <button class="side-btn" >🔍 Search</button>
-    <!-- <button class="side-btn" onclick="goAbout()">ℹ About</button> -->
-    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
-    <button class="side-btn">📞 Contact Us</button>
-    <button class="side-btn">💬 Feedback / Suggestion</button>
-    <button class="side-btn">📅 Meeting</button>
-    <button class="side-btn">📢 Report</button>
-    <button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+</div>    <div id="userEmailDisplay" class="user-email"></div>    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+<button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+<button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
 
-    <div class="sidebar-footer">
-        Thank you for using our app ❤️
-    </div>
+<hr style="border:1px solid #222; margin:10px 0;">  <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+<button class="side-btn" onclick="goEmergency();closeSidebar();">🚨 Emergency Alert</button>
+<button class="side-btn">🚨 Emergency without Login</button>
+<button id="profileBtn" class="side-btn">👤 Profile</button>
+<button class="side-btn">⚙ Settings</button>
+<button class="side-btn">🔔 Notification</button>
+<button class="side-btn" >🔍 Search</button>
+<button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+<button class="side-btn">📞 Contact Us</button>
+<button class="side-btn">💬 Feedback / Suggestion</button>
+<button class="side-btn">📅 Meeting</button>
+<button class="side-btn">📢 Report</button>
+<button id="donationBtn" class="side-btn disabled">💰 Donation</button>
 
-</div>
+<div class="sidebar-footer">    
+    Thank you for using our app ❤️    
+</div>  </div>  
+<!-- ================= CONTENT ================= -->  
+ <!-- ================= CONTENT ================= -->
 
-<!-- ================= CONTENT ================= -->
-<div style="padding:20px 20px 20px 20px; max-width:1000px; margin:0 auto;">
+<!-- ENGLISH CONTENT -->
+<div id="contentENG" style="padding:20px 20px 20px 20px; max-width:1000px; margin:0 auto;">
     <img src="logo.png" style="width:100px; margin-bottom: 10px; display:block;">
     <h1 style="text-align:left; margin-bottom: 10px;">About SafeLink</h1>
 
     <p style="margin-top:10px; color:#ccc; line-height:1.8; font-size:16px; text-align: justify;">
-
 
 <br>
 
@@ -130,11 +191,11 @@ Future-Ready Safety Ecosystem
 <br>
 
 SafeLink is continuously evolving with upcoming features such as:
-<br>• Live emergency tracking  
-<br>• Smart alert notifications  
-<br>• Volunteer-based rapid response  
-<br>• Evidence recording during incidents  
-<br>• AI-powered safety heatmaps  
+<br>• Live emergency tracking
+<br>• Smart alert notifications
+<br>• Volunteer-based rapid response
+<br>• Evidence recording during incidents
+<br>• AI-powered safety heatmaps
 
 <br>
 
@@ -143,59 +204,155 @@ SafeLink is not just an application — it is a mission to build safer communiti
 </span>
 
 </p>
-
 </div>
-<div style="text-align:center; margin-top:20px 0;">
-    <a href="https://techgen.online/" target="_blank">
-        <button style="
-            padding:12px 25px;
-            font-size:16px;
-            background:#00bfff;
-            color:#000;
-            border:none;
-            border-radius:8px;
-            cursor:pointer;
-            transition:0.3s;
-        "
-        onmouseover="this.style.background='#009acd'"
-        onmouseout="this.style.background='#00bfff'">
-            Contact Our Team
-        </button>
-    </a>
+<!-- HINDI CONTENT -->
+<div id="contentHIN" style="padding:20px 20px 20px 20px; max-width:1000px; margin:0 auto; display:none;">
+    <img src="logo.png" style="width:100px; margin-bottom: 10px; display:block;">
+    <h1 style="text-align:left; margin-bottom: 10px;">सेफलिंक के बारे में</h1>
+
+    <p style="margin-top:10px; color:#ccc; line-height:1.8; font-size:16px; text-align: justify;">
+
+<br>
+
+SafeLink एक एडवांस्ड इमरजेंसी रिस्पॉन्स और पब्लिक सेफ्टी प्लेटफ़ॉर्म है, जिसे गंभीर स्थितियों के दौरान तुरंत मदद पहुँचाने के लिए डिज़ाइन किया गया है। खतरे के पलों में—जैसे कि उत्पीड़न, पीछा करना, मेडिकल इमरजेंसी, दुर्घटनाएँ या सार्वजनिक खतरे—हर एक सेकंड कीमती होता है। SafeLink यूज़र्स को एक-टैप SOS अलर्ट भेजने की सुविधा देता है, जो तुरंत उनकी लाइव लोकेशन आस-पास के भरोसेमंद यूज़र्स, कम्युनिटी रिस्पॉन्डर्स और संबंधित अधिकारियों के साथ शेयर कर देता है।
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+रीयल-टाइम सुरक्षा। समुदाय-संचालित प्रतिक्रिया।
+</span>
+
+<br>
+GPS ट्रैकिंग, क्लाउड-आधारित इंफ्रास्ट्रक्चर और रियल-टाइम अलर्ट सिस्टम को इंटीग्रेट करके, SafeLink एक ऐसा रिस्पॉन्सिव सुरक्षा नेटवर्क तैयार करता है, जहाँ लोग एक-दूसरे की तुरंत मदद कर सकते हैं। पारंपरिक सिस्टम के विपरीत, जो पूरी तरह से आधिकारिक सेवाओं पर निर्भर रहते हैं, SafeLink व्यक्तियों और आपातकालीन रिस्पॉन्डर्स के बीच की खाई को भरता है—जिससे सबसे ज़रूरी समय पर रिस्पॉन्स टाइम में काफ़ी कमी आती है।
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+पहुँच और विश्वसनीयता के लिए निर्मित
+</span>
+
+<br>
+यह प्लेटफ़ॉर्म कई तरह के डिवाइस पर, जिनमें कम क्षमता वाले स्मार्टफ़ोन भी शामिल हैं, आसानी से चलने के लिए ऑप्टिमाइज़ किया गया है, जिससे सभी यूज़र्स के लिए इसकी पहुँच सुनिश्चित होती है। इसका हल्का डिज़ाइन और स्केलेबल आर्किटेक्चर, ज़्यादा माँग वाले हालातों में भी इसे भरोसेमंद बनाता है।
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+भविष्य के लिए तैयार सुरक्षा तंत्र
+</span>
+
+<br>
+
+SafeLink लगातार विकसित हो रहा है, जिसमें आने वाले फ़ीचर्स शामिल हैं:
+<br>• लाइव इमरजेंसी ट्रैकिंग
+<br>• स्मार्ट अलर्ट नोटिफ़िकेशन
+<br>• वॉलंटियर-आधारित त्वरित प्रतिक्रिया
+<br>• घटनाओं के दौरान सबूतों की रिकॉर्डिंग
+<br>• AI-पावर्ड सेफ़्टी हीटमैप
+
+<br>
+
+<span style="font-size:17px; color:#fff; font-weight:600;">
+SafeLink सिर्फ़ एक एप्लिकेशन नहीं है — यह टेक्नोलॉजी, जागरूकता और सामूहिक ज़िम्मेदारी के ज़रिए ज़्यादा सुरक्षित समुदाय बनाने का एक मिशन है।
+</span>
+
+</p>
 </div>
-<!-- ================= PROFESSIONAL FOOTER ================= -->
-<footer style="
-    margin-top:30px;
-    padding:25px 0;
-    background:#0d0d0d;
-    color:#aaa;
-    text-align:center;
-    font-size:14px;
-    border-top:1px solid #222;
-">
-    <div style="margin-bottom:8px;">
-        © <span id="year"></span> Safe Link. All Rights Reserved.
-    </div>
-    <div style="font-size:13px; color:#666;">
-        Designed & Developed by Tech Gen
-    </div>
-    <div style="margin-bottom:8px;">
-        Contact Us:
-        <a href="mailto:contact_us@techgen.online"
-           style="color:#0c5e79; text-decoration:none;">
-           contact_us@techgen.online
-        </a>
-    </div>
-</footer>
-    
 
-<script src="options.js"></script>
 
-<script>
-function goAbout(){
-    window.location.href = "about.html";
-}
-</script>
+<!-- BENGALI CONTENT -->
+<div id="contentBN" style="padding:20px 20px 20px 20px; max-width:1000px; margin:0 auto; display:none;">
+    <img src="logo.png" style="width:100px; margin-bottom: 10px; display:block;">
+    <h1 style="text-align:left; margin-bottom: 10px;">সেফলিঙ্ক সম্পর্কে</h1>
 
-</body>
+    <p style="margin-top:10px; color:#ccc; line-height:1.8; font-size:16px; text-align: justify;">
+
+<br>
+
+সেফলিঙ্ক একটি উন্নত জরুরি প্রতিক্রিয়া এবং জননিরাপত্তা প্ল্যাটফর্ম, যা সংকটময় পরিস্থিতিতে তাৎক্ষণিক সহায়তা প্রদানের জন্য ডিজাইন করা হয়েছে। বিপদের মুহূর্তে—যেমন হয়রানি, পিছু ধাওয়া, চিকিৎসা সংক্রান্ত জরুরি অবস্থা, দুর্ঘটনা বা জননিরাপত্তার হুমকি—প্রতিটি সেকেন্ড অত্যন্ত গুরুত্বপূর্ণ। সেফলিঙ্ক ব্যবহারকারীদের এক-ট্যাপে একটি SOS অ্যালার্ট চালু করার ক্ষমতা দেয়, যা তাৎক্ষণিকভাবে তাদের লাইভ অবস্থান নিকটবর্তী বিশ্বস্ত ব্যবহারকারী, কমিউনিটি রেসপন্ডার এবং সংশ্লিষ্ট কর্তৃপক্ষের সাথে শেয়ার করে।
+
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+রিয়েল-টাইম সুরক্ষা। কমিউনিটি-চালিত প্রতিক্রিয়া।
+</span>
+
+<br>
+
+GPS ট্র্যাকিং, ক্লাউড-ভিত্তিক পরিকাঠামো এবং রিয়েল-টাইম অ্যালার্ট সিস্টেমকে একীভূত করে সেফলিঙ্ক একটি প্রতিক্রিয়াশীল নিরাপত্তা নেটওয়ার্ক তৈরি করে, যেখানে মানুষ একে অপরকে তাৎক্ষণিকভাবে সাহায্য করতে পারে। প্রচলিত সিস্টেমগুলো শুধুমাত্র সরকারি পরিষেবার উপর নির্ভর করে, কিন্তু সেফলিঙ্ক ব্যক্তি এবং জরুরি প্রতিক্রিয়া প্রদানকারীদের মধ্যে ব্যবধান কমিয়ে আনে—যার ফলে সবচেয়ে গুরুত্বপূর্ণ মুহূর্তে প্রতিক্রিয়ার সময় উল্লেখযোগ্যভাবে হ্রাস পায়।
+
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+সহজলভ্যতা ও নির্ভরযোগ্যতার জন্য নির্মিত</span>
+
+<br>
+
+এই প্ল্যাটফর্মটি লো-এন্ড স্মার্টফোনসহ বিভিন্ন ডিভাইসে মসৃণভাবে চলার জন্য অপ্টিমাইজ করা হয়েছে, যা সকল ব্যবহারকারীর জন্য সহজলভ্যতা নিশ্চিত করে। এর হালকা ডিজাইন এবং স্কেলেবল আর্কিটেকচার এটিকে উচ্চ-চাহিদার পরিস্থিতিতেও নির্ভরযোগ্য করে তোলে।
+
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+ভবিষ্যৎ-প্রস্তুত নিরাপত্তা ইকোসিস্টেম</span>
+
+<br>
+
+সেফলিঙ্ক ক্রমাগত বিকশিত হচ্ছে এবং এতে আসছে বিভিন্ন ফিচার, যেমন:
+<br>• লাইভ জরুরি অবস্থা ট্র্যাকিং
+<br>• স্মার্ট অ্যালার্ট নোটিফিকেশন
+<br>• স্বেচ্ছাসেবক-ভিত্তিক দ্রুত প্রতিক্রিয়া
+<br>• ঘটনার সময় প্রমাণ রেকর্ডিং
+<br>• এআই-চালিত সেফটি হিটম্যাপ।
+
+<br>
+
+<span style="font-size:17px; color:#fff; font-weight:600;">
+সেফলিঙ্ক শুধু একটি অ্যাপ্লিকেশন নয় — এটি প্রযুক্তি, সচেতনতা এবং সম্মিলিত দায়িত্বের মাধ্যমে নিরাপদ সম্প্রদায় গড়ে তোলার একটি মিশন।
+</span>
+
+</p>
+</div>
+
+<div style="text-align:center; margin-top:20px 0;">    
+    <a href="https://techgen.online/" target="_blank">    
+        <button style="    
+            padding:12px 25px;    
+            font-size:16px;    
+            background:#00bfff;    
+            color:#000;    
+            border:none;    
+            border-radius:8px;    
+            cursor:pointer;    
+            transition:0.3s;    
+        "    
+        onmouseover="this.style.background='#009acd'"    
+        onmouseout="this.style.background='#00bfff'">    
+            Contact Our Team    
+        </button>    
+    </a>    
+</div>    
+<!-- ================= PROFESSIONAL FOOTER ================= -->    
+<footer style="    
+    margin-top:30px;    
+    padding:25px 0;    
+    background:#0d0d0d;    
+    color:#aaa;    
+    text-align:center;    
+    font-size:14px;    
+    border-top:1px solid #222;    
+">    
+    <div style="margin-bottom:8px;">    
+        © <span id="year"></span> Safe Link. All Rights Reserved.    
+    </div>    
+    <div style="font-size:13px; color:#666;">    
+        Designed & Developed by Tech Gen    
+    </div>    
+    <div style="margin-bottom:8px;">    
+        Contact Us:    
+        <a href="mailto:contact_us@techgen.online"    
+           style="color:#0c5e79; text-decoration:none;">    
+           contact_us@techgen.online    
+        </a>    
+    </div>    
+</footer>  <script src="options.js"></script>  <script>    
+function goAbout(){    
+    window.location.href = "about.html";    
+}    
+</script>  </body>    
 </html>

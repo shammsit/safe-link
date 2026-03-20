@@ -53,6 +53,22 @@ function goDashboard(){
         smoothRedirect("dashboard/dashboard.html");
     }
 }
+/* ================= LANGUAGE REDIRECT ================= */
+
+/* ================= AUTO TRANSLATION ================= */
+
+function translatePage(lang){
+
+    let select = document.querySelector(".goog-te-combo");
+
+    if(!select){
+        alert("Translator loading... please try again in 2 sec");
+        return;
+    }
+
+    select.value = lang;
+    select.dispatchEvent(new Event("change"));
+}
 
 function goBack(){
     if(window.history.length > 1){
