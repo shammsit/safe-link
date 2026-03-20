@@ -8,7 +8,8 @@ async function getUser(){
     return user;
 }
 
-/* ================= LOAD PROFILE ================= */
+/* ================= PREVIEW ================= */
+
 function previewPhoto(event){
     const file = event.target.files[0];
     if(file){
@@ -28,6 +29,9 @@ function previewID(event){
         img.style.display = "block";
     }
 }
+
+/* ================= LOAD PROFILE ================= */
+
 async function loadProfile(){
 
     const user = await getUser();
@@ -49,18 +53,20 @@ async function loadProfile(){
         document.getElementById("idnum").value = data.id_proof_number || "";
         document.getElementById("dob").value = data.date_of_birth || "";
         document.getElementById("gender").value = data.gender || "";
-    }
-    if(data.photo_url){
-    const img = document.getElementById("photoPreview");
-    img.src = data.photo_url;
-    img.style.display = "block";
-}
 
-if(data.id_proof_url){
-    const img = document.getElementById("idPreview");
-    img.src = data.id_proof_url;
-    img.style.display = "block";
-}
+        // ✅ SHOW SAVED IMAGES
+        if(data.photo_url){
+            const img = document.getElementById("photoPreview");
+            img.src = data.photo_url;
+            img.style.display = "block";
+        }
+
+        if(data.id_proof_url){
+            const img = document.getElementById("idPreview");
+            img.src = data.id_proof_url;
+            img.style.display = "block";
+        }
+    }
 }
 
 /* ================= SAVE PROFILE ================= */
@@ -114,6 +120,16 @@ async function saveProfile(){
         }
     }
 
+    // ✅ IMPORTANT FIX: KEEP OLD IMAGES
+    const { data: existing } = await supabaseClient
+        .from("profiles")
+        .select("photo_url, id_proof_url")
+        .eq("id", user.id)
+        .single();
+
+    const finalPhoto = photoUrl || existing?.photo_url || null;
+    const finalID = idUrl || existing?.id_proof_url || null;
+
     const { error } = await supabaseClient
         .from("profiles")
         .upsert({
@@ -128,8 +144,8 @@ async function saveProfile(){
             id_proof_number: document.getElementById("idnum").value,
             date_of_birth: document.getElementById("dob").value,
             gender: document.getElementById("gender").value,
-            photo_url: photoUrl,
-            id_proof_url: idUrl
+            photo_url: finalPhoto,
+            id_proof_url: finalID
         });
 
     if(error){
