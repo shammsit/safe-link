@@ -5,6 +5,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- 🔒 PREVENT BACK CACHE -->
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
 <title>Admin Dashboard - Safe Link</title>
 
 <link rel="icon" href="../favicon.png">
@@ -61,7 +66,6 @@
     <!-- LOGOUT -->
     <button class="side-btn" onclick="logoutAdmin()">🚪 Logout</button>
 
-    <!-- ADMIN FOOTER -->
     <div id="adminFooter" style="
         margin-top:20px;
         padding:12px;
@@ -86,68 +90,60 @@
         display:inline-block;
         min-width:280px;
     ">
-        <!-- 🔥 RUNNING TEXT WILL COME HERE -->
         <div id="adminInfo"></div>
     </div>
 
 </div>
+
+<!-- ================= ACTION BUTTONS ================= -->
 <div class="admin-actions">
 
-    <button class="admin-btn primary" onclick="showUsers()">👥 Show Users</button>
-
-    <button class="admin-btn info" onclick="showFeedbacks()">💬 Feedbacks & Suggestions</button>
-
-    <button class="admin-btn success" onclick="conductMeeting()">📅 Conduct Meeting</button>
-
-    <button class="admin-btn warning" onclick="sendNotice()">🔔 Notice</button>
-
-    <button class="admin-btn info" onclick="showMessages()">📨 User Messages</button>
-
-    <button class="admin-btn" onclick="goContact()">📞 Contact Developer</button>
-
-    <button class="admin-btn star" onclick="showRatings()">⭐ Show Ratings</button>
-
-    <button class="admin-btn logout-btn" onclick="logoutAdmin()">🚪 Logout</button>
+    <button onclick="showUsers()">👥 Show Users</button>
+    <button onclick="showFeedbacks()">💬 Feedbacks & Suggestions</button>
+    <button onclick="conductMeeting()">📅 Conduct Meeting</button>
+    <button onclick="sendNotice()">🔔 Notice</button>
+    <button onclick="showMessages()">📨 User Messages</button>
+    <button onclick="goContact()">📞 Contact Developer</button>
+    <button onclick="showRatings()">⭐ Show Ratings</button>
+    <button class="logout-btn" onclick="logoutAdmin()">🚪 Logout</button>
 
 </div>
-<!-- ================= SUPABASE (REQUIRED) ================= -->
+
+<!-- ================= SUPABASE ================= -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 const supabaseClient = supabase.createClient(
     "https://amvjwubiaedasynbiuua.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 );
 </script>
 
-<!-- ================= SCRIPTS ================= -->
 <script src="../options.js"></script>
 <script src="dashboard.js"></script>
 
+<!-- ================= FOOTER (FIXED POSITION) ================= -->
+<footer style="
+    margin-top:30px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div style="font-size:13px;color:#666;">Designed & Developed by Tech Gen</div>
+    <div>
+        <a href="mailto:contact_us@techgen.online" style="color:#0c5e79;">
+            contact_us@techgen.online
+        </a>
+    </div>
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
-
-<!-- ================= PROFESSIONAL FOOTER ================= -->    
-<footer style="    
-    margin-top:30px;    
-    padding:25px 0;    
-    background:#0d0d0d;    
-    color:#aaa;    
-    text-align:center;    
-    font-size:14px;    
-    border-top:1px solid #222;    
-">    
-    <div style="margin-bottom:8px;">    
-        © <span id="year"></span> Safe Link. All Rights Reserved.    
-    </div>    
-    <div style="font-size:13px; color:#666;">    
-        Designed & Developed by Tech Gen    
-    </div>    
-    <div style="margin-bottom:8px;">    
-        Contact Developer:    
-        <a href="mailto:contact_us@techgen.online"    
-           style="color:#0c5e79; text-decoration:none;">    
-           contact_us@techgen.online    
-        </a>    
-    </div>    
-</footer>

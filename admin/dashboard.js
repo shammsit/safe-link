@@ -1,3 +1,11 @@
+/* ================= SECURITY ================= */
+
+function forceLogout(){
+    localStorage.clear();
+    window.location.replace("/login.html"); // 🔒 prevents back
+}
+
+
 /* ================= LOAD ADMIN ================= */
 
 async function loadAdmin(){
@@ -6,8 +14,9 @@ async function loadAdmin(){
     const id = localStorage.getItem("adminId");
     const name = localStorage.getItem("adminName");
 
-    if(!isLoggedIn || !id){
-        window.location.href = "/login.html";
+    // 🔒 STRICT CHECK
+    if(!isLoggedIn || isLoggedIn !== "true" || !id){
+        forceLogout();
         return;
     }
 
@@ -24,7 +33,7 @@ async function loadAdmin(){
 
         const role = data?.admin_role || "Administrator";
 
-        /* ================= RUNNING TEXT (FIXED) ================= */
+        /* ================= RUNNING TEXT ================= */
         const adminInfo = document.getElementById("adminInfo");
 
         if(adminInfo){
@@ -103,7 +112,7 @@ function logoutAdmin(){
     localStorage.removeItem("adminId");
     localStorage.removeItem("adminName");
 
-    window.location.href = "/login.html";
+    window.location.replace("/login.html"); // 🔒 FIX
 }
 
 
@@ -114,11 +123,29 @@ window.addEventListener("DOMContentLoaded", () => {
     const sidebar = document.getElementById("sidebar");
 
     if(sidebar){
-        sidebar.classList.remove("active"); // ✅ FIX: prevent auto open
+        sidebar.classList.remove("active");
     }
 
     loadAdmin();
 });
+
+
+/* ================= BACK BUTTON BLOCK ================= */
+
+window.addEventListener("pageshow", function(e){
+    if(e.persisted){
+        forceLogout();
+    }
+});
+
+
+/* ================= SESSION CHECK ================= */
+
+setInterval(() => {
+    if(localStorage.getItem("adminLoggedIn") !== "true"){
+        forceLogout();
+    }
+}, 2000);
 
 
 /* ================= OUTSIDE CLICK CLOSE ================= */
