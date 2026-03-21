@@ -5,11 +5,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Create Notice - Safe Link</title>
+<title>New Notice - Safe Link</title>
 
 <link rel="icon" href="../favicon.png">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="create-notice.css">
 
 </head>
 <body>
@@ -72,27 +73,101 @@
 
 </div>
 
-<!-- ================= PAGE CONTENT ================= -->
+<!-- ================= MAIN ================= -->
 <div class="main">
 
-    <h1>Create Notice</h1>
+    <h1 class="notice-title">New Notice</h1>
 
-    <div style="
-        margin-top:20px;
-        padding:25px;
-        background:#1a1a1a;
-        border-radius:12px;
-        display:inline-block;
-        min-width:280px;
-    ">
-        <h3 style="color:#00ffcc;">🚧 Feature Coming Soon</h3>
-        <p style="color:#aaa; font-size:14px;">
-            Notice creation system will be available shortly.
-        </p>
+    <div class="notice-container">
+
+        <div class="form-group">
+            <label>Subject</label>
+            <input type="text" placeholder="Enter subject" id="subject">
+        </div>
+
+        <div class="form-group">
+
+    <div class="form-group">
+    
+
+    <div class="check-group">
+        To:
+        <label>
+            <input type="radio" name="target" value="registered"> Registered Users
+        </label>
+
+        <label>
+            <input type="radio" name="target" value="everyone"> Everyone
+        </label>
+
+        <label>
+            <input type="radio" name="target" value="specific"> Specific Users
+        </label>
+
+    </div>
+</div>
+
+        <div class="form-group" id="userSelectGroup">
+            <label>Select Users (Multiple)</label>
+            <select id="userSelect" multiple size="5">
+                <option>Loading users...</option>
+            </select>
+        </div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Date (Post)</label>
+        <input type="date" id="postDate">
+    </div>
+
+    <div class="form-group">
+        <label>Date (Expiry)</label>
+        <input type="date" id="expiryDate">
+    </div>
+</div>
+
+
+        <div class="form-group">
+            <label>Notice Content</label>
+            <textarea placeholder="Write your notice here..." id="content"></textarea>
+        </div>
+
+       <div class="form-row">
+
+    <div class="form-group">
+        <label>Attachment</label>
+        <input type="file" id="attachment">
+    </div>
+
+    <div class="form-group inline-check">
+        <label>
+            <input type="checkbox" id="urgentCheck"> Urgent
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>By</label>
+        <input type="text" id="adminRoleField" readonly>
+    </div>
+
+</div>
+</div>
+        <!-- ✅ POST BUTTON -->
+        <button class="post-btn" onclick="postNotice()">🚀 Post Notice</button>
+
     </div>
 
 </div>
 
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div class="sub">Designed & Developed by Tech Gen</div>
+    <div>
+        Contact: 
+        <a href="mailto:contact_us@techgen.online">contact_us@techgen.online</a>
+    </div>
+</footer>
 <!-- ================= SUPABASE ================= -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -102,23 +177,8 @@ const supabaseClient = supabase.createClient(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
 );
 </script>
-
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 <script src="../options.js"></script>
 <script src="create-notice.js"></script>
-
 </body>
 </html>
-
-<!-- ================= FOOTER ================= -->
-<footer style="
-    margin-top:30px;
-    padding:25px 0;
-    background:#0d0d0d;
-    color:#aaa;
-    text-align:center;
-    font-size:14px;
-    border-top:1px solid #222;
-">
-    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
-    <div style="font-size:13px;color:#666;">Designed & Developed by Tech Gen</div>
-</footer>

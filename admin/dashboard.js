@@ -8,65 +8,34 @@ function forceLogout(){
 
 /* ================= LOAD ADMIN ================= */
 
-async function loadAdmin(){
+async function loadAdminRole(){
 
-    const isLoggedIn = localStorage.getItem("adminLoggedIn");
-    const id = localStorage.getItem("adminId");
-    const name = localStorage.getItem("adminName");
+    const adminId = localStorage.getItem("adminId");
+    const field = document.getElementById("adminRoleField");
 
-    // 🔒 STRICT CHECK
-    if(!isLoggedIn || isLoggedIn !== "true" || !id){
-        forceLogout();
-        return;
-    }
+    if(!adminId || !field) return;
 
     try{
+
         const { data, error } = await supabaseClient
             .from("admins")
             .select("admin_role")
-            .eq("admin_id", id)
+            .eq("admin_id", adminId)
             .single();
 
         if(error){
-            console.error("Role Fetch Error:", error);
+            console.error("Role fetch error:", error);
+            field.value = "ADMIN";
+            return;
         }
 
-        const role = data?.admin_role || "Administrator";
-
-        /* ================= RUNNING TEXT ================= */
-        const adminInfo = document.getElementById("adminInfo");
-
-        if(adminInfo){
-            adminInfo.innerHTML = `
-                <div class="admin-marquee">
-                    <span>
-                        Welcome ${name} &nbsp;|&nbsp; ${role.toUpperCase()}
-                    </span>
-                </div>
-            `;
-        }
-
-        /* ================= SIDEBAR NAME ================= */
-        const adminDisplay = document.getElementById("adminDisplay");
-
-        if(adminDisplay){
-            adminDisplay.innerText = "Logged in: " + name;
-        }
-
-        /* ================= FOOTER ================= */
-        const adminFooter = document.getElementById("adminFooter");
-
-        if(adminFooter){
-            adminFooter.innerText =
-                "Respected " + name +
-                ", your leadership ensures the safety, reliability, and trust of the Safe Link platform.";
-        }
+        field.value = data.admin_role.toUpperCase();
 
     }catch(err){
-        console.error("Admin Load Error:", err);
+        console.error(err);
+        field.value = "ADMIN";
     }
 }
-
 
 /* ================= SIDEBAR ================= */
 
