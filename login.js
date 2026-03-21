@@ -61,11 +61,16 @@ async function signup(){
     const password = document.getElementById("signupPassword").value;
     const captchaInput = document.getElementById("signupCaptchaInput").value;
     const msg = document.getElementById("authMsg");
+    const btn = document.querySelector("#signupBlock .auth-btn");
 
     if(captchaInput !== signupCaptcha){
         msg.innerText = "❌ Invalid CAPTCHA";
         return;
     }
+
+    // 🔄 LOADING START
+    btn.innerText = "Processing...";
+    btn.disabled = true;
 
     const { error } = await supabaseClient.auth.signUp({
         email,
@@ -74,8 +79,14 @@ async function signup(){
 
     if(error){
         msg.innerText = "❌ " + error.message;
+
+        btn.innerText = "Create Account";
+        btn.disabled = false;
     }else{
         msg.innerText = "✅ Signup successful!";
+
+        btn.innerText = "Create Account";
+        btn.disabled = false;
     }
 }
 
@@ -85,11 +96,16 @@ async function login(){
     const password = document.getElementById("loginPassword").value;
     const captchaInput = document.getElementById("loginCaptchaInput").value;
     const msg = document.getElementById("authMsg");
+    const btn = document.querySelector("#loginBlock .auth-btn");
 
     if(captchaInput !== loginCaptcha){
         msg.innerText = "❌ Invalid CAPTCHA";
         return;
     }
+
+    // 🔄 LOADING START
+    btn.innerText = "Processing...";
+    btn.disabled = true;
 
     const { error } = await supabaseClient.auth.signInWithPassword({
         email,
@@ -98,8 +114,12 @@ async function login(){
 
     if(error){
         msg.innerText = "❌ " + error.message;
+
+        btn.innerText = "Login";
+        btn.disabled = false;
     }else{
         msg.innerText = "✅ Login successful";
+
         setTimeout(()=>{
             window.location.href="/dashboard/dashboard.html";
         },1000);
@@ -112,12 +132,16 @@ async function adminLogin(){
     const password = document.getElementById("adminPass").value;
     const captchaInput = document.getElementById("adminCaptchaInput").value;
     const msg = document.getElementById("authMsg");
+    const btn = document.querySelector("#adminBlock .admin-btn");
 
-    // CAPTCHA check
     if(captchaInput !== adminCaptcha){
         msg.innerText = "❌ Invalid CAPTCHA";
         return;
     }
+
+    // 🔄 LOADING START
+    btn.innerText = "Verifying...";
+    btn.disabled = true;
 
     try{
 
@@ -130,13 +154,14 @@ async function adminLogin(){
 
         if(error || !data){
             msg.innerText = "❌ Invalid Admin ID or Password";
+
+            btn.innerText = "Enter Admin Panel";
+            btn.disabled = false;
             return;
         }
 
-        // ✅ SUCCESS
         msg.innerText = "✅ Admin Login Successful";
 
-        // Save admin session (IMPORTANT)
         localStorage.setItem("adminLoggedIn", "true");
         localStorage.setItem("adminId", data.admin_id);
         localStorage.setItem("adminName", data.admin_name);
@@ -147,6 +172,8 @@ async function adminLogin(){
 
     }catch(err){
         msg.innerText = "❌ Something went wrong";
-        console.error(err);
+
+        btn.innerText = "Enter Admin Panel";
+        btn.disabled = false;
     }
 }
