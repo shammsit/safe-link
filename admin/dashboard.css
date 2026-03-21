@@ -172,14 +172,14 @@ body{
 
 /* ================= ADMIN BUTTON ================= */
 .admin-btn{
-    padding:14px 16px;
+    padding:14px;
     font-size:14px;
     font-weight:500;
 
     border-radius:12px;
     border:1px solid rgba(255,255,255,0.08);
 
-    background:linear-gradient(145deg,#1f1f1f,#161616);
+    background:#1a1a1a;
     color:#e6e6e6;
 
     cursor:pointer;
@@ -188,27 +188,30 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
+    gap:10px;
 
+    /* ✨ professional depth */
     box-shadow:
-        0 4px 10px rgba(0,0,0,0.4),
+        0 4px 12px rgba(0,0,0,0.5),
         inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
+/* hover */
 .admin-btn:hover{
-    background:linear-gradient(145deg,#262626,#1a1a1a);
-    transform:translateY(-2px);
-    box-shadow:
-        0 6px 18px rgba(0,255,200,0.15),
-        inset 0 1px 0 rgba(255,255,255,0.08);
+    background:#222;
     color:#00ffcc;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 6px 20px rgba(0,255,200,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
+/* click */
 .admin-btn:active{
     transform:scale(0.97);
-    box-shadow:0 2px 6px rgba(0,0,0,0.6);
 }
-
 /* COLORS */
 .admin-btn.primary{ border:1px solid rgba(0,255,200,0.2); }
 .admin-btn.warning{ color:#ffd166; }
