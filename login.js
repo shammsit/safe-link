@@ -106,26 +106,47 @@ async function login(){
     }
 }
 
-function adminLogin(){
+async function adminLogin(){
 
-    const user = document.getElementById("adminUser").value;
-    const pass = document.getElementById("adminPass").value;
+    const adminId = document.getElementById("adminUser").value;
+    const password = document.getElementById("adminPass").value;
     const captchaInput = document.getElementById("adminCaptchaInput").value;
     const msg = document.getElementById("authMsg");
 
+    // CAPTCHA check
     if(captchaInput !== adminCaptcha){
         msg.innerText = "❌ Invalid CAPTCHA";
         return;
     }
 
-    if(user === "admin" && pass === "admin123"){
+    try{
+
+        const { data, error } = await supabaseClient
+            .from("admins")
+            .select("*")
+            .eq("admin_id", adminId)
+            .eq("password", password)
+            .single();
+
+        if(error || !data){
+            msg.innerText = "❌ Invalid Admin ID or Password";
+            return;
+        }
+
+        // ✅ SUCCESS
         msg.innerText = "✅ Admin Login Successful";
 
+        // Save admin session (IMPORTANT)
+        localStorage.setItem("adminLoggedIn", "true");
+        localStorage.setItem("adminId", data.admin_id);
+        localStorage.setItem("adminName", data.admin_name);
+
         setTimeout(()=>{
-            window.location.href = "/admin.html";
+            window.location.href = "/admin/dashboard.html";
         },1000);
 
-    }else{
-        msg.innerText = "❌ Invalid Admin Credentials";
+    }catch(err){
+        msg.innerText = "❌ Something went wrong";
+        console.error(err);
     }
 }
