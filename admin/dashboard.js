@@ -197,3 +197,11 @@ function showRatings(){
 function goUsers(){
     window.location.href = "/admin/users.html";
 }
+
+function goDashboard(){
+    window.location.href = "/admin/dashboard.html";
+}
+
+function goNotice(){
+    window.location.href = "/admin/create-notice.html";
+}

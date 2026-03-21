@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Users - Safe Link</title>
+<title>Create Notice - Safe Link</title>
 
 <link rel="icon" href="../favicon.png">
 <link rel="stylesheet" href="../style.css">
@@ -53,7 +53,7 @@
     <button class="side-btn" onclick="goContact()">📞 Contact Developer</button>
     <button class="side-btn">💬 Feedback & Suggestions</button>
     <button class="side-btn">📅 Conduct Meeting</button>
-    <button class="side-btn" onclick="goNotice();closeSidebar();">🔔 Give Notification</button>
+    <button class="side-btn" onclick="goUsers();closeSidebar();">Show Users</button>
     <button class="side-btn">📨 User Contact Messages</button>
 
     <hr style="border:1px solid #222; margin:10px 0;">
@@ -72,26 +72,26 @@
 
 </div>
 
-<!-- ================= MAIN ================= -->
+<!-- ================= PAGE CONTENT ================= -->
 <div class="main">
 
-    <h1>Registered Users</h1>
+    <h1>Create Notice</h1>
 
-    <div id="usersList" class="users-container"></div>
+    <div style="
+        margin-top:20px;
+        padding:25px;
+        background:#1a1a1a;
+        border-radius:12px;
+        display:inline-block;
+        min-width:280px;
+    ">
+        <h3 style="color:#00ffcc;">🚧 Feature Coming Soon</h3>
+        <p style="color:#aaa; font-size:14px;">
+            Notice creation system will be available shortly.
+        </p>
+    </div>
 
 </div>
-
-<!-- ================= FOOTER ================= -->
-<footer style="
-    margin-top:30px;
-    padding:25px 0;
-    background:#0d0d0d;
-    color:#aaa;
-    text-align:center;
-    border-top:1px solid #222;
-">
-    © Safe Link
-</footer>
 
 <!-- ================= SUPABASE ================= -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -103,7 +103,22 @@ const supabaseClient = supabase.createClient(
 );
 </script>
 
-<script src="users.js"></script>
-<script src="dashboard.js"></script>
+<script src="../options.js"></script>
+<script src="create-notice.js"></script>
+
 </body>
 </html>
+
+<!-- ================= FOOTER ================= -->
+<footer style="
+    margin-top:30px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div style="font-size:13px;color:#666;">Designed & Developed by Tech Gen</div>
+</footer>
