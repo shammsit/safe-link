@@ -19,30 +19,34 @@ async function loadAdmin(){
             .single();
 
         if(error){
-            console.error(error);
-            return;
+            console.error("Role Fetch Error:", error);
         }
 
         const role = data?.admin_role || "Administrator";
 
-        // ✅ PROFESSIONAL RUNNING TEXT
+        /* ================= RUNNING TEXT (FIXED) ================= */
         const adminInfo = document.getElementById("adminInfo");
+
         if(adminInfo){
             adminInfo.innerHTML = `
                 <div class="admin-marquee">
-                    Welcome ${name} &nbsp;|&nbsp; ${role.toUpperCase()} &nbsp;|&nbsp; ${id}
+                    <span>
+                        Welcome ${name} &nbsp;|&nbsp; ${role.toUpperCase()}
+                    </span>
                 </div>
             `;
         }
 
-        // ✅ SIDEBAR NAME
+        /* ================= SIDEBAR NAME ================= */
         const adminDisplay = document.getElementById("adminDisplay");
+
         if(adminDisplay){
             adminDisplay.innerText = "Logged in: " + name;
         }
 
-        // ✅ FOOTER MESSAGE
+        /* ================= FOOTER ================= */
         const adminFooter = document.getElementById("adminFooter");
+
         if(adminFooter){
             adminFooter.innerText =
                 "Respected " + name +
@@ -105,11 +109,12 @@ function logoutAdmin(){
 
 /* ================= INIT ================= */
 
-window.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("DOMContentLoaded", () => {
 
     const sidebar = document.getElementById("sidebar");
+
     if(sidebar){
-        sidebar.classList.remove("active"); // ✅ fix partial open bug
+        sidebar.classList.remove("active"); // ✅ FIX: prevent auto open
     }
 
     loadAdmin();
@@ -118,7 +123,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
 /* ================= OUTSIDE CLICK CLOSE ================= */
 
-document.addEventListener("click", function(e){
+document.addEventListener("click", (e) => {
 
     const sidebar = document.getElementById("sidebar");
 
@@ -127,10 +132,17 @@ document.addEventListener("click", function(e){
     const isClickInside = sidebar.contains(e.target);
     const isMenuBtn = e.target.closest(".nav-btn");
 
-    if(sidebar.classList.contains("active") && !isClickInside && !isMenuBtn){
+    if(
+        sidebar.classList.contains("active") &&
+        !isClickInside &&
+        !isMenuBtn
+    ){
         sidebar.classList.remove("active");
     }
 });
+
+
+/* ================= ADMIN ACTION BUTTONS ================= */
 
 function showUsers(){
     alert("Users panel coming soon");
