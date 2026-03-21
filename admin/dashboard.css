@@ -1,0 +1,133 @@
+body{
+    background:#0d0d0d;
+    color:white;
+    margin:0;
+    font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+.top-nav{
+    height:60px;
+    z-index:1100;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 10px;
+    background:#111;
+    position:fixed;
+    width:100%;
+    top:0;
+}
+
+.top-nav button{
+    margin:5px;
+    padding:8px;
+    background:#222;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+/* SIDEBAR */
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    left: -260px;              /* fully hidden */
+    top: 60px;
+    width: 260px;
+    height: calc(100vh - 60px);  /* FIXED HEIGHT */
+    background:#1a1a1a;
+    padding:15px;
+    transition: 0.3s ease;
+    z-index: 1000;
+
+    overflow-y: auto;          /* SCROLL FIX */
+}
+
+/* WHEN OPEN */
+.sidebar.active{
+    left: 0;
+}
+/* Scroll styling */
+.sidebar::-webkit-scrollbar{
+    width:5px;
+}
+.sidebar::-webkit-scrollbar-thumb{
+    background:#444;
+    border-radius:5px;
+}
+
+.sidebar button{
+    width:100%;
+    margin:10px 0;
+    padding:10px;
+    background:#222;
+    color:white;
+    border:none;
+    cursor:pointer;
+    text-align:left;
+}
+
+/* HEADER INSIDE SIDEBAR */
+.sidebar-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.sidebar-logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:1;
+}
+
+.sidebar-logo img{
+    width:45px;
+    height:45px;
+    object-fit:contain;
+}
+
+.logo-text h2{
+    margin:0;
+    font-size:16px;
+}
+
+.logo-text p{
+    margin:0;
+    font-size:12px;
+    color:#aaa;
+}
+
+.close-btn{
+    background:none;
+    border:none;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    flex-shrink:0;
+}
+
+/* MAIN */
+.main{
+    margin-top:80px;
+    padding:20px;
+    text-align:center;
+    transition:0.3s;
+}
+
+/* PUSH CONTENT WHEN SIDEBAR OPEN */
+.sidebar.active ~ .main{
+    margin-left:260px;
+}
+
+/* CARD */
+.card{
+    margin-top:20px;
+    padding:20px;
+    background:#1a1a1a;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
