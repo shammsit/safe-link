@@ -23,7 +23,7 @@ async function loadUsers(){
 
     try{
         const { data, error } = await supabaseClient
-            .from("users")   // 👈 your users table
+            .from("profiles")   // 👈 your users table
             .select("name,email,phone")
             .order("name", { ascending: true });
 

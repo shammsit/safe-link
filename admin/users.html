@@ -7,12 +7,50 @@
 
 <title>Users - Safe Link</title>
 
+<link rel="icon" href="../favicon.png">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="dashboard.css">
 
 </head>
 <body>
 
+<!-- ================= TOP NAV ================= -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="../logo.png">
+            <div class="logo-text">
+                <h2>ADMIN PANEL</h2>
+                <p>Safe Link</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminDisplay" class="user-email"></div>
+
+    <button class="side-btn" onclick="goHome()">🏠 Home</button>
+    <button class="side-btn" onclick="window.location.href='dashboard.html'">📊 Dashboard</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <button class="side-btn" onclick="logoutAdmin()">🚪 Logout</button>
+
+</div>
+
+<!-- ================= MAIN ================= -->
 <div class="main">
 
     <h1>Registered Users</h1>
@@ -21,7 +59,19 @@
 
 </div>
 
-<!-- SUPABASE -->
+<!-- ================= FOOTER ================= -->
+<footer style="
+    margin-top:30px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    border-top:1px solid #222;
+">
+    © Safe Link
+</footer>
+
+<!-- ================= SUPABASE ================= -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
