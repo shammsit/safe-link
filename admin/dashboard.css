@@ -37,7 +37,7 @@ body{
 /* ================= SIDEBAR ================= */
 .sidebar{
     position:fixed;
-    left:-260px; /* fully hidden */
+    left:-260px;
     top:60px;
     width:260px;
     height:calc(100vh - 60px);
@@ -48,7 +48,6 @@ body{
     overflow-y:auto;
 }
 
-/* OPEN */
 .sidebar.active{
     left:0;
 }
@@ -119,7 +118,6 @@ body{
     transition:0.3s;
 }
 
-/* PUSH CONTENT */
 .sidebar.active ~ .main{
     margin-left:260px;
 }
@@ -133,29 +131,37 @@ body{
     box-shadow:0 0 12px rgba(0,0,0,0.6);
 }
 
-/* ================= RUNNING TEXT ================= */
-.admin-marquee{
+/* ================= RUNNING TEXT FIX ================= */
+
+/* WRAPPER = FIXED BOX */
+.admin-marquee-wrapper{
     width:100%;
     overflow:hidden;
-    white-space:nowrap;
     position:relative;
-    font-size:18px;
-    font-weight:600;
-    letter-spacing:1px;
 
     background:linear-gradient(90deg,#111,#1a1a1a,#111);
     padding:12px;
     border-radius:10px;
+}
 
+/* TEXT MOVES INSIDE */
+.admin-marquee{
+    display:inline-block;
+    white-space:nowrap;
+    padding-left:100%;
+
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:1px;
     color:#00ffcc;
 
     animation:scrollText 12s linear infinite;
 }
 
-/* SMOOTH ANIMATION */
+/* ANIMATION */
 @keyframes scrollText{
     0%{
-        transform:translateX(100%);
+        transform:translateX(0%);
     }
     100%{
         transform:translateX(-100%);
@@ -170,4 +176,46 @@ body{
     color:#888;
     text-align:center;
     border-top:1px solid #222;
+}
+
+/* ================= ADMIN ACTION BUTTONS ================= */
+
+.admin-actions{
+    margin-top:30px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:15px;
+    padding:10px;
+}
+
+/* BUTTON STYLE */
+.admin-actions button{
+    padding:14px;
+    background:#1f1f1f;
+    border:1px solid #333;
+    color:#ddd;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:500;
+    transition:0.25s ease;
+}
+
+/* HOVER EFFECT */
+.admin-actions button:hover{
+    background:#2a2a2a;
+    color:#00ffcc;
+    border-color:#00ffcc;
+    transform:translateY(-2px);
+}
+
+/* LOGOUT SPECIAL */
+.logout-btn{
+    border:1px solid #ff3b3b !important;
+    color:#ff3b3b !important;
+}
+
+.logout-btn:hover{
+    background:#ff3b3b !important;
+    color:#fff !important;
 }

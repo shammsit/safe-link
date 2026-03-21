@@ -30,7 +30,7 @@ async function loadAdmin(){
         if(adminInfo){
             adminInfo.innerHTML = `
                 <div class="admin-marquee">
-                    👑 Welcome ${name} &nbsp;|&nbsp; ${role.toUpperCase()} &nbsp;|&nbsp; ID • ${id}
+                    Welcome ${name} &nbsp;|&nbsp; ${role.toUpperCase()} &nbsp;|&nbsp; ${id}
                 </div>
             `;
         }
@@ -131,3 +131,27 @@ document.addEventListener("click", function(e){
         sidebar.classList.remove("active");
     }
 });
+
+function showUsers(){
+    alert("Users panel coming soon");
+}
+
+function showFeedbacks(){
+    alert("Feedback system coming soon");
+}
+
+function conductMeeting(){
+    alert("Meeting system coming soon");
+}
+
+function sendNotice(){
+    alert("Notice system coming soon");
+}
+
+function showMessages(){
+    alert("User messages coming soon");
+}
+
+function showRatings(){
+    alert("Ratings system coming soon");
+}
