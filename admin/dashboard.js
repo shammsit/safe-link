@@ -194,3 +194,6 @@ function showMessages(){
 function showRatings(){
     alert("Ratings system coming soon");
 }
+function goUsers(){
+    window.location.href = "/admin/users.html";
+}
