@@ -43,7 +43,6 @@
                 <p>Safe Link</p>
             </div>
         </div>
-        <button class="close-btn" onclick="toggleSidebar()">✖</button>
     </div>
 
     <div id="adminDisplay" class="user-email"></div>
@@ -59,10 +58,10 @@
 
     <hr style="border:1px solid #222; margin:10px 0;">
 
-    <!-- ✅ LOGOUT -->
+    <!-- LOGOUT -->
     <button class="side-btn" onclick="logoutAdmin()">🚪 Logout</button>
 
-    <!-- ✅ ADMIN FOOTER MESSAGE -->
+    <!-- ADMIN FOOTER -->
     <div id="adminFooter" style="
         margin-top:20px;
         padding:12px;
@@ -70,8 +69,7 @@
         color:#888;
         text-align:center;
         border-top:1px solid #222;
-    ">
-    </div>
+    "></div>
 
 </div>
 
@@ -88,10 +86,21 @@
         display:inline-block;
         min-width:280px;
     ">
-        <p id="adminInfo" style="line-height:1.8;"></p>
+        <!-- 🔥 RUNNING TEXT WILL COME HERE -->
+        <div id="adminInfo"></div>
     </div>
 
 </div>
+
+<!-- ================= SUPABASE (REQUIRED) ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+    "https://amvjwubiaedasynbiuua.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
+);
+</script>
 
 <!-- ================= SCRIPTS ================= -->
 <script src="../options.js"></script>
@@ -99,3 +108,28 @@
 
 </body>
 </html>
+
+<!-- ================= PROFESSIONAL FOOTER ================= -->    
+<footer style="    
+    margin-top:30px;    
+    padding:25px 0;    
+    background:#0d0d0d;    
+    color:#aaa;    
+    text-align:center;    
+    font-size:14px;    
+    border-top:1px solid #222;    
+">    
+    <div style="margin-bottom:8px;">    
+        © <span id="year"></span> Safe Link. All Rights Reserved.    
+    </div>    
+    <div style="font-size:13px; color:#666;">    
+        Designed & Developed by Tech Gen    
+    </div>    
+    <div style="margin-bottom:8px;">    
+        Contact Developer:    
+        <a href="mailto:contact_us@techgen.online"    
+           style="color:#0c5e79; text-decoration:none;">    
+           contact_us@techgen.online    
+        </a>    
+    </div>    
+</footer>

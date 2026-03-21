@@ -1,44 +1,76 @@
 /* ================= LOAD ADMIN ================= */
 
-function loadAdmin(){
+async function loadAdmin(){
 
     const isLoggedIn = localStorage.getItem("adminLoggedIn");
-    const name = localStorage.getItem("adminName");
     const id = localStorage.getItem("adminId");
+    const name = localStorage.getItem("adminName");
 
-    const role = "Admin";
-
-    // 🔒 STRICT PROTECTION
-    if(!isLoggedIn || !name || !id){
+    if(!isLoggedIn || !id){
         window.location.href = "/login.html";
         return;
     }
 
-    // ✅ MAIN INFO
-    document.getElementById("adminInfo").innerText =
-        "Name: " + name + "\n" +
-        "Role: " + role + "\n" +
-        "Admin ID: " + id;
+    try{
+        const { data, error } = await supabaseClient
+            .from("admins")
+            .select("admin_role")
+            .eq("admin_id", id)
+            .single();
 
-    // ✅ SIDEBAR DISPLAY
-    document.getElementById("adminDisplay").innerText =
-        "Logged in: " + name;
+        if(error){
+            console.error(error);
+            return;
+        }
 
-    // ✅ FOOTER MESSAGE
-    document.getElementById("adminFooter").innerText =
-        "Thank you " + name + " for maintaining platform integrity.\n" +
-        "Your leadership keeps Safe Link secure and trusted.";
+        const role = data?.admin_role || "Administrator";
+
+        // ✅ PROFESSIONAL RUNNING TEXT
+        const adminInfo = document.getElementById("adminInfo");
+        if(adminInfo){
+            adminInfo.innerHTML = `
+                <div class="admin-marquee">
+                    👑 Welcome ${name} &nbsp;|&nbsp; ${role.toUpperCase()} &nbsp;|&nbsp; ID • ${id}
+                </div>
+            `;
+        }
+
+        // ✅ SIDEBAR NAME
+        const adminDisplay = document.getElementById("adminDisplay");
+        if(adminDisplay){
+            adminDisplay.innerText = "Logged in: " + name;
+        }
+
+        // ✅ FOOTER MESSAGE
+        const adminFooter = document.getElementById("adminFooter");
+        if(adminFooter){
+            adminFooter.innerText =
+                "Respected " + name +
+                ", your leadership ensures the safety, reliability, and trust of the Safe Link platform.";
+        }
+
+    }catch(err){
+        console.error("Admin Load Error:", err);
+    }
 }
+
 
 /* ================= SIDEBAR ================= */
 
 function toggleSidebar(){
-    document.getElementById("sidebar").classList.toggle("active");
+    const sidebar = document.getElementById("sidebar");
+    if(sidebar){
+        sidebar.classList.toggle("active");
+    }
 }
 
 function closeSidebar(){
-    document.getElementById("sidebar").classList.remove("active");
+    const sidebar = document.getElementById("sidebar");
+    if(sidebar){
+        sidebar.classList.remove("active");
+    }
 }
+
 
 /* ================= NAV ================= */
 
@@ -58,6 +90,7 @@ function goBack(){
     window.history.back();
 }
 
+
 /* ================= LOGOUT ================= */
 
 function logoutAdmin(){
@@ -69,11 +102,32 @@ function logoutAdmin(){
     window.location.href = "/login.html";
 }
 
+
 /* ================= INIT ================= */
 
-loadAdmin();
+window.addEventListener("DOMContentLoaded", function(){
 
-window.onload = function(){
-    document.getElementById("sidebar").classList.remove("active");
+    const sidebar = document.getElementById("sidebar");
+    if(sidebar){
+        sidebar.classList.remove("active"); // ✅ fix partial open bug
+    }
+
     loadAdmin();
-};
+});
+
+
+/* ================= OUTSIDE CLICK CLOSE ================= */
+
+document.addEventListener("click", function(e){
+
+    const sidebar = document.getElementById("sidebar");
+
+    if(!sidebar) return;
+
+    const isClickInside = sidebar.contains(e.target);
+    const isMenuBtn = e.target.closest(".nav-btn");
+
+    if(sidebar.classList.contains("active") && !isClickInside && !isMenuBtn){
+        sidebar.classList.remove("active");
+    }
+});

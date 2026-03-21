@@ -5,7 +5,7 @@ body{
     font-family: Arial, sans-serif;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 .top-nav{
     height:60px;
     z-index:1100;
@@ -26,29 +26,34 @@ body{
     color:white;
     border:none;
     cursor:pointer;
+    border-radius:6px;
+    transition:0.2s;
 }
 
-/* SIDEBAR */
-/* SIDEBAR */
+.top-nav button:hover{
+    background:#333;
+}
+
+/* ================= SIDEBAR ================= */
 .sidebar{
     position:fixed;
-    left: -260px;              /* fully hidden */
-    top: 60px;
-    width: 260px;
-    height: calc(100vh - 60px);  /* FIXED HEIGHT */
+    left:-260px; /* fully hidden */
+    top:60px;
+    width:260px;
+    height:calc(100vh - 60px);
     background:#1a1a1a;
     padding:15px;
-    transition: 0.3s ease;
-    z-index: 1000;
-
-    overflow-y: auto;          /* SCROLL FIX */
+    transition:0.3s ease;
+    z-index:1000;
+    overflow-y:auto;
 }
 
-/* WHEN OPEN */
+/* OPEN */
 .sidebar.active{
-    left: 0;
+    left:0;
 }
-/* Scroll styling */
+
+/* SCROLL */
 .sidebar::-webkit-scrollbar{
     width:5px;
 }
@@ -57,6 +62,7 @@ body{
     border-radius:5px;
 }
 
+/* SIDEBAR BUTTONS */
 .sidebar button{
     width:100%;
     margin:10px 0;
@@ -66,13 +72,18 @@ body{
     border:none;
     cursor:pointer;
     text-align:left;
+    border-radius:8px;
+    transition:0.2s;
 }
 
-/* HEADER INSIDE SIDEBAR */
+.sidebar button:hover{
+    background:#333;
+}
+
+/* SIDEBAR HEADER */
 .sidebar-header{
     display:flex;
     align-items:center;
-    justify-content:space-between;
     gap:10px;
     margin-bottom:10px;
 }
@@ -81,7 +92,6 @@ body{
     display:flex;
     align-items:center;
     gap:10px;
-    flex:1;
 }
 
 .sidebar-logo img{
@@ -101,16 +111,7 @@ body{
     color:#aaa;
 }
 
-.close-btn{
-    background:none;
-    border:none;
-    color:white;
-    font-size:20px;
-    cursor:pointer;
-    flex-shrink:0;
-}
-
-/* MAIN */
+/* ================= MAIN ================= */
 .main{
     margin-top:80px;
     padding:20px;
@@ -118,16 +119,55 @@ body{
     transition:0.3s;
 }
 
-/* PUSH CONTENT WHEN SIDEBAR OPEN */
+/* PUSH CONTENT */
 .sidebar.active ~ .main{
     margin-left:260px;
 }
 
-/* CARD */
+/* ================= CARD ================= */
 .card{
     margin-top:20px;
     padding:20px;
     background:#1a1a1a;
+    border-radius:12px;
+    box-shadow:0 0 12px rgba(0,0,0,0.6);
+}
+
+/* ================= RUNNING TEXT ================= */
+.admin-marquee{
+    width:100%;
+    overflow:hidden;
+    white-space:nowrap;
+    position:relative;
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:1px;
+
+    background:linear-gradient(90deg,#111,#1a1a1a,#111);
+    padding:12px;
     border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.5);
+
+    color:#00ffcc;
+
+    animation:scrollText 12s linear infinite;
+}
+
+/* SMOOTH ANIMATION */
+@keyframes scrollText{
+    0%{
+        transform:translateX(100%);
+    }
+    100%{
+        transform:translateX(-100%);
+    }
+}
+
+/* ================= ADMIN FOOTER ================= */
+#adminFooter{
+    margin-top:20px;
+    padding:12px;
+    font-size:12px;
+    color:#888;
+    text-align:center;
+    border-top:1px solid #222;
 }
