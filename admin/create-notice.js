@@ -1,3 +1,5 @@
+window.editingId = null; // ✅ GLOBAL EDITING ID
+
 // ================= ADMIN AUTH PROTECTION =================
 (function(){
 
@@ -132,6 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadUsers();        // ✅ users dropdown
     loadAdminRole();    // ✅ admin role
+    loadNotices();      // ✅ active notices
 
 });
 
@@ -200,11 +203,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
-
+console.log("Editing ID (before):", window.editingId); // 🔍 debug
 async function postNotice(){
+    
 
     try{
 
+        let isEdit = window.editingId != null;
         const subject = document.querySelector("input[type='text']").value;
         const content = document.querySelector("textarea").value;
 
@@ -225,27 +230,26 @@ async function postNotice(){
             userIds = Array.from(select.selectedOptions).map(opt => opt.value);
         }
 
-        // 🔥 NEW: FILE UPLOAD
+        // 🔥 FILE
         const fileInput = document.getElementById("attachment");
         const file = fileInput.files[0];
-console.log("Selected file:", file);
+
         let attachment_url = null;
 
         if(file){
 
             const fileName = Date.now() + "_" + file.name;
 
-            const { data: uploadData, error: uploadError } = await supabaseClient.storage
-                .from("notice-files")   // bucket name
+            const { error: uploadError } = await supabaseClient.storage
+                .from("notice-files")
                 .upload(fileName, file);
 
             if(uploadError){
-                console.error("Upload Error:", uploadError);
+                console.error(uploadError);
                 alert("❌ File upload failed");
                 return;
             }
 
-            // ✅ GET PUBLIC URL
             const { data: publicUrl } = supabaseClient.storage
                 .from("notice-files")
                 .getPublicUrl(fileName);
@@ -253,32 +257,69 @@ console.log("Selected file:", file);
             attachment_url = publicUrl.publicUrl;
         }
 
-        // ✅ INSERT NOTICE
-        const { error } = await supabaseClient
-            .from("notices")
-            .insert([{
-                subject,
-                content,
-                post_date: postDate,
-                expiry_date: expiryDate || null,
-                urgent,
-                is_urgent: urgent,
-                created_by: admin,
-                target: target,
-                target_type: target,
-                user_ids: userIds.length ? userIds : null,
-                target_users: userIds.length ? userIds : null,
-                attachment_url
-            }]);
+        // ================= EDIT =================
+        if(isEdit){
 
-        if(error){
-            console.error(error);
-            alert("❌ Error posting notice");
-            return;
+            const { error } = await supabaseClient
+                .from("notices")
+                .update({
+                    subject,
+                    content,
+                    post_date: postDate,
+                    expiry_date: expiryDate || null,
+                    urgent
+                })
+                .eq("id", window.editingId);
+
+            if(error){
+                console.error(error);
+                alert("❌ Update failed");
+                return;
+            }
+
+            alert("✅ Notice Updated");
+
+            window.editingId = null;
+
+            document.getElementById("subject").value = "";
+            document.getElementById("content").value = "";
+            document.getElementById("postDate").value = "";
+            document.getElementById("expiryDate").value = "";
+            document.getElementById("urgentCheck").checked = false;
+
+            
+        } 
+        // ================= INSERT =================
+        else{
+
+            const { error } = await supabaseClient
+                .from("notices")
+                .insert([{
+                    subject,
+                    content,
+                    post_date: postDate,
+                    expiry_date: expiryDate || null,
+                    urgent,
+                    is_urgent: urgent,
+                    created_by: admin,
+                    target: target,
+                    target_type: target,
+                    user_ids: userIds.length ? userIds : null,
+                    target_users: userIds.length ? userIds : null,
+                    attachment_url
+                }]);
+
+            if(error){
+                console.error(error);
+                alert("❌ Error posting notice");
+                return;
+            }
+
+            alert("✅ Notice Posted Successfully");
         }
 
-        alert("✅ Notice Posted Successfully");
-        location.reload();
+        // ✅ IMPORTANT (after both cases)
+        loadNotices();
 
     }catch(err){
         console.error(err);
@@ -344,3 +385,129 @@ fileInput.addEventListener("change", () => {
         📎 ${file.name} (${size})
     `;
 });
+
+// ================= LOAD NOTICES =================
+async function loadNotices(){
+
+    const container = document.getElementById("noticeList");
+
+    if(!container) return;
+
+    try{
+
+        const { data, error } = await supabaseClient
+            .from("notices")
+            .select("*")
+            .order("post_date", { ascending: false });
+
+            window.allNotices = data; // store globally for editing
+
+        if(error){
+            console.error(error);
+            container.innerHTML = "Error loading notices";
+            return;
+        }
+
+        if(!data || data.length === 0){
+            container.innerHTML = "No notices found";
+            return;
+        }
+
+        let html = "";
+
+        data.forEach(notice => {
+
+            html += `
+                <div class="notice-card">
+
+                    <h3>${notice.subject}</h3>
+
+                    <p>${notice.content}</p>
+
+                    <small>
+                        📅 ${notice.post_date || "N/A"}
+                        ${notice.urgent ? " | 🔥 Urgent" : ""}
+                    </small>
+
+                    <br>
+
+                    ${
+                        notice.attachment_url
+                        ? `<a href="${notice.attachment_url}" target="_blank">📎 Attachment</a>`
+                        : ""
+                    }
+
+                    <div class="notice-actions">
+                        <button onclick="editNotice('${notice.id}')">✏ Edit</button>
+                        <button onclick="deleteNotice('${notice.id}')">🗑 Delete</button>
+                    </div>
+
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+let deleteId = null;
+
+function deleteNotice(id){
+    deleteId = id;
+    document.getElementById("deleteModal").style.display = "flex";
+}
+
+function closeModal(){
+    document.getElementById("deleteModal").style.display = "none";
+    deleteId = null;
+}
+
+async function confirmDelete(){
+
+    if(!deleteId) return;
+
+    const { error } = await supabaseClient
+        .from("notices")
+        .delete()
+        .eq("id", deleteId);
+
+    if(error){
+        console.error(error);
+        alert("❌ Delete failed");
+        return;
+    }
+
+    closeModal();
+    alert("✅ Deleted");
+    loadNotices();
+}
+console.log("Editing ID (before):", window.editingId); // 🔍 debug
+function editNotice(id){
+console.log("Editing ID :", window.editingId); // 🔍 debug
+    console.log("Clicked Edit ID:", id); // 🔍 debug
+
+    const notice = window.allNotices.find(n => n.id == id);
+
+    if(!notice){
+        alert("Notice not found");
+        return;
+    }
+
+    // ✅ SET EDITING ID (IMPORTANT FIX)
+    window.editingId = id;
+
+    console.log("Editing ID SET:", window.editingId); // 🔍 debug
+
+    // Fill form
+    document.getElementById("subject").value = notice.subject;
+    document.getElementById("content").value = notice.content;
+    document.getElementById("postDate").value = notice.post_date;
+    document.getElementById("expiryDate").value = notice.expiry_date || "";
+    document.getElementById("urgentCheck").checked = notice.urgent;
+
+    // Scroll up
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}

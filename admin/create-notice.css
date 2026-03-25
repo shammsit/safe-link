@@ -168,3 +168,76 @@ textarea{
 #userSelectGroup{
     display:none;
 }
+
+.notice-card{
+    background:#111;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:12px;
+    border:1px solid #222;
+}
+
+.notice-card h3{
+    margin-bottom:6px;
+}
+
+.notice-actions{
+    margin-top:10px;
+    display:flex;
+    gap:10px;
+}
+
+.notice-actions button{
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    background:#222;
+    color:#fff;
+}
+
+.notice-actions button:hover{
+    background:#00ffcc;
+    color:#000;
+}
+
+/* MODAL BACKGROUND */
+.modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+}
+
+/* MODAL BOX */
+.modal-box{
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    width:300px;
+    box-shadow:0 0 20px rgba(0,0,0,0.6);
+}
+
+/* BUTTONS */
+.modal-actions{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+}
+
+.danger-btn{
+    background:#ff4d4d;
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
+    color:white;
+    cursor:pointer;
+}

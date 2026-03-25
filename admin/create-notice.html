@@ -137,9 +137,12 @@
     <div class="form-group">
         <label>Attachment</label>
         <input type="file" id="attachment">
-    </div>
-    <div id="filePreview" style="
+        <label>
+        <div id="filePreview" style="
         margin-top:10px;">  </div>
+        </label>
+    </div>
+    
 
     <div class="form-group inline-check">
         <label>
@@ -157,6 +160,16 @@
         <!-- ✅ POST BUTTON -->
         <button class="post-btn" onclick="postNotice()">🚀 Post Notice</button>
 
+    </div>
+
+</div>
+<!-- ================= ACTIVE NOTICES ================= -->
+<div class="notice-container">
+
+    <h2 style="margin-bottom:15px;">📢 Active Notices</h2>
+
+    <div id="noticeList">
+        Loading notices...
     </div>
 
 </div>
@@ -182,5 +195,18 @@ const supabaseClient = supabase.createClient(
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 <script src="../options.js"></script>
 <script src="create-notice.js"></script>
+<div id="deleteModal" class="modal">
+
+    <div class="modal-box">
+        <h3>⚠ Confirm Delete</h3>
+        <p>Are you sure you want to delete this notice?</p>
+
+        <div class="modal-actions">
+            <button onclick="confirmDelete()" class="danger-btn">Yes Delete</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>
