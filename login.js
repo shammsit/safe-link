@@ -139,7 +139,6 @@ async function adminLogin(){
         return;
     }
 
-    // 🔄 LOADING START
     btn.innerText = "Verifying...";
     btn.disabled = true;
 
@@ -149,30 +148,36 @@ async function adminLogin(){
             .from("admins")
             .select("*")
             .eq("admin_id", adminId)
-            .eq("password", password)
-            .single();
+            .eq("password", password);
 
-        if(error || !data){
+        if(error){
+            console.error(error);
+        }
+
+        if(!data || data.length === 0){
             msg.innerText = "❌ Invalid Admin ID or Password";
-
             btn.innerText = "Enter Admin Panel";
             btn.disabled = false;
             return;
         }
 
+        const admin = data[0];
+
         msg.innerText = "✅ Admin Login Successful";
 
+        // ✅ IMPORTANT FIX
         localStorage.setItem("adminLoggedIn", "true");
-        localStorage.setItem("adminId", data.admin_id);
-        localStorage.setItem("adminName", data.admin_name);
+        localStorage.setItem("adminId", admin.admin_id); // UUID ✅
+        localStorage.setItem("adminRole", admin.admin_role || "ADMIN");
+        localStorage.setItem("adminName", admin.admin_name);
 
         setTimeout(()=>{
             window.location.href = "/admin/dashboard.html";
         },1000);
 
     }catch(err){
+        console.error(err);
         msg.innerText = "❌ Something went wrong";
-
         btn.innerText = "Enter Admin Panel";
         btn.disabled = false;
     }

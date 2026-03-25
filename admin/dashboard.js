@@ -8,35 +8,36 @@ function forceLogout(){
 
 /* ================= LOAD ADMIN ================= */
 
-async function loadAdminRole(){
+async function loadAdmin(){
 
     const adminId = localStorage.getItem("adminId");
-    const field = document.getElementById("adminRoleField");
+    const adminName = localStorage.getItem("adminName") || adminId;
 
-    if(!adminId || !field) return;
+    const welcome = document.querySelector("h1");
+    const adminDisplay = document.getElementById("adminDisplay");
+    const adminInfo = document.getElementById("adminInfo");
 
-    try{
+    if(!adminId) return;
 
-        const { data, error } = await supabaseClient
-            .from("admins")
-            .select("admin_role")
-            .eq("admin_id", adminId)
-            .single();
+    // ✅ Set Welcome Text
+    if(welcome){
+        welcome.innerText = "Welcome " + adminName;
+    }
 
-        if(error){
-            console.error("Role fetch error:", error);
-            field.value = "ADMIN";
-            return;
-        }
+    // ✅ Sidebar display
+    if(adminDisplay){
+        adminDisplay.innerHTML = `
+            👤 ${adminName}
+        `;
+    }
 
-        field.value = data.admin_role.toUpperCase();
-
-    }catch(err){
-        console.error(err);
-        field.value = "ADMIN";
+    // ✅ Main info box
+    if(adminInfo){
+        adminInfo.innerHTML = `
+            <p><strong>Admin ID:</strong> ${adminId}</p>
+        `;
     }
 }
-
 /* ================= SIDEBAR ================= */
 
 function toggleSidebar(){

@@ -99,7 +99,7 @@ async function loadUsers(){
 async function loadAdminRole(){
 
     const adminId = localStorage.getItem("adminId");
-    const field = document.getElementById("adminRoleField");
+    const field = document.getElementById("adminRoleField"); // ✅ ADD THIS
 
     if(!adminId || !field) return;
 
@@ -107,7 +107,7 @@ async function loadAdminRole(){
         const { data, error } = await supabaseClient
             .from("admins")
             .select("admin_role")
-            .eq("admin_id", adminId)   
+            .eq("admin_id", adminId)
             .single();
 
         if(error){
@@ -116,14 +116,13 @@ async function loadAdminRole(){
             return;
         }
 
-        field.value = data.admin_role.toUpperCase();
+        field.value = data.admin_role.toUpperCase(); // ✅ SHOW VALUE
 
     }catch(err){
         console.error(err);
         field.value = "ADMIN";
     }
 }
-
 
 // ================= INIT (MERGED FIX) =================
 document.addEventListener("DOMContentLoaded", () => {
@@ -212,25 +211,50 @@ async function postNotice(){
         const postDate = document.querySelectorAll("input[type='date']")[0].value;
         const expiryDate = document.querySelectorAll("input[type='date']")[1].value;
 
-        const urgent = document.querySelector("input[type='checkbox'][id='urgentCheck']")?.checked || false;
+        const urgent = document.querySelector("#urgentCheck")?.checked || false;
 
         const admin = document.getElementById("adminRoleField").value;
 
-        // ✅ TARGET SELECTION (radio)
+        // ✅ TARGET
         const target = document.querySelector("input[name='target']:checked")?.value;
 
         let userIds = [];
 
         if(target === "specific"){
             const select = document.getElementById("userSelect");
-
             userIds = Array.from(select.selectedOptions).map(opt => opt.value);
         }
 
-        // ❌ attachment not uploaded yet → keep null
-        const attachment_url = null;
+        // 🔥 NEW: FILE UPLOAD
+        const fileInput = document.getElementById("attachment");
+        const file = fileInput.files[0];
+console.log("Selected file:", file);
+        let attachment_url = null;
 
-        const { data, error } = await supabaseClient
+        if(file){
+
+            const fileName = Date.now() + "_" + file.name;
+
+            const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                .from("notice-files")   // bucket name
+                .upload(fileName, file);
+
+            if(uploadError){
+                console.error("Upload Error:", uploadError);
+                alert("❌ File upload failed");
+                return;
+            }
+
+            // ✅ GET PUBLIC URL
+            const { data: publicUrl } = supabaseClient.storage
+                .from("notice-files")
+                .getPublicUrl(fileName);
+
+            attachment_url = publicUrl.publicUrl;
+        }
+
+        // ✅ INSERT NOTICE
+        const { error } = await supabaseClient
             .from("notices")
             .insert([{
                 subject,
@@ -249,15 +273,74 @@ async function postNotice(){
 
         if(error){
             console.error(error);
-            alert("Error posting notice");
+            alert("❌ Error posting notice");
             return;
         }
 
         alert("✅ Notice Posted Successfully");
-
         location.reload();
 
     }catch(err){
         console.error(err);
+        alert("❌ Unexpected error");
     }
 }
+document.addEventListener("DOMContentLoaded", () => {
+
+    const radios = document.querySelectorAll("input[name='target']");
+    const userBox = document.getElementById("userSelectGroup");
+
+    function toggleUsers(){
+        const selected = document.querySelector("input[name='target']:checked")?.value;
+
+        if(selected === "specific"){
+            userBox.style.display = "block";
+        } else {
+            userBox.style.display = "none";
+        }
+    }
+
+    radios.forEach(r => r.addEventListener("change", toggleUsers));
+
+    toggleUsers(); // initial
+});
+
+async function uploadFile(file){
+
+    if(!file) return null;
+
+    const fileName = Date.now() + "_" + file.name;
+
+    const { data, error } = await supabaseClient.storage
+        .from("notice-files")
+        .upload(fileName, file);
+
+    if(error){
+        console.error("Upload error:", error);
+        return null;
+    }
+
+    // ✅ GET PUBLIC URL
+    const { data: publicUrl } = supabaseClient.storage
+        .from("notice-files")
+        .getPublicUrl(fileName);
+
+    return publicUrl.publicUrl;
+}
+
+const fileInput = document.getElementById("attachment");
+const previewBox = document.getElementById("filePreview");
+
+fileInput.addEventListener("change", () => {
+
+    const file = fileInput.files[0];
+    previewBox.innerHTML = "";
+
+    if(!file) return;
+
+    const size = (file.size / 1024).toFixed(2) + " KB";
+
+    previewBox.innerHTML = `
+        📎 ${file.name} (${size})
+    `;
+});
