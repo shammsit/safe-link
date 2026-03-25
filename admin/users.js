@@ -67,3 +67,4 @@ function maskData(value){
 
 /* ================= INIT ================= */
 loadUsers();
+

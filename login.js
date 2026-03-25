@@ -148,7 +148,7 @@ async function adminLogin(){
         const { data, error } = await supabaseClient
             .from("admins")
             .select("*")
-            .eq("id", adminId)
+            .eq("admin_id", adminId)
             .eq("password", password)
             .single();
 
