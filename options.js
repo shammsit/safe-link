@@ -207,17 +207,15 @@ handleAuthUI();
 
 /* ================= LOGOUT ================= */
 
-async function logoutUser(){
+function logoutUser(){
 
-    try{
-        if(typeof supabaseClient !== "undefined"){
-            await supabaseClient.auth.signOut();
-        }
-    }catch(e){}
+    // ✅ REMOVE ALL USER DATA
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
 
-    if(window.location.pathname.includes("/dashboard/")){
-        window.location.href = "../index.html";
-    } else {
-        window.location.href = "/index.html";
-    }
+    // (if you stored anything else → remove also)
+
+    // ✅ REDIRECT
+    window.location.href = "/login.html";
 }
