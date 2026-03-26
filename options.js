@@ -218,6 +218,6 @@ async function logoutUser(){
     if(window.location.pathname.includes("/dashboard/")){
         window.location.href = "../index.html";
     } else {
-        window.location.href = "index.html";
+        window.location.href = "/index.html";
     }
 }
