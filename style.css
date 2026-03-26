@@ -18,20 +18,12 @@ body{
 /* ================= TOP NAV ================= */
 
 .top-nav{
-    width:100%;
-    background:#000;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 15px;
-    position:sticky;
-    top:0;
-    z-index:1500;
+    flex-wrap: wrap;
+    padding: 8px 10px;
 }
 
 .nav-left, .nav-right{
-    display:flex;
-    align-items:center;
+    flex-wrap: wrap;
 }
 
 .nav-btn{
