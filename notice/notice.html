@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Home - Safe Link</title>
-
-<link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+<title>Notices - Safe Link</title>
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="notice.css">
 
 </head>
 <body>
@@ -48,7 +48,7 @@
 
     <div class="sidebar-header">
         <div class="sidebar-logo">
-            <img src="logo.png" alt="Safe Link Logo">
+            <img src="../logo.png" alt="Safe Link Logo">
             <div class="logo-text">
                 <h2>SAFE LINK</h2>
                 <p>Tech Gen</p>
@@ -84,18 +84,16 @@
 
 </div>
 
-<!-- ================= PAGE CONTENT ================= -->
-<div style="padding:120px 20px; text-align:center;">
+<!-- ================= MAIN ================= -->
+<div class="main">
 
-    <h1>Welcome to Safe Link</h1>
+    <h2>📢 Notices</h2>
 
-    <p style="margin-top:20px; font-size:18px; color:#ccc;">
-        Your safety, our priority.
-    </p>
+    <div id="noticeContainer">
+        Loading notices...
+    </div>
 
-    <p style="margin-top:15px; font-size:16px; color:#aaa;">
-        Our service is under upgradation, please wait for publishing.
-    </p>
+</div>
 
     <div style="margin-top:30px;">
         <button onclick="window.location.href='https://techgen.online'" style="
@@ -165,12 +163,12 @@ const supabaseClient = supabase.createClient(
     "https://amvjwubiaedasynbiuua.supabase.co",
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
 );
+
 </script>
-<script src="options.js"></script>
-<script src="app.js"></script>
-<script>
-document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+
+<script src="../options.js"></script>
+<script src="../app.js"></script>
+<script src="notice.js"></script>
 
 </body>
 </html>

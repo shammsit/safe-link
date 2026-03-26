@@ -26,7 +26,7 @@ function goHome(){
     if(window.location.pathname.includes("/dashboard/")){
         smoothRedirect("../index.html");
     } else {
-        smoothRedirect("index.html");
+        smoothRedirect("/index.html");
     }
 }
 
@@ -34,33 +34,41 @@ function goAbout(){
     smoothRedirect("/about.html");
 }
 
+function goNotices(){
+    if(window.location.pathname.includes("/dashboard/")){
+        smoothRedirect("../notice/notice.html");
+    } else {
+        smoothRedirect("/notice/notice.html");
+    }
+}
+
 function goLogin(){
     if(window.location.pathname.includes("/dashboard/")){
         smoothRedirect("../login.html");
     } else {
-        smoothRedirect("login.html");
+        smoothRedirect("/login.html");
     }
 }
 
 function goProfile(){
     if(window.location.pathname.includes("/dashboard/")){
-        smoothRedirect("profile.html");
+        smoothRedirect("../profile.html");
     } else {
-        smoothRedirect("dashboard/profile.html");
+        smoothRedirect("/dashboard/profile.html");
     }
 }
 
 function goDashboard(){
     if(window.location.pathname.includes("/dashboard/")){
-        smoothRedirect("dashboard.html");
+        smoothRedirect("/dashboard.html");
     } else {
-        smoothRedirect("dashboard/dashboard.html");
+        smoothRedirect("/dashboard/dashboard.html");
     }
 }
 
 function goEmergency(){
     if(window.location.pathname.includes("/dashboard/")){
-        smoothRedirect("emergency.html");
+        smoothRedirect("/emergency.html");
     } else {
         smoothRedirect("dashboard/emergency.html");
     }
@@ -72,7 +80,7 @@ function goContact(){
     if(window.location.pathname.includes("/dashboard/")){
         smoothRedirect("../contact.html");
     } else {
-        smoothRedirect("contact.html");
+        smoothRedirect("/contact.html");
     }
 }
 

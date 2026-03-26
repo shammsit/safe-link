@@ -260,35 +260,48 @@ async function postNotice(){
         // ================= EDIT =================
         if(isEdit){
 
-            const { error } = await supabaseClient
-                .from("notices")
-                .update({
-                    subject,
-                    content,
-                    post_date: postDate,
-                    expiry_date: expiryDate || null,
-                    urgent
-                })
-                .eq("id", window.editingId);
+    const { data, error } = await supabaseClient
+        .from("notices")
+        .update({
+            subject: subject,
+            content: content,
+            post_date: postDate,
+            expiry_date: expiryDate || null,
+            urgent: urgent,
+            is_urgent: urgent, // 🔥 IMPORTANT
+            target: target,
+            target_type: target,
+            user_ids: userIds.length ? userIds : null,
+            target_users: userIds.length ? userIds : null
+        })
+        .eq("id", window.editingId)
+        .select(); // 🔥 IMPORTANT (forces return)
 
-            if(error){
-                console.error(error);
-                alert("❌ Update failed");
-                return;
-            }
+    console.log("UPDATE RESPONSE:", data, error);
 
-            alert("✅ Notice Updated");
+    if(error){
+        console.error(error);
+        alert("❌ Update failed");
+        return;
+    }
 
-            window.editingId = null;
+    if(!data || data.length === 0){
+        alert("⚠ Update blocked (RLS issue)");
+        return;
+    }
 
-            document.getElementById("subject").value = "";
-            document.getElementById("content").value = "";
-            document.getElementById("postDate").value = "";
-            document.getElementById("expiryDate").value = "";
-            document.getElementById("urgentCheck").checked = false;
+    alert("✅ Notice Updated");
 
-            
-        } 
+    window.editingId = null;
+
+    // clear form
+    document.getElementById("subject").value = "";
+    document.getElementById("content").value = "";
+    document.getElementById("postDate").value = "";
+    document.getElementById("expiryDate").value = "";
+    document.getElementById("urgentCheck").checked = false;
+
+} 
         // ================= INSERT =================
         else{
 
