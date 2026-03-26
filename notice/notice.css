@@ -41,4 +41,13 @@
 .urgent{
     color:red;
     font-weight:bold;
+
+
+
+}
+
+.main-content{
+    padding:110px 16px 20px;
+    text-align:center;
+    max-width:100%;
 }

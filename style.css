@@ -1,3 +1,12 @@
+*{
+    box-sizing: border-box;
+}
+
+html, body{
+    width:100%;
+    overflow-x:hidden; /* 🚨 FIX SIDE SCROLL */
+}
+
 body{
     font-family: Arial, sans-serif;
     background:#111;
@@ -398,4 +407,10 @@ body{
 .float-circle:hover{
     transform:translateY(-3px) scale(1.05);
     box-shadow:0 6px 20px rgba(0,255,200,0.25);
+}
+
+.main-content{
+    padding:110px 16px 20px;
+    text-align:center;
+    max-width:100%;
 }
