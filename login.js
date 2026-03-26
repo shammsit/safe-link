@@ -119,6 +119,8 @@ async function login(){
         btn.disabled = false;
     }else{
         msg.innerText = "✅ Login successful";
+        const { data } = await supabaseClient.auth.getUser();
+        localStorage.setItem("userId", data.user.id); // UUID ✅
 
         setTimeout(()=>{
             window.location.href="/dashboard/dashboard.html";
