@@ -208,9 +208,6 @@ handleAuthUI();
 /* ================= LOGOUT ================= */
 
 async function logoutUser(){
-    localStorage.removeItem("userId");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userName");
     try{
         if(typeof supabaseClient !== "undefined"){
             await supabaseClient.auth.signOut();
@@ -222,5 +219,8 @@ async function logoutUser(){
     } else {
         window.location.href = "/index.html";
     }
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
 }
 
