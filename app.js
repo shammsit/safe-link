@@ -16,47 +16,23 @@ function shareSite(){
     }
 }
 
-let visits = localStorage.getItem("siteVisits") || 0;
-visits++;
-localStorage.setItem("siteVisits", visits);
-
-document.getElementById("visitCount").innerText = "👁 " + visits;
-
-
-
-
-function updateDays(){
-
-    const startDate = new Date("2026-01-01");
-    const today = new Date();
-
-    const diff = today - startDate;
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-    document.getElementById("daysCount").innerText = "📅 " + days + " days";
-}
-
-updateDays();
-
-
 
 
 function updateClock(){
 
+    const timeEl = document.getElementById("liveTime");
+    const dateEl = document.getElementById("liveDate");
+
+    if(!timeEl || !dateEl) return; // 🛑 prevent crash
+
     const now = new Date();
 
-    const time = now.toLocaleTimeString();
-    const date = now.toLocaleDateString(undefined, {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-
-    document.getElementById("liveTime").innerText = time;
-    document.getElementById("liveDate").innerText = date;
+    timeEl.innerText = now.toLocaleTimeString();
+    dateEl.innerText = now.toDateString();
 }
 
-setInterval(updateClock, 1000);
-updateClock();
+// run after page loads
+window.addEventListener("DOMContentLoaded", () => {
+    updateClock();
+    setInterval(updateClock, 1000);
+});
