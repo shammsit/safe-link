@@ -421,22 +421,3 @@ body{
     max-width:100%;
     margin: auto;
 }
-
-@media(max-width:500px){
-
-    .nav-btn{
-        font-size:16px;
-        padding:5px;
-        margin:3px;
-    }
-
-    .sidebar{
-        width:85%;
-    }
-
-    .side-btn{
-        width:90%;
-        font-size:14px;
-    }
-
-}
