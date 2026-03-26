@@ -107,7 +107,7 @@ async function login(){
     btn.innerText = "Processing...";
     btn.disabled = true;
 
-    const { error } = await supabaseClient.auth.signInWithPassword({
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
         email,
         password
     });
@@ -118,14 +118,22 @@ async function login(){
         btn.innerText = "Login";
         btn.disabled = false;
     }else{
-        msg.innerText = "✅ Login successful";
-        const { data } = await supabaseClient.auth.getUser();
-        localStorage.setItem("userId", data.user.id); // UUID ✅
+    msg.innerText = "✅ Login successful";
 
-        setTimeout(()=>{
-            window.location.href="/dashboard/dashboard.html";
-        },1000);
+    // ✅ DIRECT USER FROM LOGIN RESPONSE (BEST WAY)
+    const user = data.user;
+
+    if(user){
+        localStorage.setItem("userId", user.id);
+        console.log("Saved userId:", user.id); // debug
+    }else{
+        console.log("User not found in login response");
     }
+
+    setTimeout(()=>{
+        window.location.href="/dashboard/dashboard.html";
+    },1000);
+}
 }
 
 async function adminLogin(){
