@@ -127,9 +127,6 @@ body, html{
 }
 /* Hover */
 .locate-btn:hover{
-    background: #f40505;;
+    background: #02c95a;
     transform:scale(1.08);
-}
-.emergency-btn:active{
-    transform:scale(0.9);
 }

@@ -51,9 +51,8 @@ function scrollBelowMap(){
             behavior: 'smooth'
         });
     }else{
-            console.log("Target element not found for scrolling.");
-        }
-        //alert("clicked");
+        console.log("Target element not found for scrolling.");
+    }
 }
 
 const locateBtn = document.querySelector(".locate-btn");
@@ -74,13 +73,14 @@ locateBtn.addEventListener("click", () => {
             const lng = position.coords.longitude;
 
             // Move map to user location
-            map.setView([lat, lng], 16);
+            map.flyTo([lat, lng], 16);
 
             // Add marker
             if(userMarker){
                 map.removeLayer(userMarker);
             }
-            //Add new marker
+
+            // Add new marker
             userMarker = L.marker([lat, lng]).addTo(map)
                 .bindPopup("You are here").openPopup();
 
@@ -91,4 +91,79 @@ locateBtn.addEventListener("click", () => {
             locateBtn.innerText = "📍";
         }
     );
+});
+
+const sosBtn = document.querySelector(".emergency-btn");
+
+sosBtn.addEventListener("click", async () => {
+    // Auto trigger locate to get latest position
+    locateBtn.click();
+    // ✅ ADDED: Anti-spam cooldown logic
+    const lastSOS = localStorage.getItem("lastSOS");
+
+    if (lastSOS) {
+        const elapsed = Math.floor((Date.now() - lastSOS) / 1000);
+        const remaining = 60 - elapsed;
+
+        if (remaining > 0) {
+            alert(`⏳ Wait ${remaining}s before sending again`);
+            return;
+        }
+    }
+
+    // Save new timestamp
+    localStorage.setItem("lastSOS", Date.now());
+
+    if (!navigator.geolocation) {
+        alert("❌ Location not supported");
+        return;
+    }
+
+    sosBtn.innerText = "⏳";
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        try {
+
+            // 🌐 Get IP address
+            const res = await fetch("https://api.ipify.org?format=json");
+            const ipData = await res.json();
+            const ip = ipData.ip;
+
+            // 📡 Insert into Supabase
+            const { error } = await supabaseClient
+                .from("sos_alerts")
+                .insert([
+                    {
+                        ip_address: ip,
+                        latitude: lat,
+                        longitude: lng,
+                        message: "I need help , please help me"
+                    }
+                ]);
+
+            if (error) {
+                console.error(error);
+                alert("❌ Failed to send SOS");
+                sosBtn.innerText = "🚨";
+                return;
+            }
+
+            alert("🚨 SOS Sent Successfully!");
+            sosBtn.innerText = "🚨";
+
+        } catch (err) {
+            console.error(err);
+            alert("❌ Error sending SOS");
+            sosBtn.innerText = "🚨";
+        }
+
+    }, () => {
+        alert("❌ Location permission denied");
+        sosBtn.innerText = "🚨";
+    });
+
 });
