@@ -42,7 +42,13 @@ window.onload = function(){
 };
 
 function scrollBelowMap(){
-    document.querySelector('.emergency-box').scrollIntoView({
-        behavior: 'smooth'
-    });
+    const target = document.querySelector('.emergency-box');
+    if(target){
+        target.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }else{
+            console.log("Target element not found for scrolling.");
+        }
+        //alert("clicked");
 }

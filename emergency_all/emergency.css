@@ -38,6 +38,8 @@
     right:10px;
     z-index:1000;
 
+    pointer-events:auto;   /* ✅ FIX */
+
     background:#00bfff;
     color:#000;
     border:none;
@@ -48,9 +50,7 @@
     cursor:pointer;
 
     box-shadow:0 4px 12px rgba(0,0,0,0.5);
-    transition:0.3s;
 }
-
 .scroll-down-btn:hover{
     background:#00ffcc;
 }
