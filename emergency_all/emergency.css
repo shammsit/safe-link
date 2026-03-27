@@ -27,3 +27,12 @@
     color:#00ffcc;
     font-weight:bold;
 }
+
+#map{
+    width:80%;
+    height:360px;
+    border-radius:14px;
+    margin:20px auto;
+    box-shadow:0 10px 25px rgba(0,0,0,0.5);
+    border:1px solid #222;
+}

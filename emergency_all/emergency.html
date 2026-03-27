@@ -10,7 +10,7 @@
 <link rel="icon" href="../favicon.png">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="emergency.css">
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
 
@@ -79,8 +79,8 @@
 <!-- ================= MAIN ================= -->
 <div class="main-content">
 
-    <h1>🚨 Emergency Section</h1>
-
+    <h1>🚨 Emergency</h1>
+<div id="map">  </div>
     <div class="emergency-box">
         <h2>Welcome</h2>
         <p>
@@ -127,6 +127,6 @@
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
-
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </body>
 </html>
