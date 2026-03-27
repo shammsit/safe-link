@@ -76,15 +76,15 @@ body, html{
     transform:translateX(-50%);
     z-index:1000;
 
-    width:45px;
-    height:45px;
+    width:75px;
+    height:75px;
     padding: 0;
     border-radius:50%;
     border:none;
 
     background:#ff3b3b;
     color:white;
-    font-size:30px;
+    font-size:50px;
     cursor:pointer;
     display: flex;
     align-items: center;
@@ -109,14 +109,14 @@ body, html{
     right:20px;
     z-index:1000;
 
-    width:25px;
-    height:25px;
+    width:35px;
+    height:35px;
     border-radius:50%;
     border:none;
 
     background:#04eb6c;
     color:#333;
-    font-size:22px;
+    font-size:25px;
 
     display:flex;
     align-items:center;
