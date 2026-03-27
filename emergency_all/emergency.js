@@ -31,9 +31,11 @@ function updateClock(){
 setInterval(updateClock,1000);
 updateClock();
 
+let map; // 👈 GLOBAL
+
 window.onload = function(){
 
-    const map = L.map('map').setView([22.5726, 88.3639], 13);
+    map = L.map('map').setView([22.5726, 88.3639], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap',
@@ -52,3 +54,38 @@ function scrollBelowMap(){
         }
         //alert("clicked");
 }
+
+const locateBtn = document.querySelector(".locate-btn");
+
+locateBtn.addEventListener("click", () => {
+
+    if (!navigator.geolocation) {
+        alert("❌ Geolocation not supported");
+        return;
+    }
+
+    locateBtn.innerText = "⏳";
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            // Move map to user location
+            map.setView([lat, lng], 16);
+
+            // Add marker
+            L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup("📍 You are here")
+                .openPopup();
+
+            locateBtn.innerText = "📍";
+        },
+        (error) => {
+            alert("❌ Location access denied");
+            locateBtn.innerText = "📍";
+        }
+    );
+});
