@@ -62,3 +62,74 @@ body, html{
 .main-content{
     min-height:calc(100vh - 120px); /* pushes footer down */
 }
+
+/* BUTTON WRAPPER */
+.map-buttons{
+    position:relative;
+}
+
+/* 🔴 EMERGENCY BUTTON (CENTER BOTTOM) */
+.emergency-btn{
+    position:absolute;
+    bottom:20px;   /* keep original */
+    left:50%;
+    transform:translateX(-50%);
+    z-index:1000;
+
+    width:45px;
+    height:45px;
+    padding: 0;
+    border-radius:50%;
+    border:none;
+
+    background:#ff3b3b;
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:0 8px 25px rgba(255,0,0,0.5);
+}
+
+
+/* Hover */
+.emergency-btn:hover{
+    transform:translateX(-50%) scale(1.1);
+    box-shadow:0 12px 35px rgba(255,0,0,0.8);
+}
+.emergency-btn:active{
+    transform:translateX(-50%) scale(0.92);
+}
+
+/* 📍 LOCATE BUTTON (RIGHT SIDE) */
+.locate-btn{
+    position:absolute;
+    bottom:30px;
+    right:20px;
+    z-index:1000;
+
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    border:none;
+
+    background:#04eb6c;
+    color:#333;
+    font-size:22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.4);
+    cursor:pointer;
+}
+/* Hover */
+.locate-btn:hover{
+    background: #f40505;;
+    transform:scale(1.08);
+}
+.emergency-btn:active{
+    transform:scale(0.9);
+}
