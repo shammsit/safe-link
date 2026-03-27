@@ -224,3 +224,6 @@ async function logoutUser(){
     localStorage.removeItem("userName");
 }
 
+function goEmg_all(){
+    window.location.href = window.location.origin + "/emergency_all/emergency.html";
+}
