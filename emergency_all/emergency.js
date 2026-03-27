@@ -40,3 +40,9 @@ window.onload = function(){
     }).addTo(map);
 
 };
+
+function scrollBelowMap(){
+    document.querySelector('.emergency-box').scrollIntoView({
+        behavior: 'smooth'
+    });
+}

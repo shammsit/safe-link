@@ -79,8 +79,11 @@
 <!-- ================= MAIN ================= -->
 <div class="main-content">
 
-    <h1>🚨 Emergency</h1>
-<div id="map">  </div>
+    <h2>🚨 Emergency</h2>
+<div class="map-wrapper">
+    <div id="map"></div>
+    <button class="scroll-down-btn" onclick="scrollBelowMap()">⬇</button>
+</div>
 
 <!-- ================= LIVE CLOCK ================= -->
 <div class="live-clock-box">
@@ -88,23 +91,7 @@
     <div id="liveDate">Loading...</div>
 </div>
 <!-- ================= FOOTER ================= -->
-<footer style="
-    margin-top:10px;
-    padding:25px 0;
-    background:#0d0d0d;
-    color:#aaa;
-    text-align:center;
-    font-size:14px;
-    border-top:1px solid #222;
-">
-    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
-    <div>Designed & Developed by Tech Gen</div>
-    <div>
-        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
-            contact_us@techgen.online
-        </a>
-    </div>
-</footer>
+<footer class="footer">
 
 <!-- ================= SCRIPTS ================= -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
