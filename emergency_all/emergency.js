@@ -1,3 +1,4 @@
+let userMarker = null;
 // ================= SHARE =================
 function shareSite(){
 
@@ -76,10 +77,12 @@ locateBtn.addEventListener("click", () => {
             map.setView([lat, lng], 16);
 
             // Add marker
-            L.marker([lat, lng])
-                .addTo(map)
-                .bindPopup("📍 You are here")
-                .openPopup();
+            if(userMarker){
+                map.removeLayer(userMarker);
+            }
+            //Add new marker
+            userMarker = L.marker([lat, lng]).addTo(map)
+                .bindPopup("You are here").openPopup();
 
             locateBtn.innerText = "📍";
         },
