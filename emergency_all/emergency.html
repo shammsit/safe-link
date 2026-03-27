@@ -62,8 +62,6 @@
 <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
 
 <hr style="border:1px solid #222; margin:10px 0;">  <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
-<button class="side-btn" onclick="goEmergency();closeSidebar();">🚨 Emergency Alert</button>
-<button class="side-btn">🚨 Emergency without Login</button>
 <button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
 <button class="side-btn">⚙ Settings</button>
 <button class="side-btn">🔔 Notification</button> <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
@@ -95,18 +93,27 @@
 
 </div>
 
-<!-- ================= CLOCK ================= -->
+<!-- ================= LIVE CLOCK ================= -->
 <div class="live-clock-box">
     <div id="liveTime">00:00:00</div>
     <div id="liveDate">Loading...</div>
 </div>
-
 <!-- ================= FOOTER ================= -->
-<footer>
+<footer style="
+    margin-top:10px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
     <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
     <div>Designed & Developed by Tech Gen</div>
     <div>
-        <a href="mailto:contact_us@techgen.online">contact_us@techgen.online</a>
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
+        </a>
     </div>
 </footer>
 

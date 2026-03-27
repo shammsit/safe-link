@@ -74,7 +74,7 @@
     <hr style="border:1px solid #222; margin:10px 0;">
 
     <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
-    <button class="side-btn">🚨 Emergency without Login</button>
+    <button class="side-btn" onclick="goEmg_all(); closeSidebar();">🚨 Emergency without Login</button>
     <button id="profileBtn" class="side-btn">👤 Profile</button>
     <button class="side-btn">⚙ Settings</button>
     <button class="side-btn">🔔 Notification</button> <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
@@ -100,7 +100,21 @@
     <p style="margin-top:20px; font-size:18px; color:#ccc;">
         Your safety, our priority.
     </p>
+<p style="margin-top:20px; font-size:18px; color:#ccc;">
+    Your safety, our priority.
+</p>
 
+<!-- 🚨 EMERGENCY BUTTON -->
+<div class="emergency-wrapper">
+    <button class="emergency-btn" onclick="handleEmergencyClick()">
+        <span class="emg-icon">🚨</span>
+        Emergency Access
+    </button>
+</div>
+
+<p style="margin-top:15px; font-size:16px; color:#aaa;">
+    Our service is under upgradation, please wait for publishing.
+</p>
     <p style="margin-top:15px; font-size:16px; color:#aaa;">
         Our service is under upgradation, please wait for publishing.
     </p>

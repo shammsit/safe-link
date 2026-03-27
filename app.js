@@ -36,3 +36,18 @@ window.addEventListener("DOMContentLoaded", () => {
     updateClock();
     setInterval(updateClock, 1000);
 });
+
+
+function handleEmergencyClick(){
+
+    const userId = localStorage.getItem("userId");
+
+    // ✅ LOGGED IN
+    if(userId){
+        window.location.href = "/emg_log/emergency.html";
+    }
+    // ❌ NOT LOGGED IN
+    else{
+        goEmg_all();
+    }
+}

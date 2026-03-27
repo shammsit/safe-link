@@ -420,3 +420,47 @@ body{
     max-width:100%;
     margin: auto;
 }
+
+/* ================= EMERGENCY BUTTON ================= */
+
+.emergency-wrapper{
+    margin-top:25px;
+}
+
+.emergency-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    padding:14px 28px;
+
+    font-size:16px;
+    font-weight:500;
+
+    color:#fff;
+    background:linear-gradient(135deg,#ff3b3b,#b30000);
+
+    border:none;
+    border-radius:12px;
+
+    cursor:pointer;
+
+    box-shadow:0 6px 20px rgba(255,0,0,0.3);
+    transition:all 0.25s ease;
+}
+
+/* hover */
+.emergency-btn:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 8px 25px rgba(255,0,0,0.5);
+}
+
+/* click */
+.emergency-btn:active{
+    transform:scale(0.95);
+}
+
+/* icon */
+.emg-icon{
+    font-size:20px;
+}
