@@ -156,7 +156,7 @@ body{
 /* ================= MAIN ================= */
 
 .main-title{
-    margin-top:20px;
+    margin-top:5px;
 }
 
 #sosBtn{
@@ -462,5 +462,5 @@ body{
 
 /* icon */
 .emg-icon{
-    font-size:75px;
+    font-size:50px;
 }
