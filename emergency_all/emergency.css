@@ -6,7 +6,7 @@
 
 
 #map{
-    width:calc(100% - 10px);
+    width:calc(100% - 20px);
     height:calc(100vh - 220px);
     border-radius:14px;
     margin:10px 5px;
