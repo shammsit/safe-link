@@ -193,6 +193,11 @@
         font-size:12px;
     }
 
+    .nav-btn{
+        font-size:16px;
+        margin: 0 3px;
+    }
+
 }
 
 /* ================= AUTH LOGO ================= */

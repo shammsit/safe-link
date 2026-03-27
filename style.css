@@ -25,27 +25,26 @@ body{
     justify-content:space-between;
     align-items:center;
 
-    flex-wrap:wrap;
     padding:8px 10px;
 
     position:sticky;
     top:0;
     z-index:1500;
+    overflow: hidden;
 }
 
 .nav-left, .nav-right{
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    max-width: 100%;
+    flex-wrap: nowrap;
 }
 
 .nav-btn{
     background:none;
     border:none;
     color:white;
-    font-size:20px;
-    margin:0 6px;
+    font-size:18px;
+    margin:0 4px;
     cursor:pointer;
     padding:6px;
     border-radius:6px;
