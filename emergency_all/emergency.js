@@ -1,7 +1,7 @@
 let userMarker = null;
+
 // ================= SHARE =================
 function shareSite(){
-
     const shareData = {
         title: "Safe Link – Emergency Support",
         text: "🚨 Emergency features coming soon. Stay connected with Safe Link.",
@@ -19,7 +19,6 @@ function shareSite(){
 
 // ================= CLOCK =================
 function updateClock(){
-
     const now = new Date();
 
     document.getElementById("liveTime").innerText =
@@ -32,29 +31,27 @@ function updateClock(){
 setInterval(updateClock,1000);
 updateClock();
 
-let map; // 👈 GLOBAL
+let map;
 
+// ================= MAP =================
 window.onload = function(){
-
     map = L.map('map').setView([22.5726, 88.3639], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap',
     }).addTo(map);
-
 };
 
 function scrollBelowMap(){
     const target = document.querySelector('.emergency-box');
     if(target){
-        target.scrollIntoView({
-            behavior: 'smooth'
-        });
+        target.scrollIntoView({ behavior: 'smooth' });
     }else{
         console.log("Target element not found for scrolling.");
     }
 }
 
+// ================= LOCATE =================
 const locateBtn = document.querySelector(".locate-btn");
 
 locateBtn.addEventListener("click", () => {
@@ -72,33 +69,33 @@ locateBtn.addEventListener("click", () => {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
 
-            // Move map to user location
             map.flyTo([lat, lng], 16);
 
-            // Add marker
             if(userMarker){
                 map.removeLayer(userMarker);
             }
 
-            // Add new marker
             userMarker = L.marker([lat, lng]).addTo(map)
                 .bindPopup("You are here").openPopup();
 
             locateBtn.innerText = "📍";
         },
-        (error) => {
+        () => {
             alert("❌ Location access denied");
             locateBtn.innerText = "📍";
         }
     );
 });
 
+// ================= SOS =================
 const sosBtn = document.querySelector(".emergency-btn");
 
 sosBtn.addEventListener("click", async () => {
-    // Auto trigger locate to get latest position
+
+    // Auto trigger locate
     locateBtn.click();
-    // ✅ ADDED: Anti-spam cooldown logic
+
+    // ✅ Cooldown
     const lastSOS = localStorage.getItem("lastSOS");
 
     if (lastSOS) {
@@ -111,7 +108,6 @@ sosBtn.addEventListener("click", async () => {
         }
     }
 
-    // Save new timestamp
     localStorage.setItem("lastSOS", Date.now());
 
     if (!navigator.geolocation) {
@@ -128,33 +124,28 @@ sosBtn.addEventListener("click", async () => {
 
         try {
 
-            // 🌐 Get IP address
+            // 🌐 Get IP
             const res = await fetch("https://api.ipify.org?format=json");
             const ipData = await res.json();
             const ip = ipData.ip;
 
-            // 📡 Insert into Supabase
+            // ✅ CORRECT IST TIME FIX
+            const now = new Date();
+            const istOffset = 5.5 * 60 * 60 * 1000;
+            const istDate = new Date(now.getTime() + istOffset).toISOString();
+
+            // ✅ SINGLE CLEAN INSERT
             const { error } = await supabaseClient
                 .from("sos_alerts")
-                // 🕒 Get current IST time
-const nowIST = new Date().toLocaleString("en-US", {
-    timeZone: "Asia/Kolkata"
-});
-
-// Convert to ISO format
-const istDate = new Date(nowIST).toISOString();
-
-const { error } = await supabaseClient
-    .from("sos_alerts")
-    .insert([
-        {
-            ip_address: ip,
-            latitude: lat,
-            longitude: lng,
-            message: "I need help , please help me",
-            created_at: istDate   // ✅ override default time
-        }
-    ]);
+                .insert([
+                    {
+                        ip_address: ip,
+                        latitude: lat,
+                        longitude: lng,
+                        message: "I need help , please help me",
+                        created_at: istDate
+                    }
+                ]);
 
             if (error) {
                 console.error(error);
