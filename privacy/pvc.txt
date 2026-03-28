@@ -100,7 +100,7 @@
 <h1>🔐 Privacy Policy</h1>
 
 <section>
-<h2>1. Information We Collect</h2>
+<h2>2. Information We Collect</h2>
 
 <h3>🔹 Personal Information</h3>
 <ul>
@@ -134,7 +134,7 @@
 </section>
 
 <section>
-<h2>2. How We Use the Information</h2>
+<h2>3. How We Use the Information</h2>
 <ul>
 <li>Provide emergency assistance</li>
 <li>Share location with nearby users, volunteers & authorities</li>
@@ -146,7 +146,7 @@
 </section>
 
 <section>
-<h2>3. Data Sharing Policy</h2>
+<h2>4. Data Sharing Policy</h2>
 
 <h3>✔ During Emergency</h3>
 <ul>
@@ -165,7 +165,7 @@
 </section>
 
 <section>
-<h2>4. Data Storage & Security</h2>
+<h2>5. Data Storage & Security</h2>
 <ul>
 <li>Firebase secure database</li>
 <li>HTTPS encryption</li>
@@ -176,7 +176,7 @@
 </section>
 
 <section>
-<h2>5. User Control & Rights</h2>
+<h2>6. User Control & Rights</h2>
 <ul>
 <li>Access data</li>
 <li>Update profile</li>
@@ -187,7 +187,7 @@
 </section>
 
 <section>
-<h2>6. Permissions Required</h2>
+<h2>7. Permissions Required</h2>
 <ul>
 <li>📍 Location</li>
 <li>📷 Camera</li>
@@ -198,7 +198,7 @@
 </section>
 
 <section>
-<h2>7. Data Retention Policy</h2>
+<h2>8. Data Retention Policy</h2>
 <ul>
 <li>Temporary storage</li>
 <li>Logs for analysis</li>
@@ -207,17 +207,13 @@
 </section>
 
 <section>
-<h2>8. Changes to Policy</h2>
+<h2>10. Changes to Policy</h2>
 <p>We may update this policy.</p>
 </section>
 
 <section>
-<h2>9. Contact</h2>
- <p>
-        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
-            contact_us@techgen.online
-        </a>
-    </p>
+<h2>11. Contact</h2>
+<p>Email: contact_us@techgen.online</p>
 <p>Location: India</p>
 </section>
 
