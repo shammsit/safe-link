@@ -320,7 +320,43 @@ GPS ট্র্যাকিং, ক্লাউড-ভিত্তিক পর
 
 </p>
 </div>
+<div style="text-align:center; margin-top:20px;">
+    
+    <button onclick="goPrivacy()" style="
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding:12px 22px;
+        border-radius:30px;
+        border:none;
+        background:#4b8cb7;
+        color:#040009;
+        font-size:16px;
+        cursor:pointer;
+        box-shadow:0 4px 12px rgba(0,0,0,0.15);
+        transition:0.3s;
+    "
+    onmouseover="this.style.transform='scale(1.05)'"
+    onmouseout="this.style.transform='scale(1)'">
 
+        <!-- ICON -->
+        <span style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:26px;
+            height:26px;
+            border-radius:50%;
+            background:#0b0600;
+            color:#4172ab;
+            font-weight:bold;
+        ">i</span>
+
+        Privacy Policy
+    </button>
+
+</div>
+<br>
 <div style="text-align:center; margin-top:20px 0;">    
     <a href="https://techgen.online/" target="_blank">    
         <button style="    
@@ -370,5 +406,11 @@ GPS ট্র্যাকিং, ক্লাউড-ভিত্তিক পর
 function goAbout(){    
     window.location.href = "about.html";    
 }    
-</script>  </body>    
+</script>
+<script>    
+function goPrivacy(){    
+    window.location.href = "privacy/pvc.html";    
+}    
+</script>
+  </body>    
 </html>
