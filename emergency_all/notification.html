@@ -87,10 +87,7 @@
 
     <h1>🔔 Notifications</h1>
 
-    <div class="maintenance-box">
-        🚧 Under Maintenance 🚧
-        <p>This feature will be available soon.</p>
-    </div>
+    <div id="notificationList"></div>
 
 </div>
 
@@ -124,7 +121,7 @@ const supabaseClient = supabase.createClient(
 
 <script src="../options.js"></script>
 <script src="../app.js"></script>
-<script src="emergency.js"></script>
+<script src="notification.js"></script>
 
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
