@@ -136,14 +136,25 @@ sosBtn.addEventListener("click", async () => {
             // 📡 Insert into Supabase
             const { error } = await supabaseClient
                 .from("sos_alerts")
-                .insert([
-                    {
-                        ip_address: ip,
-                        latitude: lat,
-                        longitude: lng,
-                        message: "I need help , please help me"
-                    }
-                ]);
+                // 🕒 Get current IST time
+const nowIST = new Date().toLocaleString("en-US", {
+    timeZone: "Asia/Kolkata"
+});
+
+// Convert to ISO format
+const istDate = new Date(nowIST).toISOString();
+
+const { error } = await supabaseClient
+    .from("sos_alerts")
+    .insert([
+        {
+            ip_address: ip,
+            latitude: lat,
+            longitude: lng,
+            message: "I need help , please help me",
+            created_at: istDate   // ✅ override default time
+        }
+    ]);
 
             if (error) {
                 console.error(error);
