@@ -103,3 +103,33 @@ body, html{
     font-size:12px;
     color:#aaa;
 }
+
+/* 🔘 Button Group */
+.btn-group{
+    margin-top:10px;
+    display:flex;
+    gap:10px;
+}
+
+/* 🆘 Help Button */
+.help-btn{
+    flex:1;
+    padding:8px;
+    border:none;
+    border-radius:8px;
+    background:#ff3b3b;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* 🙏 Sorry Button */
+.sorry-btn{
+    flex:1;
+    padding:8px;
+    border:none;
+    border-radius:8px;
+    background:#555;
+    color:white;
+    cursor:pointer;
+}

@@ -57,7 +57,7 @@ async function loadNotifications(){
         // ✅ ADD DISTANCE CALCULATION
         let distanceText = "📏 Calculating...";
 
-        if(userLat && userLng){
+        if(userLat !== null && userLng !== null){
             const dist = getDistance(userLat, userLng, item.latitude, item.longitude);
 
             distanceText = dist < 1
@@ -66,11 +66,16 @@ async function loadNotifications(){
         }
 
         card.innerHTML = `
-            <div class="msg">🚨 ${item.message}</div>
-            <div class="time">🕒 ${new Date(item.created_at).toLocaleString()}</div>
-            <div class="time">📍 ${item.latitude}, ${item.longitude}</div>
-            <div class="time">${distanceText}</div>
-        `;
+    <div class="msg">🚨 ${item.message}</div>
+    <div class="time">🕒 ${new Date(item.created_at).toLocaleString()}</div>
+    <div class="time">📍 ${item.latitude}, ${item.longitude}</div>
+    <div class="time">${distanceText}</div>
+
+    <div class="btn-group">
+        <button class="help-btn" onclick="sendHelp()">Help</button>
+        <button class="sorry-btn" onclick="sendSorry()">Sorry</button>
+    </div>
+`;
 
         list.appendChild(card);
     });
@@ -81,3 +86,13 @@ setInterval(loadNotifications, 5000);
 
 // 🚀 First load
 loadNotifications();
+
+// 🆘 Help button
+function sendHelp(){
+    alert("🆘 Help request acknowledged!");
+}
+
+// 🙏 Sorry button
+function sendSorry(){
+    alert("🙏 Sorry! Unable to help right now.");
+}
