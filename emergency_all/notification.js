@@ -1,6 +1,35 @@
 const list = document.getElementById("notificationList");
 
-// 📥 Load notifications from DB
+// 📏 Calculate distance
+function getDistance(lat1, lon1, lat2, lon2) {
+
+    const R = 6371;
+
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+
+    const a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    return R * c;
+}
+
+// ✅ MOVE USER LOCATION OUTSIDE
+let userLat = null;
+let userLng = null;
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(pos => {
+        userLat = pos.coords.latitude;
+        userLng = pos.coords.longitude;
+    });
+}
+
+// 📥 Load notifications
 async function loadNotifications(){
 
     const { data, error } = await supabaseClient
@@ -25,17 +54,29 @@ async function loadNotifications(){
         const card = document.createElement("div");
         card.className = "notification-card";
 
+        // ✅ ADD DISTANCE CALCULATION
+        let distanceText = "📏 Calculating...";
+
+        if(userLat && userLng){
+            const dist = getDistance(userLat, userLng, item.latitude, item.longitude);
+
+            distanceText = dist < 1
+                ? `📏 ${(dist * 1000).toFixed(0)} meters away`
+                : `📏 ${dist.toFixed(2)} km away`;
+        }
+
         card.innerHTML = `
             <div class="msg">🚨 ${item.message}</div>
             <div class="time">🕒 ${new Date(item.created_at).toLocaleString()}</div>
             <div class="time">📍 ${item.latitude}, ${item.longitude}</div>
+            <div class="time">${distanceText}</div>
         `;
 
         list.appendChild(card);
     });
 }
 
-// 🔄 Auto refresh every 5 seconds
+// 🔄 Auto refresh
 setInterval(loadNotifications, 5000);
 
 // 🚀 First load
