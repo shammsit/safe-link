@@ -227,3 +227,7 @@ async function logoutUser(){
 function goEmg_all(){
     window.location.href = window.location.origin + "/emergency_all/emergency.html";
 }
+
+function goNotification(){
+    window.location.href = window.location.origin + "/emergency_all/notification.html";
+}

@@ -5,13 +5,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Emergency - Safe Link</title>
+<title>Notifications - Safe Link</title>
 
+<!-- 🔴 FAVICON (REPLACE LATER) -->
 <link rel="icon" href="../favicon.png">
+<link rel="icon" href="../logo.png">
+
+<!-- 🔴 GLOBAL CSS -->
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="emergency.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="notification.css">
+
 </head>
+
 <body>
 
 <!-- ================= LOADER ================= -->
@@ -64,7 +69,7 @@
 <hr style="border:1px solid #222; margin:10px 0;">  <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
 <button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
 <button class="side-btn">⚙ Settings</button>
-<button class="side-btn">🔔 Notification</button> <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+ <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
 <button class="side-btn" >🔍 Search</button>
 <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
 <button class="side-btn">📞 Contact Us</button>
@@ -76,24 +81,16 @@
 <div class="sidebar-footer">    
     Thank you for using our app ❤️    
 </div> </div>
+
 <!-- ================= MAIN ================= -->
 <div class="main-content">
 
-    <h1>🚨 Emergency</h1>
-<div class="map-wrapper">
-    <div id="map"></div>
-    <!-- FLOATING BUTTONS -->
-    <div class="map-buttons">
+    <h1>🔔 Notifications</h1>
 
-    <!-- Emergency Button -->
-    <button class="emergency-btn">🚨</button>
-
-    <!-- Locate Me Button -->
-    <button class="locate-btn">📍</button>
-
-</div>
-    <button class="scroll-down-btn" onclick="scrollBelowMap()">⬇</button>
-    
+    <div class="maintenance-box">
+        🚧 Under Maintenance 🚧
+        <p>This feature will be available soon.</p>
+    </div>
 
 </div>
 
