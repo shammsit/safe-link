@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FAQs | Safe Link</title>
+
+<!-- ✅ FAVICON -->
+<link rel="icon" href="../../favicon.png">
+
+<!-- ✅ MAIN CSS (IMPORTANT) -->
+<link rel="stylesheet" href="../../style.css">
+
+<!-- ✅ FAQ CSS -->
+<link rel="stylesheet" href="faq.css">
+
+</head>
+
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100">
+            <polyline points="0,50 40,50 60,20 80,80 100,50 500,50"/>
+        </svg>
+    </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<div class="top-nav">    
+    <div class="nav-left">    
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>    
+        <button class="nav-btn" onclick="goHome()">⌂</button>    
+        <button class="nav-btn" onclick="goProfile()">👤</button>
+        <button class="nav-btn">🔍</button>    
+        <button class="nav-btn">⚙</button>    
+    </div>
+
+    <div class="nav-right">    
+        <button class="nav-btn">❤️</button>    
+        <button class="nav-btn">!</button>    
+        <button class="nav-btn">📞</button>    
+        <button class="nav-btn">🔔</button>   
+        <button class="nav-btn">🔗</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>    
+    </div>  
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+        <h2>SAFE LINK</h2>
+        <button onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <button class="side-btn" onclick="goHome()">🏠 Home</button>
+    <button class="side-btn">👤 Profile</button>
+    <button class="side-btn">⚙ Settings</button>
+    <button class="side-btn">🔔 Notices</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn">📞 Contact Us</button>
+</div>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="main-content">
+
+<section class="faq-container">
+
+<h1>Frequently Asked Questions (FAQs)</h1>
+<p class="subtitle">SAFE LINK – Community Based Emergency Response & Public Safety System</p>
+
+<!-- CATEGORY BUTTONS -->
+<div class="faq-tabs">
+  <button class="tab active" data-category="general">General</button>
+  <button class="tab" data-category="privacy">Privacy</button>
+  <button class="tab" data-category="technical">Technical</button>
+</div>
+
+<!-- GENERAL -->
+<div class="faq-content active" id="general">
+
+<div class="faq-item">
+<div class="faq-question">What is Safe Link? <span>▼</span></div>
+<div class="faq-answer">
+Safe Link is a community-based emergency response system that allows users to send instant SOS alerts with live location to nearby users, volunteers, and authorities for faster assistance.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Who can use Safe Link? <span>▼</span></div>
+<div class="faq-answer">
+Anyone can use Safe Link, including students, women, elderly people, travelers, and individuals who want quick help during emergencies.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">What problems does Safe Link solve? <span>▼</span></div>
+<div class="faq-answer">
+Safe Link reduces emergency response time by instantly notifying nearby people and authorities, ensuring quicker help during critical situations.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">What happens when I press the SOS button? <span>▼</span></div>
+<div class="faq-answer">
+When you press the SOS button, your live GPS location is captured and an emergency alert is sent instantly.
+</div>
+</div>
+
+</div>
+
+<!-- PRIVACY -->
+<div class="faq-content" id="privacy">
+
+<div class="faq-item">
+<div class="faq-question">What personal information does Safe Link collect? <span>▼</span></div>
+<div class="faq-answer">
+We collect name, phone number, email ID, and profile details.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Is my location tracked all the time? <span>▼</span></div>
+<div class="faq-answer">
+No, location is only accessed during emergencies or when permission is granted.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Does Safe Link sell my data? <span>▼</span></div>
+<div class="faq-answer">
+No, Safe Link does not sell or share user data.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Is my data secure? <span>▼</span></div>
+<div class="faq-answer">
+Yes, data is secured using Supabase, HTTPS, and authentication systems.
+</div>
+</div>
+
+</div>
+
+<!-- TECHNICAL -->
+<div class="faq-content" id="technical">
+
+<div class="faq-item">
+<div class="faq-question">Does Safe Link work on all devices? <span>▼</span></div>
+<div class="faq-answer">
+Safe Link works on most smartphones and modern browsers.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Does it require internet? <span>▼</span></div>
+<div class="faq-answer">
+Yes, internet is required for real-time alerts.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">What happens if GPS is off? <span>▼</span></div>
+<div class="faq-answer">
+Location accuracy may reduce and delay help.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">How can I contact support? <span>▼</span></div>
+<div class="faq-answer">
+<a href="mailto:contact_us@techgen.online">contact_us@techgen.online</a>
+</div>
+</div>
+
+</div>
+</section>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer style="background:#0d0d0d; color:#aaa; text-align:center; padding:20px;">
+  <div>© <span id="year"></span> Safe Link</div>
+  <div>Designed & Developed by Tech Gen</div>
+  <div>
+    <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+      contact_us@techgen.online
+    </a>
+  </div>
+</footer>
+
+<!-- ================= JS ================= -->
+<script src="../../options.js"></script>
+<script src="../../app.js"></script>
+<script src="faq.js"></script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+window.addEventListener("load", () => {
+    document.getElementById("loader").style.display = "none";
+});
+</script>
+
+</body>
+</html>

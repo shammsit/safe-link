@@ -1,0 +1,138 @@
+/* ===== GOOGLE FONT (PREMIUM LOOK) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.faq-container {
+  
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px 40px; /* 🔥 reduced top space */
+  text-align: left;
+
+}
+.main-content {
+  padding-top: 20px !important;
+}
+
+/* ===== TITLE ===== */
+.faq-container h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+/* ===== TABS ===== */
+.faq-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.tab {
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: #111;
+  color: #ccc;
+  border: 1px solid #222;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab:hover {
+  background: #1a1a1a;
+}
+
+.tab.active {
+  background: #00cfff;
+  color: #000;
+  font-weight: 500;
+}
+
+/* ===== FAQ CARD ===== */
+.faq-item {
+  background: linear-gradient(145deg, #0f0f0f, #141414);
+  border: 1px solid #222;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+/* HOVER EFFECT */
+.faq-item:hover {
+  border-color: #00cfff;
+  transform: translateY(-2px);
+}
+
+/* ===== QUESTION ===== */
+.faq-question {
+  padding: 18px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* ARROW */
+.faq-question span {
+  transition: 0.3s;
+}
+
+/* ROTATE ARROW */
+.faq-item.active .faq-question span {
+  transform: rotate(180deg);
+}
+
+/* ===== ANSWER ===== */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.35s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 300px;
+  padding: 15px 20px 20px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== LINKS ===== */
+.faq-answer a {
+  color: #00cfff;
+  text-decoration: none;
+}
+
+.faq-answer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 600px) {
+
+  .faq-container {
+    padding: 90px 15px;
+  }
+
+  .faq-container h1 {
+    font-size: 1.6rem;
+  }
+
+  .faq-question {
+    font-size: 0.9rem;
+  }
+}
