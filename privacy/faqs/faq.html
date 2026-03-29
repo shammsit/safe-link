@@ -211,26 +211,56 @@ Location accuracy may reduce and delay help.
 </section>
 
 </div>
+<!-- ================= LIVE CLOCK ================= -->
+<div class="live-clock-box">
+    <div id="liveTime">00:00:00</div>
+    <div id="liveDate">Loading...</div>
+</div>
 
 <!-- ================= FOOTER ================= -->
-<footer style="background:#0d0d0d; color:#aaa; text-align:center; padding:20px;">
-  <div>© <span id="year"></span> Safe Link</div>
-  <div>Designed & Developed by Tech Gen</div>
-  <div>
-    <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
-      contact_us@techgen.online
-    </a>
-  </div>
+<footer style="
+    margin-top:10px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div>Designed & Developed by Tech Gen</div>
+    <div>
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
+        </a>
+    </div>
 </footer>
 
-<!-- ================= JS ================= -->
-<script src="../../options.js"></script>
-<script src="../../app.js"></script>
+<!-- ================= SCRIPTS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+</script>
+
+<script src="../options.js"></script>
+<script src="../app.js"></script>
 <script src="faq.js"></script>
 
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- ================= LOADER FIX JS ================= -->
+<script>
 window.addEventListener("load", () => {
     document.getElementById("loader").style.display = "none";
 });
