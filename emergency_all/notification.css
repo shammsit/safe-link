@@ -13,26 +13,7 @@ h1{
     margin-bottom:30px;
 }
 
-/* 🚧 Maintenance Box */
-.maintenance-box{
-    margin:50px auto;
-    padding:30px;
-    max-width:300px;
-    background:#1a1a1a;
-    border-radius:15px;
-    border:1px solid #333;
-    box-shadow:0 5px 20px rgba(0,0,0,0.5);
-    font-size:18px;
-}
-
-.maintenance-box p{
-    margin-top:10px;
-    font-size:14px;
-    color:#aaa;
-}
-
 .footer{
-    
     bottom:0;
     left:0;
     width:100%;
@@ -44,37 +25,12 @@ h1{
     border-top:1px solid #222;
 }
 
-
-/* Button */
-.scroll-down-btn{
-    position:absolute;
-    top:10px;
-    right:10px;
-    z-index:1000;
-
-    pointer-events:auto;   /* ✅ FIX */
-
-    background:#00bfff;
-    color:#000;
-    border:none;
-    border-radius:50%;
-    width:40px;
-    height:40px;
-    font-size:18px;
-    cursor:pointer;
-
-    box-shadow:0 4px 12px rgba(0,0,0,0.5);
-}
-.scroll-down-btn:hover{
-    background:#00ffcc;
-}
-
 body, html{
     height:100%;
 }
 
 .main-content{
-    min-height:calc(100vh - 120px); /* pushes footer down */
+    min-height:calc(100vh - 120px);
 }
 
 /* 🔔 Notification Cards */
@@ -86,6 +42,7 @@ body, html{
 }
 
 .notification-card{
+    position:relative; /* ✅ VERY IMPORTANT */
     background:#1a1a1a;
     border:1px solid #333;
     border-radius:12px;
@@ -104,14 +61,13 @@ body, html{
     color:#aaa;
 }
 
-/* 🔘 Button Group */
+/* 🔘 Buttons */
 .btn-group{
     margin-top:10px;
     display:flex;
     gap:10px;
 }
 
-/* 🆘 Help Button */
 .help-btn{
     flex:1;
     padding:8px;
@@ -123,7 +79,6 @@ body, html{
     font-weight:bold;
 }
 
-/* 🙏 Sorry Button */
 .sorry-btn{
     flex:1;
     padding:8px;
@@ -134,38 +89,49 @@ body, html{
     cursor:pointer;
 }
 
-/* 🔴 Alert Dot */
-.alert-dot{
-    width:10px;
-    height:10px;
+/* 🔴 BIG ALERT CIRCLE */
+.alert-circle{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+
+    width:60px;
+    height:60px;
     border-radius:50%;
-    display:inline-block;
-    margin-right:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:26px;
+    color:white;
+    z-index:10;
 }
 
-/* 🔥 VERY CLOSE (≤1km) */
-.dot-danger{
+/* 🔥 VERY CLOSE */
+.circle-danger{
     background:red;
-    box-shadow:0 0 10px red;
+    box-shadow:0 0 25px red;
     animation: blinkFast 0.5s infinite;
 }
 
-/* ⚠ 1–3km */
-.dot-warning{
+/* ⚠ MEDIUM */
+.circle-warning{
     background:#ff4d4d;
-    box-shadow:0 0 8px #ff4d4d;
+    box-shadow:0 0 15px #ff4d4d;
     animation: blinkMedium 1s infinite;
 }
 
-/* 🟡 5–10km */
-.dot-light{
+/* 🟡 FAR */
+.circle-light{
     background:#ff9999;
-    box-shadow:0 0 5px #ff9999;
+    box-shadow:0 0 10px #ff9999;
     animation: blinkSlow 2s infinite;
 }
 
-/* 🔴 >10km (no blink) */
-.dot-normal{
+/* 🔴 VERY FAR */
+.circle-normal{
     background:#ff3b3b;
 }
 
@@ -174,12 +140,10 @@ body, html{
     0%,100%{opacity:1;}
     50%{opacity:0.2;}
 }
-
 @keyframes blinkMedium{
     0%,100%{opacity:1;}
     50%{opacity:0.4;}
 }
-
 @keyframes blinkSlow{
     0%,100%{opacity:1;}
     50%{opacity:0.6;}

@@ -18,7 +18,7 @@ function getDistance(lat1, lon1, lat2, lon2) {
     return R * c;
 }
 
-// ✅ USER LOCATION
+// USER LOCATION
 let userLat = null;
 let userLng = null;
 
@@ -29,7 +29,7 @@ if (navigator.geolocation) {
     });
 }
 
-// 📥 Load notifications
+// LOAD DATA
 async function loadNotifications(){
 
     const { data, error } = await supabaseClient
@@ -54,9 +54,6 @@ async function loadNotifications(){
         const card = document.createElement("div");
         card.className = "notification-card";
 
-        // ===============================
-        // 📏 DISTANCE + ALERT LEVEL
-        // ===============================
         let distanceText = "📏 Calculating...";
         let circleClass = "circle-normal";
 
@@ -77,14 +74,8 @@ async function loadNotifications(){
             else if(dist <= 10){
                 circleClass = "circle-light";
             }
-            else{
-                circleClass = "circle-normal";
-            }
         }
 
-        // ===============================
-        // 🧱 CARD UI
-        // ===============================
         card.innerHTML = `
             <div class="msg">🚨 ${item.message}</div>
             <div class="time">🕒 ${new Date(item.created_at).toLocaleString()}</div>
@@ -96,26 +87,21 @@ async function loadNotifications(){
                 <button class="sorry-btn" onclick="sendSorry()">Sorry</button>
             </div>
 
-            <!-- 🔴 BIG ALERT CIRCLE -->
-            <div class="alert-circle ${circleClass}">⚠️</div>
+            <div class="alert-circle ${circleClass}">🚨</div>
         `;
 
         list.appendChild(card);
     });
 }
 
-// 🔄 Auto refresh
+// AUTO REFRESH
 setInterval(loadNotifications, 5000);
-
-// 🚀 First load
 loadNotifications();
 
-// 🆘 Help button
 function openHelpPage(lat, lng){
     window.location.href = `./help.html?lat=${lat}&lng=${lng}`;
 }
 
-// 🙏 Sorry button
 function sendSorry(){
     alert("🙏 Sorry! Unable to help right now.");
 }
