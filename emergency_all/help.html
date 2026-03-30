@@ -87,7 +87,17 @@
 <div class="main-content">
 
     <h1>🆘 Help</h1>
-
+<div id="routeInfo" style="
+    background:#111;
+    padding:10px;
+    border-radius:10px;
+    margin:10px;
+    font-size:14px;
+">
+    📏 Distance: --
+    <br>
+    🧭 Direction: --
+</div>
     <div class="map-wrapper">
         <div id="map"></div>
     </div>
@@ -125,6 +135,11 @@ const supabaseClient = supabase.createClient(
 <script src="../options.js"></script>
 <script src="../app.js"></script>
 <script src="help.js"></script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
 window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
@@ -133,9 +148,5 @@ window.addEventListener("load", () => {
     }
 });
 </script>
-<script>
-document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </body>
 </html>
