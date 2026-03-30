@@ -52,10 +52,36 @@ async function loadNotifications(){
     data.forEach(item => {
 
         const card = document.createElement("div");
-        card.className = "notification-card";
+        card.className = "notification-card ${alertClass}";
 
         // ✅ ADD DISTANCE CALCULATION
+
         let distanceText = "📏 Calculating...";
+let alertClass = "alert-normal";
+
+if(userLat !== null && userLng !== null){
+
+    const dist = getDistance(userLat, userLng, item.latitude, item.longitude);
+
+    // 📏 Distance text
+    distanceText = dist < 1
+        ? `📏 ${(dist * 1000).toFixed(0)} meters away`
+        : `📏 ${dist.toFixed(2)} km away`;
+
+    // 🚨 Alert levels
+    if(dist <= 1){
+        alertClass = "alert-danger";
+    }
+    else if(dist <= 3){
+        alertClass = "alert-warning";
+    }
+    else if(dist <= 10){
+        alertClass = "alert-light";
+    }
+    else{
+        alertClass = "alert-normal";
+    }
+}
 
         if(userLat !== null && userLng !== null){
             const dist = getDistance(userLat, userLng, item.latitude, item.longitude);
