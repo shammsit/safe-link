@@ -57,7 +57,7 @@ async function loadNotifications(){
         // ✅ ADD DISTANCE CALCULATION
 
         let distanceText = "📏 Calculating...";
-let alertClass = "alert-normal";
+let dotClass = "dot-normal";
 
 if(userLat !== null && userLng !== null){
 
@@ -70,16 +70,16 @@ if(userLat !== null && userLng !== null){
 
     // 🚨 Alert levels
     if(dist <= 1){
-        alertClass = "alert-danger";
+        dotClass = "dot-danger";
     }
     else if(dist <= 3){
-        alertClass = "alert-warning";
+        dotClass = "dot-warning";
     }
     else if(dist <= 10){
-        alertClass = "alert-light";
+        dotClass = "dot-light";
     }
     else{
-        alertClass = "alert-normal";
+        dotClass = "dot-normal";
     }
 }
 
@@ -92,7 +92,10 @@ if(userLat !== null && userLng !== null){
         }
 
         card.innerHTML = `
-    <div class="msg">🚨 ${item.message}</div>
+    <div class="msg">
+    <span class="alert-dot ${dotClass}"></span>
+    🚨 ${item.message}
+</div>
     <div class="time">🕒 ${new Date(item.created_at).toLocaleString()}</div>
     <div class="time">📍 ${item.latitude}, ${item.longitude}</div>
     <div class="time">${distanceText}</div>

@@ -134,41 +134,53 @@ body, html{
     cursor:pointer;
 }
 
-/* 🔴 VERY CLOSE (≤1km) - FAST BLINK */
-.alert-danger{
-    border:2px solid red;
+/* 🔴 Alert Dot */
+.alert-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:8px;
+}
+
+/* 🔥 VERY CLOSE (≤1km) */
+.dot-danger{
+    background:red;
+    box-shadow:0 0 10px red;
     animation: blinkFast 0.5s infinite;
 }
 
-/* 🔴 1–3km - MEDIUM BLINK */
-.alert-warning{
-    border:2px solid #ff4d4d;
+/* ⚠ 1–3km */
+.dot-warning{
+    background:#ff4d4d;
+    box-shadow:0 0 8px #ff4d4d;
     animation: blinkMedium 1s infinite;
 }
 
-/* 🔴 5–10km - SLOW BLINK */
-.alert-light{
-    border:2px solid #ff9999;
+/* 🟡 5–10km */
+.dot-light{
+    background:#ff9999;
+    box-shadow:0 0 5px #ff9999;
     animation: blinkSlow 2s infinite;
 }
 
-/* 🔴 >10km - STATIC */
-.alert-normal{
-    border:2px solid #ff3b3b;
+/* 🔴 >10km (no blink) */
+.dot-normal{
+    background:#ff3b3b;
 }
 
 /* Animations */
 @keyframes blinkFast{
     0%,100%{opacity:1;}
-    50%{opacity:0.3;}
+    50%{opacity:0.2;}
 }
 
 @keyframes blinkMedium{
     0%,100%{opacity:1;}
-    50%{opacity:0.5;}
+    50%{opacity:0.4;}
 }
 
 @keyframes blinkSlow{
     0%,100%{opacity:1;}
-    50%{opacity:0.7;}
+    50%{opacity:0.6;}
 }
