@@ -1,0 +1,14 @@
+/* ================= MAP STYLE ================= */
+
+.map-wrapper{
+    position:relative;
+}
+
+#map{
+    width:calc(100% - 10px);
+    height:calc(100vh - 220px);
+    border-radius:14px;
+    margin:10px 5px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.5);
+    border:1px solid #222;
+}
