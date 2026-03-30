@@ -18,7 +18,7 @@ function getDistance(lat1, lon1, lat2, lon2) {
     return R * c;
 }
 
-// ✅ MOVE USER LOCATION OUTSIDE
+// ✅ USER LOCATION
 let userLat = null;
 let userLng = null;
 
@@ -52,59 +52,53 @@ async function loadNotifications(){
     data.forEach(item => {
 
         const card = document.createElement("div");
-        card.className = "notification-card ${alertClass}";
+        card.className = "notification-card";
 
-        // ✅ ADD DISTANCE CALCULATION
-
+        // ===============================
+        // 📏 DISTANCE + ALERT LEVEL
+        // ===============================
         let distanceText = "📏 Calculating...";
-let dotClass = "dot-normal";
-
-if(userLat !== null && userLng !== null){
-
-    const dist = getDistance(userLat, userLng, item.latitude, item.longitude);
-
-    // 📏 Distance text
-    distanceText = dist < 1
-        ? `📏 ${(dist * 1000).toFixed(0)} meters away`
-        : `📏 ${dist.toFixed(2)} km away`;
-
-    // 🚨 Alert levels
-    if(dist <= 1){
-        dotClass = "dot-danger";
-    }
-    else if(dist <= 3){
-        dotClass = "dot-warning";
-    }
-    else if(dist <= 10){
-        dotClass = "dot-light";
-    }
-    else{
-        dotClass = "dot-normal";
-    }
-}
+        let circleClass = "circle-normal";
 
         if(userLat !== null && userLng !== null){
+
             const dist = getDistance(userLat, userLng, item.latitude, item.longitude);
 
             distanceText = dist < 1
                 ? `📏 ${(dist * 1000).toFixed(0)} meters away`
                 : `📏 ${dist.toFixed(2)} km away`;
+
+            if(dist <= 1){
+                circleClass = "circle-danger";
+            }
+            else if(dist <= 3){
+                circleClass = "circle-warning";
+            }
+            else if(dist <= 10){
+                circleClass = "circle-light";
+            }
+            else{
+                circleClass = "circle-normal";
+            }
         }
 
+        // ===============================
+        // 🧱 CARD UI
+        // ===============================
         card.innerHTML = `
-    <div class="msg">
-    <span class="alert-dot ${dotClass}"></span>
-    🚨 ${item.message}
-</div>
-    <div class="time">🕒 ${new Date(item.created_at).toLocaleString()}</div>
-    <div class="time">📍 ${item.latitude}, ${item.longitude}</div>
-    <div class="time">${distanceText}</div>
+            <div class="msg">🚨 ${item.message}</div>
+            <div class="time">🕒 ${new Date(item.created_at).toLocaleString()}</div>
+            <div class="time">📍 ${item.latitude}, ${item.longitude}</div>
+            <div class="time">${distanceText}</div>
 
-    <div class="btn-group">
-        <button class="help-btn" onclick="openHelpPage(${item.latitude}, ${item.longitude})">Help</button>
-        <button class="sorry-btn" onclick="sendSorry()">Sorry</button>
-    </div>
-`;
+            <div class="btn-group">
+                <button class="help-btn" onclick="openHelpPage(${item.latitude}, ${item.longitude})">Help</button>
+                <button class="sorry-btn" onclick="sendSorry()">Sorry</button>
+            </div>
+
+            <!-- 🔴 BIG ALERT CIRCLE -->
+            <div class="alert-circle ${circleClass}">⚠️</div>
+        `;
 
         list.appendChild(card);
     });
