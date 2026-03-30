@@ -72,7 +72,7 @@ async function loadNotifications(){
     <div class="time">${distanceText}</div>
 
     <div class="btn-group">
-        <button class="help-btn" onclick="openHelpPage()">Help</button>
+        <button class="help-btn" onclick="openHelpPage(${item.latitude}, ${item.longitude})">Help</button>
         <button class="sorry-btn" onclick="sendSorry()">Sorry</button>
     </div>
 `;
@@ -88,8 +88,8 @@ setInterval(loadNotifications, 5000);
 loadNotifications();
 
 // 🆘 Help button
-function openHelpPage(){
-    window.location.href = "./help.html";
+function openHelpPage(lat, lng){
+    window.location.href = `./help.html?lat=${lat}&lng=${lng}`;
 }
 
 // 🙏 Sorry button
