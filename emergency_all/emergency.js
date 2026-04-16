@@ -3,6 +3,7 @@ let currentSOSId = null;
 let watchId = null;
 let helperMarkers = {};
 let helperRoutes = {};
+
 // ================= SHARE =================
 function shareSite(){
     const shareData = {
@@ -130,6 +131,14 @@ sosBtn.addEventListener("click", async () => {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
 
+        // ✅ Keep victim marker updated
+        if(userMarker){
+            map.removeLayer(userMarker);
+        }
+
+        userMarker = L.marker([lat, lng]).addTo(map)
+            .bindPopup("🚨 You (SOS)").openPopup();
+
         try {
 
             // FIRST TIME → INSERT
@@ -165,7 +174,10 @@ sosBtn.addEventListener("click", async () => {
                 }
 
                 currentSOSId = data.id;
+
+                // ✅ START HELPER TRACKING
                 trackHelpersLive();
+
                 alert("🚨 SOS Sent Successfully!");
                 sosBtn.innerText = "🚨";
 
@@ -200,6 +212,8 @@ sosBtn.addEventListener("click", async () => {
     });
 
 });
+
+// ================= TRACK HELPERS =================
 function trackHelpersLive(){
 
     setInterval(async () => {
