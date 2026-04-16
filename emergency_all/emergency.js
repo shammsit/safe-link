@@ -1,4 +1,4 @@
-let userMarker = null;
+
 let currentSOSId = null;
 let watchId = null;
 let helperMarkers = {};
@@ -37,7 +37,7 @@ updateClock();
 
 let map;
 
-// ================= MAP =================
+/* ================= MAP =================
 window.onload = function(){
     map = L.map('map').setView([22.5726, 88.3639], 13);
 
@@ -45,7 +45,7 @@ window.onload = function(){
         attribution: '&copy; OpenStreetMap',
     }).addTo(map);
 };
-
+*/
 function scrollBelowMap(){
     const target = document.querySelector('.emergency-box');
     if(target){
