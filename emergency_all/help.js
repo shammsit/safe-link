@@ -167,3 +167,5 @@ function getDistanceAndDirection(lat1, lon1, lat2, lon2){
 
     return { distance, bearing };
 }
+
+console.log("SOS ID:", sosId);

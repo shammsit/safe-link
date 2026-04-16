@@ -275,3 +275,4 @@ function trackHelpersLive(){
 
     }, 2000);
 }
+console.log("Sos ID:", currentSOSId);
