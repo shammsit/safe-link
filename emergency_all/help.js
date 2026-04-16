@@ -115,6 +115,7 @@ window.onload = function(){
             enableHighAccuracy: true
         });
     }
+    console.log("SOS ID:", sosId);
 };
 
 // ================= ROUTE =================
@@ -167,5 +168,3 @@ function getDistanceAndDirection(lat1, lon1, lat2, lon2){
 
     return { distance, bearing };
 }
-
-console.log("SOS ID:", sosId);
