@@ -83,7 +83,7 @@ window.onload = function(){
 
                 if (!helperID) {
 
-                    const { data } = await supabaseClient
+                    const { data, error } = await supabaseClient
                         .from("help_responses")
                         .insert([{
                             sos_id: sosId,
@@ -93,7 +93,10 @@ window.onload = function(){
                         }])
                         .select()
                         .single();
-
+                    if (error || !data) {
+                        console.error(error);
+                        return;
+                    }
                     helperID = data.id;
 
                 } else {

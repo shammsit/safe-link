@@ -83,7 +83,7 @@ async function loadNotifications(){
             <div class="time">${distanceText}</div>
 
             <div class="btn-group">
-                <button class="help-btn" onclick="openHelpPage(${item.latitude}, ${item.longitude})">Help</button>
+                <button class="help-btn" onclick="openHelpPage(${item.latitude}, ${item.longitude}, '${item.id}')">Help</button>
                 <button class="sorry-btn" onclick="sendSorry()">Sorry</button>
             </div>
 
