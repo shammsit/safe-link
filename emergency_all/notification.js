@@ -98,8 +98,8 @@ async function loadNotifications(){
 setInterval(loadNotifications, 5000);
 loadNotifications();
 
-function openHelpPage(lat, lng){
-    window.location.href = `./help.html?lat=${lat}&lng=${lng}`;
+function openHelpPage(lat, lng, sos_id){
+    window.location.href = `help.html?lat=${lat}&lng=${lng}&sos_id=${sos_id}`;
 }
 
 function sendSorry(){
