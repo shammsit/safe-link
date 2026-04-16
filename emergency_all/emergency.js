@@ -1,7 +1,8 @@
 let userMarker = null;
 let currentSOSId = null;
 let watchId = null;
-
+let helperMarkers = {};
+let helperRoutes = {};
 // ================= SHARE =================
 function shareSite(){
     const shareData = {
@@ -164,7 +165,7 @@ sosBtn.addEventListener("click", async () => {
                 }
 
                 currentSOSId = data.id;
-
+                trackHelpersLive();
                 alert("🚨 SOS Sent Successfully!");
                 sosBtn.innerText = "🚨";
 
@@ -199,3 +200,64 @@ sosBtn.addEventListener("click", async () => {
     });
 
 });
+function trackHelpersLive(){
+
+    setInterval(async () => {
+
+        if (!currentSOSId || !userMarker) return;
+
+        const { data } = await supabaseClient
+            .from("help_responses")
+            .select("*")
+            .eq("sos_id", currentSOSId);
+
+        data.forEach(helper => {
+
+            const id = helper.id;
+            const lat = helper.latitude;
+            const lng = helper.longitude;
+
+            // 🟢 MARKER
+            if (helperMarkers[id]) {
+                helperMarkers[id].setLatLng([lat, lng]);
+            } else {
+                const greenIcon = L.icon({
+                    iconUrl: "https://maps.google.com/mapfiles/ms/icons/green-dot.png",
+                    iconSize: [32, 32]
+                });
+
+                helperMarkers[id] = L.marker([lat, lng], { icon: greenIcon })
+                    .addTo(map);
+            }
+
+            // 📏 DISTANCE
+            const victim = userMarker.getLatLng();
+            const distance = map.distance(
+                [victim.lat, victim.lng],
+                [lat, lng]
+            );
+
+            helperMarkers[id].bindPopup(
+                `🟢 Helper<br>Distance: ${(distance/1000).toFixed(2)} km`
+            );
+
+            // 🛣 ROUTE LINE
+            if (helperRoutes[id]) {
+                helperRoutes[id].setLatLngs([
+                    [victim.lat, victim.lng],
+                    [lat, lng]
+                ]);
+            } else {
+                helperRoutes[id] = L.polyline([
+                    [victim.lat, victim.lng],
+                    [lat, lng]
+                ], {
+                    color: 'green',
+                    weight: 4
+                }).addTo(map);
+            }
+
+        });
+
+    }, 2000);
+}
