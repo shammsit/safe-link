@@ -1,4 +1,4 @@
-
+let userMarker = null;
 let currentSOSId = null;
 let watchId = null;
 let helperMarkers = {};
