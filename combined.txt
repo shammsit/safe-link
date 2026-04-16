@@ -1,0 +1,7361 @@
+===== create-notice.css =====
+/* ================= CONTAINER ================= */
+.notice-container{
+    max-width:720px;
+    margin:20px auto;
+    background:#1a1a1a;
+    padding:25px;
+    border-radius:14px;
+    box-shadow:0 0 20px rgba(0,0,0,0.6);
+}
+
+/* ================= TITLE ================= */
+.notice-title{
+    text-align:center;
+    margin-top:10px;
+}
+
+/* ================= FORM ================= */
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+    font-size:13px;
+    margin-bottom:6px;
+    color:#aaa;
+}
+
+/* ================= INPUT ================= */
+input, textarea, select{
+    width:100%;
+    padding:11px;
+    border-radius:8px;
+    border:1px solid #333;
+    background:#111;
+    color:#fff;
+    font-size:14px;
+    outline:none;
+    transition:0.2s;
+}
+
+input:focus, textarea:focus, select:focus{
+    border-color:#00ffcc;
+}
+
+/* ================= TEXTAREA ================= */
+textarea{
+    height:130px;
+    resize:none;
+}
+
+/* ================= CHECKBOX ================= */
+.check-group{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.check-group label{
+    font-size:13px;
+    color:#ccc;
+}
+
+/* ================= POST BUTTON ================= */
+.post-btn{
+    width:100%;
+    margin-top:10px;
+    padding:13px;
+
+    border-radius:10px;
+    border:1px solid rgba(0,255,200,0.2);
+
+    background:linear-gradient(145deg,#1f1f1f,#161616);
+    color:#fff;
+
+    font-size:15px;
+    font-weight:500;
+
+    cursor:pointer;
+    transition:all 0.25s ease;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.4);
+}
+
+.post-btn:hover{
+    color:#00ffcc;
+    transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(0,255,200,0.15);
+}
+
+.post-btn:active{
+    transform:scale(0.97);
+}
+
+/* ================= FOOTER ================= */
+.footer{
+    margin-top:30px;
+    padding:20px;
+    text-align:center;
+    color:#aaa;
+    border-top:1px solid #222;
+    font-size:14px;
+}
+
+.footer .sub{
+    font-size:12px;
+    color:#666;
+}
+
+.footer a{
+    color:#00ffcc;
+    text-decoration:none;
+}
+
+/* ================= ROW LAYOUT ================= */
+.form-row{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+/* make equal width */
+.form-row .form-group{
+    flex:1;
+    min-width: 0;
+}
+.form-group input[type="date"]{
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ================= TO CHECKBOX ALIGN ================= */
+.check-group{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    margin-top:5px;
+}
+
+/* ================= INLINE CHECK ================= */
+.inline-check{
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+/* ================= INPUT IMPROVE ================= */
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #333;
+    background:#111;
+    color:#fff;
+}
+
+/* ================= MOBILE FIX ================= */
+@media(max-width:500px){
+    .form-row{
+        flex-direction:column;
+    }
+}
+#userSelect{
+    min-height: 120px;
+}
+#userSelectGroup{
+    display:none;
+}
+
+.notice-card{
+    background:#111;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:12px;
+    border:1px solid #222;
+}
+
+.notice-card h3{
+    margin-bottom:6px;
+}
+
+.notice-actions{
+    margin-top:10px;
+    display:flex;
+    gap:10px;
+}
+
+.notice-actions button{
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    background:#222;
+    color:#fff;
+}
+
+.notice-actions button:hover{
+    background:#00ffcc;
+    color:#000;
+}
+
+/* MODAL BACKGROUND */
+.modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+}
+
+/* MODAL BOX */
+.modal-box{
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    width:300px;
+    box-shadow:0 0 20px rgba(0,0,0,0.6);
+}
+
+/* BUTTONS */
+.modal-actions{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+}
+
+.danger-btn{
+    background:#ff4d4d;
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
+    color:white;
+    cursor:pointer;
+}
+
+===== create-notice.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>New Notice - Safe Link</title>
+
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="create-notice.css">
+
+</head>
+<body>
+
+<!-- ================= TOP NAV ================= -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn" onclick="goAbout()">!</button>
+        <button class="nav-btn" onclick="goContact()">📞</button>
+        <button class="nav-btn" onclick="goNotification()">🔔</button>
+        <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="../logo.png">
+            <div class="logo-text">
+                <h2>ADMIN PANEL</h2>
+                <p>Safe Link</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminDisplay" class="user-email"></div>
+    <button class="side-btn" onclick="goDashboard();closeSidebar();">Dashboard</button>
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn" onclick="goAbout()">ℹ About</button>
+    <button class="side-btn" onclick="goContact()">📞 Contact Developer</button>
+    <button class="side-btn">💬 Feedback & Suggestions</button>
+    <button class="side-btn">📅 Conduct Meeting</button>
+    <button class="side-btn" onclick="goUsers();closeSidebar();">Show Users</button>
+    <button class="side-btn">📨 User Contact Messages</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <!-- LOGOUT -->
+    <button class="side-btn" onclick="logoutAdmin()">🚪 Logout</button>
+
+    <div id="adminFooter" style="
+        margin-top:20px;
+        padding:12px;
+        font-size:12px;
+        color:#888;
+        text-align:center;
+        border-top:1px solid #222;
+    "></div>
+
+</div>
+
+<!-- ================= MAIN ================= -->
+<div class="main">
+
+    <h1 class="notice-title">New Notice</h1>
+
+    <div class="notice-container">
+
+        <div class="form-group">
+            <label>Subject</label>
+            <input type="text" placeholder="Enter subject" id="subject">
+        </div>
+
+        <div class="form-group">
+
+    <div class="form-group">
+    
+
+    <div class="check-group">
+        To:
+        <label>
+            <input type="radio" name="target" value="registered"> Registered Users
+        </label>
+
+        <label>
+            <input type="radio" name="target" value="everyone"> Everyone
+        </label>
+
+        <label>
+            <input type="radio" name="target" value="specific"> Specific Users
+        </label>
+
+    </div>
+</div>
+
+        <div class="form-group" id="userSelectGroup">
+            <label>Select Users (Multiple)</label>
+            <select id="userSelect" multiple size="5">
+                <option>Loading users...</option>
+            </select>
+        </div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Date (Post)</label>
+        <input type="date" id="postDate">
+    </div>
+
+    <div class="form-group">
+        <label>Date (Expiry)</label>
+        <input type="date" id="expiryDate">
+    </div>
+</div>
+
+
+        <div class="form-group">
+            <label>Notice Content</label>
+            <textarea placeholder="Write your notice here..." id="content"></textarea>
+        </div>
+
+       <div class="form-row">
+
+    <div class="form-group">
+        <label>Attachment</label>
+        <input type="file" id="attachment">
+        <label>
+        <div id="filePreview" style="
+        margin-top:10px;">  </div>
+        </label>
+    </div>
+    
+
+    <div class="form-group inline-check">
+        <label>
+            <input type="checkbox" id="urgentCheck"> Urgent
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>By</label>
+        <input type="text" id="adminRoleField" readonly>
+    </div>
+
+</div>
+</div>
+        <!-- ✅ POST BUTTON -->
+        <button class="post-btn" onclick="postNotice()">🚀 Post Notice</button>
+
+    </div>
+
+</div>
+<!-- ================= ACTIVE NOTICES ================= -->
+<div class="notice-container">
+
+    <h2 style="margin-bottom:15px;">📢 Active Notices</h2>
+
+    <div id="noticeList">
+        Loading notices...
+    </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div class="sub">Designed & Developed by Tech Gen</div>
+    <div>
+        Contact: 
+        <a href="mailto:contact_us@techgen.online">contact_us@techgen.online</a>
+    </div>
+</footer>
+<!-- ================= SUPABASE ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+    "https://amvjwubiaedasynbiuua.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
+);
+</script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script src="../options.js"></script>
+<script src="create-notice.js"></script>
+<script src="../app.js"></script>
+<div id="deleteModal" class="modal">
+
+    <div class="modal-box">
+        <h3>⚠ Confirm Delete</h3>
+        <p>Are you sure you want to delete this notice?</p>
+
+        <div class="modal-actions">
+            <button onclick="confirmDelete()" class="danger-btn">Yes Delete</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+
+===== create-notice.js =====
+window.editingId = null; // ✅ GLOBAL EDITING ID
+
+// ================= ADMIN AUTH PROTECTION =================
+(function(){
+
+    const isLoggedIn = localStorage.getItem("adminLoggedIn");
+    const id = localStorage.getItem("adminId");
+
+    if(!isLoggedIn || !id){
+        window.location.replace("/login.html");
+    }
+
+})();
+
+
+// ================= SIDEBAR =================
+function toggleSidebar(){
+    const sidebar = document.getElementById("sidebar");
+    if(sidebar) sidebar.classList.toggle("active");
+}
+
+function closeSidebar(){
+    const sidebar = document.getElementById("sidebar");
+    if(sidebar) sidebar.classList.remove("active");
+}
+
+
+// ================= NAV =================
+function goHome(){
+    window.location.href = "/";
+}
+
+function goDashboard(){
+    window.location.href = "/admin/dashboard.html";
+}
+
+function goAbout(){
+    window.location.href = "/about.html";
+}
+
+function goContact(){
+    window.location.href = "https://techgen.online";
+}
+
+function goBack(){
+    window.history.back();
+}
+
+
+// ================= LOGOUT =================
+function logoutAdmin(){
+
+    localStorage.removeItem("adminLoggedIn");
+    localStorage.removeItem("adminId");
+    localStorage.removeItem("adminName");
+
+    window.location.replace("/login.html");
+}
+
+
+// ================= LOAD USERS =================
+async function loadUsers(){
+
+    const select = document.getElementById("userSelect");
+
+    if(!select) return;
+
+    try{
+
+        const { data, error } = await supabaseClient
+            .from("profiles")
+            .select("id, name");
+
+        if(error){
+            console.error("Fetch error:", error);
+            select.innerHTML = "<option>Error loading users</option>";
+            return;
+        }
+
+        if(!data || data.length === 0){
+            select.innerHTML = "<option>No users found</option>";
+            return;
+        }
+
+        select.innerHTML = "";
+
+        data.forEach(user => {
+            const option = document.createElement("option");
+            option.value = user.id;
+            option.textContent = user.name;
+            select.appendChild(option);
+        });
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+// ================= LOAD ADMIN ROLE =================
+async function loadAdminRole(){
+
+    const adminId = localStorage.getItem("adminId");
+    const field = document.getElementById("adminRoleField"); // ✅ ADD THIS
+
+    if(!adminId || !field) return;
+
+    try{
+        const { data, error } = await supabaseClient
+            .from("admins")
+            .select("admin_role")
+            .eq("admin_id", adminId)
+            .single();
+
+        if(error){
+            console.error(error);
+            field.value = "ADMIN";
+            return;
+        }
+
+        field.value = data.admin_role.toUpperCase(); // ✅ SHOW VALUE
+
+    }catch(err){
+        console.error(err);
+        field.value = "ADMIN";
+    }
+}
+
+// ================= INIT (MERGED FIX) =================
+document.addEventListener("DOMContentLoaded", () => {
+
+    const sidebar = document.getElementById("sidebar");
+    if(sidebar) sidebar.classList.remove("active");
+
+    loadUsers();        // ✅ users dropdown
+    loadAdminRole();    // ✅ admin role
+    loadNotices();      // ✅ active notices
+
+});
+
+
+// ================= OUTSIDE CLICK CLOSE =================
+document.addEventListener("click", (e) => {
+
+    const sidebar = document.getElementById("sidebar");
+    if(!sidebar) return;
+
+    const isClickInside = sidebar.contains(e.target);
+    const isMenuBtn = e.target.closest(".nav-btn");
+
+    if(
+        sidebar.classList.contains("active") &&
+        !isClickInside &&
+        !isMenuBtn
+    ){
+        sidebar.classList.remove("active");
+    }
+});
+
+// ================= TOGGLE USER SELECT =================
+function handleTargetChange(){
+
+    const selected = document.querySelector('input[name="target"]:checked');
+    const userGroup = document.getElementById("userSelectGroup");
+
+    if(!selected || !userGroup) return;
+
+    if(selected.value === "specific"){
+        userGroup.style.display = "block";   // ✅ show
+    }else{
+        userGroup.style.display = "none";    // ✅ hide
+    }
+}
+
+
+// ================= INIT =================
+document.addEventListener("DOMContentLoaded", () => {
+
+    const radios = document.querySelectorAll('input[name="target"]');
+
+    radios.forEach(radio => {
+        radio.addEventListener("change", handleTargetChange);
+    });
+
+    handleTargetChange(); // ✅ run on load
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const select = document.getElementById("userSelect");
+
+    if(!select) return;
+
+    select.addEventListener("mousedown", function(e){
+        e.preventDefault();
+
+        const option = e.target;
+
+        if(option.tagName === "OPTION"){
+            option.selected = !option.selected; // toggle selection
+        }
+    });
+
+});
+console.log("Editing ID (before):", window.editingId); // 🔍 debug
+async function postNotice(){
+    
+
+    try{
+
+        let isEdit = window.editingId != null;
+        const subject = document.querySelector("input[type='text']").value;
+        const content = document.querySelector("textarea").value;
+
+        const postDate = document.querySelectorAll("input[type='date']")[0].value;
+        const expiryDate = document.querySelectorAll("input[type='date']")[1].value;
+
+        const urgent = document.querySelector("#urgentCheck")?.checked || false;
+
+        const admin = document.getElementById("adminRoleField").value;
+
+        // ✅ TARGET
+        const target = document.querySelector("input[name='target']:checked")?.value;
+
+        let userIds = [];
+
+        if(target === "specific"){
+            const select = document.getElementById("userSelect");
+            userIds = Array.from(select.selectedOptions).map(opt => opt.value);
+        }
+
+        // 🔥 FILE
+        const fileInput = document.getElementById("attachment");
+        const file = fileInput.files[0];
+
+        let attachment_url = null;
+
+        if(file){
+
+            const fileName = Date.now() + "_" + file.name;
+
+            const { error: uploadError } = await supabaseClient.storage
+                .from("notice-files")
+                .upload(fileName, file);
+
+            if(uploadError){
+                console.error(uploadError);
+                alert("❌ File upload failed");
+                return;
+            }
+
+            const { data: publicUrl } = supabaseClient.storage
+                .from("notice-files")
+                .getPublicUrl(fileName);
+
+            attachment_url = publicUrl.publicUrl;
+        }
+
+        // ================= EDIT =================
+        if(isEdit){
+
+    const { data, error } = await supabaseClient
+        .from("notices")
+        .update({
+            subject: subject,
+            content: content,
+            post_date: postDate,
+            expiry_date: expiryDate || null,
+            urgent: urgent,
+            is_urgent: urgent, // 🔥 IMPORTANT
+            target: target,
+            target_type: target,
+            user_ids: userIds.length ? userIds : null,
+            target_users: userIds.length ? userIds : null
+        })
+        .eq("id", window.editingId)
+        .select(); // 🔥 IMPORTANT (forces return)
+
+    console.log("UPDATE RESPONSE:", data, error);
+
+    if(error){
+        console.error(error);
+        alert("❌ Update failed");
+        return;
+    }
+
+    if(!data || data.length === 0){
+        alert("⚠ Update blocked (RLS issue)");
+        return;
+    }
+
+    alert("✅ Notice Updated");
+
+    window.editingId = null;
+
+    // clear form
+    document.getElementById("subject").value = "";
+    document.getElementById("content").value = "";
+    document.getElementById("postDate").value = "";
+    document.getElementById("expiryDate").value = "";
+    document.getElementById("urgentCheck").checked = false;
+
+} 
+        // ================= INSERT =================
+        else{
+
+            const { error } = await supabaseClient
+                .from("notices")
+                .insert([{
+                    subject,
+                    content,
+                    post_date: postDate,
+                    expiry_date: expiryDate || null,
+                    urgent,
+                    is_urgent: urgent,
+                    created_by: admin,
+                    target: target,
+                    target_type: target,
+                    user_ids: userIds.length ? userIds : null,
+                    target_users: userIds.length ? userIds : null,
+                    attachment_url
+                }]);
+
+            if(error){
+                console.error(error);
+                alert("❌ Error posting notice");
+                return;
+            }
+
+            alert("✅ Notice Posted Successfully");
+        }
+
+        // ✅ IMPORTANT (after both cases)
+        loadNotices();
+
+    }catch(err){
+        console.error(err);
+        alert("❌ Unexpected error");
+    }
+}
+document.addEventListener("DOMContentLoaded", () => {
+
+    const radios = document.querySelectorAll("input[name='target']");
+    const userBox = document.getElementById("userSelectGroup");
+
+    function toggleUsers(){
+        const selected = document.querySelector("input[name='target']:checked")?.value;
+
+        if(selected === "specific"){
+            userBox.style.display = "block";
+        } else {
+            userBox.style.display = "none";
+        }
+    }
+
+    radios.forEach(r => r.addEventListener("change", toggleUsers));
+
+    toggleUsers(); // initial
+});
+
+async function uploadFile(file){
+
+    if(!file) return null;
+
+    const fileName = Date.now() + "_" + file.name;
+
+    const { data, error } = await supabaseClient.storage
+        .from("notice-files")
+        .upload(fileName, file);
+
+    if(error){
+        console.error("Upload error:", error);
+        return null;
+    }
+
+    // ✅ GET PUBLIC URL
+    const { data: publicUrl } = supabaseClient.storage
+        .from("notice-files")
+        .getPublicUrl(fileName);
+
+    return publicUrl.publicUrl;
+}
+
+const fileInput = document.getElementById("attachment");
+const previewBox = document.getElementById("filePreview");
+
+fileInput.addEventListener("change", () => {
+
+    const file = fileInput.files[0];
+    previewBox.innerHTML = "";
+
+    if(!file) return;
+
+    const size = (file.size / 1024).toFixed(2) + " KB";
+
+    previewBox.innerHTML = `
+        📎 ${file.name} (${size})
+    `;
+});
+
+// ================= LOAD NOTICES =================
+async function loadNotices(){
+
+    const container = document.getElementById("noticeList");
+
+    if(!container) return;
+
+    try{
+
+        const { data, error } = await supabaseClient
+            .from("notices")
+            .select("*")
+            .order("post_date", { ascending: false });
+
+            window.allNotices = data; // store globally for editing
+
+        if(error){
+            console.error(error);
+            container.innerHTML = "Error loading notices";
+            return;
+        }
+
+        if(!data || data.length === 0){
+            container.innerHTML = "No notices found";
+            return;
+        }
+
+        let html = "";
+
+        data.forEach(notice => {
+
+            html += `
+                <div class="notice-card">
+
+                    <h3>${notice.subject}</h3>
+
+                    <p>${notice.content}</p>
+
+                    <small>
+                        📅 ${notice.post_date || "N/A"}
+                        ${notice.urgent ? " | 🔥 Urgent" : ""}
+                    </small>
+
+                    <br>
+
+                    ${
+                        notice.attachment_url
+                        ? `<a href="${notice.attachment_url}" target="_blank">📎 Attachment</a>`
+                        : ""
+                    }
+
+                    <div class="notice-actions">
+                        <button onclick="editNotice('${notice.id}')">✏ Edit</button>
+                        <button onclick="deleteNotice('${notice.id}')">🗑 Delete</button>
+                    </div>
+
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+let deleteId = null;
+
+function deleteNotice(id){
+    deleteId = id;
+    document.getElementById("deleteModal").style.display = "flex";
+}
+
+function closeModal(){
+    document.getElementById("deleteModal").style.display = "none";
+    deleteId = null;
+}
+
+async function confirmDelete(){
+
+    if(!deleteId) return;
+
+    const { error } = await supabaseClient
+        .from("notices")
+        .delete()
+        .eq("id", deleteId);
+
+    if(error){
+        console.error(error);
+        alert("❌ Delete failed");
+        return;
+    }
+
+    closeModal();
+    alert("✅ Deleted");
+    loadNotices();
+}
+console.log("Editing ID (before):", window.editingId); // 🔍 debug
+function editNotice(id){
+console.log("Editing ID :", window.editingId); // 🔍 debug
+    console.log("Clicked Edit ID:", id); // 🔍 debug
+
+    const notice = window.allNotices.find(n => n.id == id);
+
+    if(!notice){
+        alert("Notice not found");
+        return;
+    }
+
+    // ✅ SET EDITING ID (IMPORTANT FIX)
+    window.editingId = id;
+
+    console.log("Editing ID SET:", window.editingId); // 🔍 debug
+
+    // Fill form
+    document.getElementById("subject").value = notice.subject;
+    document.getElementById("content").value = notice.content;
+    document.getElementById("postDate").value = notice.post_date;
+    document.getElementById("expiryDate").value = notice.expiry_date || "";
+    document.getElementById("urgentCheck").checked = notice.urgent;
+
+    // Scroll up
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+===== dashboard.css =====
+/* ================= GLOBAL ================= */
+body{
+    background:#0d0d0d;
+    color:white;
+    margin:0;
+    font-family: Arial, sans-serif;
+    overflow-x:hidden; /* ❌ FIX horizontal scroll */
+}
+
+/* ================= HEADER ================= */
+.top-nav{
+    flex-wrap: wrap ;
+    padding: 8px 10px;
+}
+
+.top-nav button{
+    margin:5px;
+    padding:8px 10px;
+    background:#222;
+    color:white;
+    border:none;
+    cursor:pointer;
+    border-radius:6px;
+    transition:0.2s;
+    font-size:14px;
+}
+
+.top-nav button:hover{
+    background:#333;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar{
+    position:fixed;
+    left:-100%; /* ✅ FULLY HIDDEN */
+    top:60px;
+    width:75%;
+    max-width:260px;
+    height:calc(100vh - 60px);
+    background:#1a1a1a;
+    padding:12px;
+    transition:0.3s ease;
+    z-index:1000;
+    overflow-y:auto;
+}
+
+/* OPEN */
+.sidebar.active{
+    left:0;
+}
+
+/* SCROLL */
+.sidebar::-webkit-scrollbar{
+    width:4px;
+}
+.sidebar::-webkit-scrollbar-thumb{
+    background:#444;
+    border-radius:5px;
+}
+
+/* SIDEBAR BUTTONS */
+.sidebar button{
+    width:100%;
+    margin:8px 0;
+    padding:10px;
+    background:#222;
+    color:white;
+    border:none;
+    cursor:pointer;
+    text-align:left;
+    border-radius:8px;
+    transition:0.2s;
+    font-size:14px;
+}
+
+.sidebar button:hover{
+    background:#333;
+}
+
+/* SIDEBAR HEADER */
+.sidebar-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.sidebar-logo img{
+    width:40px;
+    height:40px;
+}
+
+/* ================= MAIN ================= */
+.main{
+    margin-top:70px;
+    padding:15px;
+    text-align:center;
+    transition:0.3s;
+}
+
+/* ❌ REMOVE PUSH EFFECT ON MOBILE */
+@media (min-width: 768px){
+    .sidebar.active ~ .main{
+        margin-left:260px;
+    }
+}
+
+/* ================= CARD ================= */
+.card{
+    margin-top:15px;
+    padding:15px;
+    background:#1a1a1a;
+    border-radius:12px;
+    box-shadow:0 0 12px rgba(0,0,0,0.6);
+}
+
+/* ================= RUNNING TEXT ================= */
+.admin-marquee{
+    width:100%;
+    overflow:hidden;
+    white-space:nowrap;
+    position:relative;
+
+    font-size:15px;
+    font-weight:600;
+
+    background:#1a1a1a;
+    padding:10px;
+    border-radius:10px;
+
+    color:#00ffcc;
+}
+
+.admin-marquee span{
+    display:inline-block;
+    padding-left:100%;
+    animation:scrollText 10s linear infinite;
+}
+
+@keyframes scrollText{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-100%); }
+}
+
+/* ================= ACTION BUTTONS ================= */
+.admin-actions{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+}
+
+@media (min-width:600px){
+    .admin-actions{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media (min-width:1000px){
+    .admin-actions{
+        grid-template-columns:1fr 1fr 1fr;
+    }
+}
+
+/* ================= ADMIN BUTTON ================= */
+.admin-btn{
+    padding:14px;
+    font-size:14px;
+    font-weight:500;
+
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.08);
+
+    background:#1a1a1a;
+    color:#e6e6e6;
+
+    cursor:pointer;
+    transition:all 0.25s ease;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    /* ✨ professional depth */
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* hover */
+.admin-btn:hover{
+    background:#222;
+    color:#00ffcc;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 6px 20px rgba(0,255,200,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* click */
+.admin-btn:active{
+    transform:scale(0.97);
+}
+/* COLORS */
+.admin-btn.primary{ border:1px solid rgba(0,255,200,0.2); }
+.admin-btn.warning{ color:#ffd166; }
+.admin-btn.success{ color:#4caf50; }
+.admin-btn.info{ color:#4dabf7; }
+.admin-btn.star{ color:#facc15; }
+
+/* LOGOUT */
+.logout-btn{
+    border:1px solid rgba(255,0,0,0.4);
+    color:#ff4d4d;
+    background:linear-gradient(145deg,#1a1a1a,#140000);
+}
+
+.logout-btn:hover{
+    background:linear-gradient(145deg,#220000,#1a0000);
+    color:#ff6b6b;
+    box-shadow:0 6px 18px rgba(255,0,0,0.25);
+}
+
+/* FOOTER */
+#adminFooter{
+    margin-top:20px;
+    padding:12px;
+    font-size:12px;
+    color:#888;
+    text-align:center;
+    border-top:1px solid #222;
+}
+
+
+/* ================= USERS PAGE ================= */
+
+.users-container{
+    margin-top:20px;
+    display:grid;
+    gap:15px;
+}
+
+.user-card{
+    padding:15px;
+    background:#1a1a1a;
+    border-radius:12px;
+    text-align:left;
+
+    border:1px solid rgba(255,255,255,0.05);
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.5);
+}
+
+.user-card h3{
+    margin:0 0 8px;
+    color:#00ffcc;
+}
+
+.user-card p{
+    margin:4px 0;
+    color:#aaa;
+    font-size:13px;
+}
+
+===== dashboard.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- 🔒 PREVENT BACK CACHE -->
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>Admin Dashboard - Safe Link</title>
+
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="dashboard.css">
+
+</head>
+<body>
+
+<!-- ================= TOP NAV ================= -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn" onclick="goAbout()">!</button>
+        <button class="nav-btn" onclick="goContact()">📞</button>
+        <button class="nav-btn" onclick="goNotification()">🔔</button>
+        <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="../logo.png">
+            <div class="logo-text">
+                <h2>ADMIN PANEL</h2>
+                <p>Safe Link</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminDisplay" class="user-email"></div>
+
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn" onclick="goAbout()">ℹ About</button>
+    <button class="side-btn" onclick="goContact()">📞 Contact Developer</button>
+    <button class="side-btn">💬 Feedback & Suggestions</button>
+    <button class="side-btn">📅 Conduct Meeting</button>
+    <button class="side-btn" onclick="goNotice();closeSidebar();">🔔 Give Notification</button>
+    <button class="side-btn">📨 User Contact Messages</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <!-- LOGOUT -->
+    <button class="side-btn" onclick="logoutAdmin()">🚪 Logout</button>
+
+    <div id="adminFooter" style="
+        margin-top:20px;
+        padding:12px;
+        font-size:12px;
+        color:#888;
+        text-align:center;
+        border-top:1px solid #222;
+    "></div>
+
+</div>
+
+<!-- ================= PAGE CONTENT ================= -->
+<div class="main">
+
+    <h1>Welcome Admin</h1>
+
+    <div style="
+        margin-top:20px;
+        padding:20px;
+        background:#1a1a1a;
+        border-radius:12px;
+        display:inline-block;
+        min-width:280px;
+    ">
+        <div id="adminInfo"></div>
+    </div>
+
+</div>
+
+<!-- ================= ACTION BUTTONS ================= -->
+<div class="admin-actions">
+
+    <button class="admin-btn primary" onclick="goUsers()">👥 Show Users</button>
+<button class="admin-btn" onclick="showFeedbacks()">💬 Feedbacks & Suggestions</button>
+<button class="admin-btn" onclick="conductMeeting()">📅 Conduct Meeting</button>
+<button class="admin-btn warning" onclick="goNotice()">🔔 Notice</button>
+<button class="admin-btn" onclick="showMessages()">📨 User Messages</button>
+<button class="admin-btn" onclick="goContact()">📞 Contact Developer</button>
+<button class="admin-btn" onclick="showRatings()">⭐ Show Ratings</button>
+<button class="admin-btn logout-btn" onclick="logoutAdmin()">🚪 Logout</button>
+
+</div>
+
+<!-- ================= SUPABASE ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+    "https://amvjwubiaedasynbiuua.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
+);
+</script>
+
+<script src="../options.js"></script>
+<script src="dashboard.js"></script>
+<script src="../app.js"></script>
+
+<!-- ================= FOOTER (FIXED POSITION) ================= -->
+<footer style="
+    margin-top:30px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div style="font-size:13px;color:#666;">Designed & Developed by Tech Gen</div>
+    <div>
+        <a href="mailto:contact_us@techgen.online" style="color:#0c5e79;">
+            contact_us@techgen.online
+        </a>
+    </div>
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
+
+===== dashboard.js =====
+/* ================= SECURITY ================= */
+
+function forceLogout(){
+    localStorage.clear();
+    window.location.replace("/login.html"); // 🔒 prevents back
+}
+
+
+/* ================= LOAD ADMIN ================= */
+
+async function loadAdmin(){
+
+    const adminId = localStorage.getItem("adminId");
+    const adminName = localStorage.getItem("adminName") || adminId;
+
+    const welcome = document.querySelector("h1");
+    const adminDisplay = document.getElementById("adminDisplay");
+    const adminInfo = document.getElementById("adminInfo");
+
+    if(!adminId) return;
+
+    // ✅ Set Welcome Text
+    if(welcome){
+        welcome.innerText = "Welcome " + adminName;
+    }
+
+    // ✅ Sidebar display
+    if(adminDisplay){
+        adminDisplay.innerHTML = `
+            👤 ${adminName}
+        `;
+    }
+
+    // ✅ Main info box
+    if(adminInfo){
+        adminInfo.innerHTML = `
+            <p><strong>Admin ID:</strong> ${adminId}</p>
+        `;
+    }
+}
+/* ================= SIDEBAR ================= */
+
+function toggleSidebar(){
+    const sidebar = document.getElementById("sidebar");
+    if(sidebar){
+        sidebar.classList.toggle("active");
+    }
+}
+
+function closeSidebar(){
+    const sidebar = document.getElementById("sidebar");
+    if(sidebar){
+        sidebar.classList.remove("active");
+    }
+}
+
+
+/* ================= NAV ================= */
+
+function goHome(){
+    window.location.href = "/";
+}
+
+function goAbout(){
+    window.location.href = "/about.html";
+}
+
+function goContact(){
+    window.location.href = "https://techgen.online";
+}
+
+function goBack(){
+    window.history.back();
+}
+
+
+/* ================= LOGOUT ================= */
+
+function logoutAdmin(){
+
+    localStorage.removeItem("adminLoggedIn");
+    localStorage.removeItem("adminId");
+    localStorage.removeItem("adminName");
+
+    window.location.replace("/login.html"); // 🔒 FIX
+}
+
+
+/* ================= INIT ================= */
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    const sidebar = document.getElementById("sidebar");
+
+    if(sidebar){
+        sidebar.classList.remove("active");
+    }
+
+    loadAdmin();
+});
+
+
+/* ================= BACK BUTTON BLOCK ================= */
+
+window.addEventListener("pageshow", function(e){
+    if(e.persisted){
+        forceLogout();
+    }
+});
+
+
+/* ================= SESSION CHECK ================= */
+
+setInterval(() => {
+    if(localStorage.getItem("adminLoggedIn") !== "true"){
+        forceLogout();
+    }
+}, 2000);
+
+
+/* ================= OUTSIDE CLICK CLOSE ================= */
+
+document.addEventListener("click", (e) => {
+
+    const sidebar = document.getElementById("sidebar");
+
+    if(!sidebar) return;
+
+    const isClickInside = sidebar.contains(e.target);
+    const isMenuBtn = e.target.closest(".nav-btn");
+
+    if(
+        sidebar.classList.contains("active") &&
+        !isClickInside &&
+        !isMenuBtn
+    ){
+        sidebar.classList.remove("active");
+    }
+});
+
+
+/* ================= ADMIN ACTION BUTTONS ================= */
+
+function showUsers(){
+    alert("Users panel coming soon");
+}
+
+function showFeedbacks(){
+    alert("Feedback system coming soon");
+}
+
+function conductMeeting(){
+    alert("Meeting system coming soon");
+}
+
+function sendNotice(){
+    alert("Notice system coming soon");
+}
+
+function showMessages(){
+    alert("User messages coming soon");
+}
+
+function showRatings(){
+    alert("Ratings system coming soon");
+}
+function goUsers(){
+    window.location.href = "/admin/users.html";
+}
+
+function goDashboard(){
+    window.location.href = "/admin/dashboard.html";
+}
+
+function goNotice(){
+    window.location.href = "/admin/create-notice.html";
+}
+
+===== users.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Users - Safe Link</title>
+
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="dashboard.css">
+
+</head>
+<body>
+
+<!-- ================= TOP NAV ================= -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn" onclick="goAbout()">!</button>
+        <button class="nav-btn" onclick="goContact()">📞</button>
+        <button class="nav-btn" onclick="goNotification()">🔔</button>
+        <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="../logo.png">
+            <div class="logo-text">
+                <h2>ADMIN PANEL</h2>
+                <p>Safe Link</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminDisplay" class="user-email"></div>
+    <button class="side-btn" onclick="goDashboard();closeSidebar();">Dashboard</button>
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn" onclick="goAbout()">ℹ About</button>
+    <button class="side-btn" onclick="goContact()">📞 Contact Developer</button>
+    <button class="side-btn">💬 Feedback & Suggestions</button>
+    <button class="side-btn">📅 Conduct Meeting</button>
+    <button class="side-btn" onclick="goNotice();closeSidebar();">🔔 Give Notification</button>
+    <button class="side-btn">📨 User Contact Messages</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <!-- LOGOUT -->
+    <button class="side-btn" onclick="logoutAdmin()">🚪 Logout</button>
+
+    <div id="adminFooter" style="
+        margin-top:20px;
+        padding:12px;
+        font-size:12px;
+        color:#888;
+        text-align:center;
+        border-top:1px solid #222;
+    "></div>
+
+</div>
+
+<!-- ================= MAIN ================= -->
+<div class="main">
+
+    <h1>Registered Users</h1>
+
+    <div id="usersList" class="users-container"></div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer style="
+    margin-top:30px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    border-top:1px solid #222;
+">
+    © Safe Link
+</footer>
+
+<!-- ================= SUPABASE ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+    "https://amvjwubiaedasynbiuua.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
+);
+</script>
+
+<script src="users.js"></script>
+<script src="dashboard.js"></script>
+<script src="../options.js"></script>
+<script src="../app.js"></script>
+</body>
+</html>
+
+===== users.js =====
+/* ================= AUTH CHECK ================= */
+
+(function(){
+    const isLoggedIn = localStorage.getItem("adminLoggedIn");
+
+    if(!isLoggedIn){
+        window.location.replace("/login.html");
+    }
+
+    // ❌ prevent back access
+    window.history.pushState(null,null,location.href);
+    window.onpopstate = () => {
+        window.location.replace("/login.html");
+    };
+})();
+
+
+/* ================= LOAD USERS ================= */
+
+async function loadUsers(){
+
+    const container = document.getElementById("usersList");
+
+    try{
+        const { data, error } = await supabaseClient
+            .from("profiles")   // 👈 your users table
+            .select("name,email,phone")
+            .order("name", { ascending: true });
+
+        if(error){
+            console.error(error);
+            return;
+        }
+
+        if(!data || data.length === 0){
+            container.innerHTML = "<p>No users found</p>";
+            return;
+        }
+
+        container.innerHTML = data.map(user => `
+            <div class="user-card">
+                <h3>${user.name}</h3>
+
+                <p>🔒 ${maskData(user.email)}</p>
+                <p>🔒 ${maskData(user.phone)}</p>
+            </div>
+        `).join("");
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+/* ================= ENCRYPT / MASK ================= */
+
+function maskData(value){
+    if(!value) return "Hidden";
+
+    const str = value.toString();
+
+    if(str.length <= 4) return "****";
+
+    return str.substring(0,2) + "****" + str.substring(str.length - 2);
+}
+
+
+/* ================= INIT ================= */
+loadUsers();
+
+
+===== dashboard.css =====
+.dashboard-container{
+    padding:40px;
+    text-align:center;
+}
+
+.dashboard-box{
+    background:#1a1a1a;
+    padding:25px;
+    border-radius:12px;
+    margin-top:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.6);
+}
+
+.main-content{
+    padding:110px 16px 20px;
+    text-align:center;
+    max-width:100%;
+    margin: auto;
+}
+
+===== dashboard.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Dashboard - Safe Link</title>
+
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+
+</head>
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+    <audio id="heartbeatSound"
+    src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-1055.mp3"
+    preload="auto"></audio>
+</div>
+
+<!-- ================= TOP NAV ================= -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button id="headerProfileBtn" class="nav-btn" onclick="goProfile()">👤</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn" onclick="goAbout()">!</button>
+        <button class="nav-btn">📞</button>
+        <button class="nav-btn" onclick="goNotification()">🔔</button>
+        <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="../logo.png" alt="Safe Link Logo">
+            <div class="logo-text">
+                <h2>SAFE LINK</h2>
+                <p>Tech Gen</p>
+            </div>
+        </div>
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <!-- AUTH BLOCK -->
+    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <!-- ALL OPTIONS -->
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button class="side-btn" onclick="goEmergency();closeSidebar();">🚨 Emergency Alert</button>
+    <button class="side-btn">🚨 Emergency without Login</button>
+    <button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
+    <button class="side-btn">⚙ Settings</button>
+    <button class="side-btn">🔔 Notification</button> <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+
+    <button class="side-btn">🔍 Search</button>
+   <button class="side-btn" onclick="goAbout()">ℹ About</button>
+    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+    <button class="side-btn">📞 Contact Us</button>
+    <button class="side-btn">💬 Feedback / Suggestion</button>
+    <button class="side-btn">📅 Meeting</button>
+    <button class="side-btn">📢 Report</button>
+
+    <button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+
+    <div class="sidebar-footer">
+        Thank you for using our app ❤️
+    </div>
+
+</div>
+
+<!-- ================= DASHBOARD CONTENT ================= -->
+<div class="main-content"
+    <h1>Welcome to Safe Link</h1>
+
+<div style="margin-top:20px;">
+    <button onclick="goEmergency()" style="
+        padding:12px 30px;
+        background:#e53935;
+        color:white;
+        border:none;
+        border-radius:5px;
+        font-size:16px;
+        cursor:pointer;
+    ">
+        🚨 Emergency Alert System
+    </button>
+</div>
+
+
+    <p style="margin-top:20px; font-size:18px;">
+        Your account has been successfully verified.
+    </p>
+
+    <p style="margin-top:15px; color:#ccc;">
+        Our dashboard features are currently under development.
+        More updates and powerful tools are coming soon.
+    </p>
+
+    <p style="margin-top:25px;">
+        Thank you for your interest ❤️
+    </p>
+</div>
+
+
+
+
+<!-- ================= ADD SUPABASE ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+</script>
+
+<script src="../options.js"></script>
+<script src="../app.js"></script>
+<!-- ================= PROTECT DASHBOARD (SUPABASE) ================= -->
+
+<script>
+async function checkUser(){
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    if(!user){
+        window.location.href = "../login.html";
+    } else {
+        const emailDisplay = document.getElementById("userEmailDisplay");
+        if(emailDisplay){
+            emailDisplay.innerText = "Logged in: " + user.email;
+        }
+    }
+}
+
+checkUser();
+</script>
+
+<!-- ================= PROFESSIONAL FOOTER ================= -->    
+<footer style="    
+    margin-top:30px;    
+    padding:25px 0;    
+    background:#0d0d0d;    
+    color:#aaa;    
+    text-align:center;    
+    font-size:14px;    
+    border-top:1px solid #222;    
+">    
+    <div style="margin-bottom:8px;">    
+        © <span id="year"></span> Safe Link. All Rights Reserved.    
+    </div>    
+    <div style="font-size:13px; color:#666;">    
+        Designed & Developed by Tech Gen    
+    </div>    
+    <div style="margin-bottom:8px;">    
+        Contact Us:    
+        <a href="mailto:contact_us@techgen.online"    
+           style="color:#0c5e79; text-decoration:none;">    
+           contact_us@techgen.online    
+        </a>    
+    </div>    
+</footer>
+
+===== dashboard.js =====
+const adminName = localStorage.getItem("adminName");
+const adminId = localStorage.getItem("adminId");
+const welcomeText = document.querySelector("h1");
+const adminInfo = document.getElementById("adminInfo");
+const adminDisplay = document.getElementById("adminDisplay");
+// ✅ SET NAME IN HEADER
+if(adminName){
+    welcomeText.innerText = "Welcome " + adminName;
+} else {
+    welcomeText.innerText = "Welcome " + adminId;
+}
+// ✅ SHOW IN BOX
+if(adminInfo){
+    adminInfo.innerHTML = `
+        <b>Name:</b> ${adminName || "N/A"} <br>
+        <b>Admin ID:</b> ${adminId}
+    `;
+}
+// ✅ SHOW IN SIDEBAR
+if(adminDisplay){
+    adminDisplay.innerText = adminName || adminId;
+}
+function logoutUser(){
+    auth.signOut().then(()=>{
+        window.location.href="../login.html";
+    });
+}
+
+===== emergency.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Emergency Alert - Safe Link</title>
+
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+
+<script>
+let map;
+let marker;
+
+window.initMap = function () {
+
+    const defaultLocation = { lat: 22.5726, lng: 88.3639 };
+
+    map = new google.maps.Map(
+        document.getElementById("map"),
+        {
+            zoom: 14,
+            center: defaultLocation
+        }
+    );
+
+    marker = new google.maps.Marker({
+        position: defaultLocation,
+        map: map,
+        icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+    });
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+            const userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            map.setCenter(userLocation);
+            marker.setPosition(userLocation);
+        });
+    }
+};
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE4YGmA3rvJJ43kUARokA3NPQSVFM3AGE&callback=initMap"></script>
+
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+</div>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button id="headerProfileBtn" class="nav-btn" onclick="goProfile()">👤</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn" onclick="goAbout()">!</button>
+        <button class="nav-btn">📞</button>
+        <button class="nav-btn" onclick="goNotification()">🔔</button>
+        <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="../logo.png" alt="Safe Link Logo">
+            <div class="logo-text">
+                <h2>SAFE LINK</h2>
+                <p>Tech Gen</p>
+            </div>
+        </div>
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <button class="side-btn side-btn-dashboard" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-logout" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button class="side-btn">🚨 Emergency without Login</button>
+    <button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
+    <button class="side-btn">⚙ Settings</button>
+    <button class="side-btn">🔔 Notification</button> <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn" onclick="goAbout()">ℹ About</button>
+    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+    <button class="side-btn">📞 Contact Us</button>
+    <button class="side-btn">💬 Feedback / Suggestion</button>
+    <button class="side-btn">📅 Meeting</button>
+    <button class="side-btn">📢 Report</button>
+
+    <button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+
+    <div class="sidebar-footer">
+        Thank you for using our app ❤️
+    </div>
+
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="main-content">
+
+    <h1>Emergency Alert System</h1>
+
+    <div id="map" style="height:500px; width:100%; margin-top:20px;"></div>
+
+    <p style="margin-top:20px; font-size:18px; color:#ccc;">
+        Feature Updating Soon...
+    </p>
+
+</div>
+
+<!-- FOOTER -->
+<footer style="
+    margin-top:80px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
+    <div style="margin-bottom:8px;">
+        © <span id="year"></span> Safe Link. All Rights Reserved.
+    </div>
+    <div style="font-size:13px; color:#666;">
+        Designed & Developed by Tech Gen
+    </div>
+    <div style="margin-bottom:8px;">
+        Contact Us:
+        <a href="mailto:contact_us@techgen.online"
+           style="color:#00bfff; text-decoration:none;">
+           contact_us@techgen.online
+        </a>
+    </div>
+</footer>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+</script>
+
+<!-- AUTH CHECK -->
+<script>
+async function checkUser(){
+
+    const path = window.location.pathname;
+
+    // ❌ DO NOT RUN on public pages
+    if(
+        path.includes("index.html") ||
+        path.includes("login.html") ||
+        path.includes("about.html")
+    ){
+        return;
+    }
+
+    const { data: { session } } = await supabaseClient.auth.getSession();
+
+    if(!session){
+        window.location.href = "../login.html";
+        return;
+    }
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    if(user){
+        const el = document.getElementById("userEmailDisplay");
+        if(el){
+            el.innerText = "Logged in: " + user.email;
+        }
+    }
+}
+
+checkUser();
+</script>
+<script src="../options.js"></script>
+<script src="../app.js"></script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
+
+===== profile.css =====
+.profile-wrapper{
+    max-width:1000px;
+    margin:130px auto 60px auto;
+    background:#ffffff;
+    padding:40px;
+    border-radius:4px;
+    border:1px solid #c7c7c7;
+    color:#000;
+}
+
+.profile-wrapper h2{
+    text-align:center;
+    color:#002b5c;
+    margin-bottom:30px;
+    font-weight:600;
+    border-bottom:2px solid #002b5c;
+    padding-bottom:10px;
+}
+
+.section-box{
+    border:1px solid #d0d0d0;
+    padding:25px;
+    margin-bottom:30px;
+    background:#f9fafc;
+}
+
+.section-box h3{
+    margin-bottom:20px;
+    color:#002b5c;
+    font-size:18px;
+    border-left:4px solid #002b5c;
+    padding-left:10px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:200px 1fr 200px 1fr;
+    gap:15px;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.form-row.full{
+    grid-template-columns:200px 1fr;
+}
+
+.profile-wrapper label{
+    font-weight:500;
+    font-size:14px;
+}
+
+.profile-wrapper input,
+.profile-wrapper textarea,
+.profile-wrapper select{
+    width:100%;
+    padding:8px;
+    border:1px solid #999;
+    border-radius:3px;
+    font-size:14px;
+    background:#fff;
+}
+
+.profile-wrapper textarea{
+    resize:vertical;
+    min-height:60px;
+}
+
+.photo-section{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.photo-section img{
+    width:150px;
+    height:180px;
+    border:2px solid #002b5c;
+    object-fit:cover;
+    margin-bottom:10px;
+}
+
+.photo-section input{
+    display:block;
+    margin:0 auto;
+}
+
+.captcha-section{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border:1px solid #ccc;
+    padding:10px 15px;
+    background:#eef3f9;
+}
+
+.btn-group{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    margin-top:20px;
+}
+
+.btn-group button{
+    padding:10px 35px;
+    border:none;
+    background:#002b5c;
+    color:white;
+    font-size:14px;
+    border-radius:3px;
+    cursor:pointer;
+}
+
+.btn-group button:disabled{
+    background:#888;
+    cursor:not-allowed;
+}
+
+@media(max-width:900px){
+    .form-row{
+        grid-template-columns:1fr;
+    }
+}
+
+.status-box{
+    margin-bottom:25px;
+    padding:20px;
+    border:1px solid #d0d0d0;
+    background:#f4f8fc;
+}
+
+.status-header{
+    display:flex;
+    justify-content:space-between;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.progress-bar{
+    width:100%;
+    height:18px;
+    background:#ddd;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+#progressFill{
+    height:100%;
+    width:0%;
+    background:#007b2f;
+    transition:0.4s;
+}
+
+.verified-badge{
+    margin-top:15px;
+    padding:8px 12px;
+    background:#007b2f;
+    color:white;
+    display:inline-block;
+    font-size:13px;
+    border-radius:3px;
+}
+
+.hidden{
+    display:none;
+}
+/* ===== Saving Overlay ===== */
+.saving-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.saving-overlay.hidden { display: none; }
+
+.saving-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 6px;
+    width: 300px;
+    text-align: center;
+}
+
+/* Spinner */
+.spinner {
+    width: 35px;
+    height: 35px;
+    border: 4px solid #eee;
+    border-top: 4px solid #002b5c;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Animated Gradient Bar */
+.saving-progress {
+    height: 6px;
+    background: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 12px;
+}
+#savingBar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,#002b5c,#00c6ff,#002b5c);
+    background-size: 200% 100%;
+    animation: gradientMove 2s linear infinite;
+    transition: width 0.3s ease;
+}
+@keyframes gradientMove {
+    from { background-position: 0% 0; }
+    to { background-position: 200% 0; }
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #002b5c;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 5px;
+    z-index: 9999;
+}
+.toast.hidden { display: none; }
+
+/* Success Banner */
+.success-banner {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #007b2f;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+    z-index: 9999;
+}
+.success-banner.hidden { display: none; }
+
+.file-display {
+    display: inline-block;
+    padding: 6px 10px;
+    background: #eef3f9;
+    border: 1px solid #002b5c;
+    color: #002b5c;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.photo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+#profilePreview {
+    width: 150px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.verification-tag {
+    position: absolute;
+    top: 5px;
+    right: -10px;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 12px;
+    color: #fff;
+}
+
+/* Red - Unverified */
+.unverified {
+    background: #e53935;
+}
+
+/* Yellow/Orange - Processing */
+.processing {
+    background: linear-gradient(45deg, #fbc02d, #f57c00);
+}
+
+/* Green - Verified */
+.verified {
+    background: #2e7d32;
+}
+
+.main-content{
+    padding:110px 16px 20px;
+    text-align:center;
+    max-width:100%;
+    margin: auto;
+}
+
+===== profile.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Profile - Safe Link</title>
+
+<link rel="stylesheet" href="../style.css">
+
+</head>
+<body>
+
+<div class="main-content">
+
+<h2>Your Profile</h2>
+
+<input id="name" placeholder="Full Name"><br><br>
+<input id="phone" placeholder="Phone Number"><br><br>
+<input id="blood" placeholder="Blood Group"><br><br>
+<input id="address" placeholder="Address"><br><br>
+
+<input id="ec1" placeholder="Emergency Contact 1"><br><br>
+<input id="ec2" placeholder="Emergency Contact 2"><br><br>
+
+<input id="idnum" placeholder="ID Proof Number"><br><br>
+
+<label>Date of Birth:</label><br>
+<input type="date" id="dob"><br><br>
+
+<label>Gender:</label><br>
+<select id="gender">
+    <option value="">Select</option>
+    <option>Male</option>
+    <option>Female</option>
+    <option>Other</option>
+</select><br><br>
+
+<label>Profile Photo:</label><br>
+
+<img id="photoPreview" 
+     src="" 
+     style="width:100px;height:100px;border-radius:50%;object-fit:cover;display:none;margin-bottom:10px;">
+
+<input type="file" id="photo" onchange="previewPhoto(event)"><br><br>
+
+<label>ID Proof Image:</label><br>
+
+<img id="idPreview" 
+     src="" 
+     style="width:120px;height:80px;object-fit:cover;display:none;margin-bottom:10px;">
+
+<input type="file" id="idphoto" onchange="previewID(event)"><br><br>
+
+
+<button onclick="saveProfile()">Save Profile</button>
+
+<p id="msg"></p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = window.supabase.createClient(
+    "https://amvjwubiaedasynbiuua.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
+);
+</script>
+
+<script src="profile.js"></script>
+<script src="../app.js"></script>
+<script src="../options.js"></script>
+
+</body>
+</html>
+
+===== profile.js =====
+async function getUser(){
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    if(!user){
+        window.location.href = "../login.html";
+        return null;
+    }
+    return user;
+}
+
+/* ================= PREVIEW ================= */
+
+function previewPhoto(event){
+    const file = event.target.files[0];
+    if(file){
+        const url = URL.createObjectURL(file);
+        const img = document.getElementById("photoPreview");
+        img.src = url;
+        img.style.display = "block";
+    }
+}
+
+function previewID(event){
+    const file = event.target.files[0];
+    if(file){
+        const url = URL.createObjectURL(file);
+        const img = document.getElementById("idPreview");
+        img.src = url;
+        img.style.display = "block";
+    }
+}
+
+/* ================= LOAD PROFILE ================= */
+
+async function loadProfile(){
+
+    const user = await getUser();
+    if(!user) return;
+
+    const { data, error } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+
+    if(data){
+        document.getElementById("name").value = data.name || "";
+        document.getElementById("phone").value = data.phone || "";
+        document.getElementById("blood").value = data.blood_group || "";
+        document.getElementById("address").value = data.address || "";
+        document.getElementById("ec1").value = data.emergency_contact1 || "";
+        document.getElementById("ec2").value = data.emergency_contact2 || "";
+        document.getElementById("idnum").value = data.id_proof_number || "";
+        document.getElementById("dob").value = data.date_of_birth || "";
+        document.getElementById("gender").value = data.gender || "";
+
+        // ✅ SHOW SAVED IMAGES
+        if(data.photo_url){
+            const img = document.getElementById("photoPreview");
+            img.src = data.photo_url;
+            img.style.display = "block";
+        }
+
+        if(data.id_proof_url){
+            const img = document.getElementById("idPreview");
+            img.src = data.id_proof_url;
+            img.style.display = "block";
+        }
+    }
+}
+
+/* ================= SAVE PROFILE ================= */
+async function saveProfile(){
+
+    const msg = document.getElementById("msg");
+    const user = await getUser();
+    if(!user) return;
+
+    let photoUrl = null;
+    let idUrl = null;
+
+    const photoFile = document.getElementById("photo").files[0];
+    const idFile = document.getElementById("idphoto").files[0];
+
+    if(photoFile && photoFile.size > 200000){
+        msg.innerText = "❌ Profile photo must be under 200KB";
+        return;
+    }
+
+    if(idFile && idFile.size > 200000){
+        msg.innerText = "❌ ID photo must be under 200KB";
+        return;
+    }
+
+    /* ================= PROFILE PHOTO ================= */
+    if(photoFile){
+        const { error } = await supabaseClient.storage
+            .from("profile-photos")
+            .upload(user.id + ".jpg", photoFile, { upsert: true });
+
+        if(error){
+            console.log("Upload error:", error);
+        } else {
+            const publicUrl = supabaseClient.storage
+                .from("profile-photos")
+                .getPublicUrl(user.id + ".jpg");
+
+            photoUrl = publicUrl.data.publicUrl;
+            console.log("Photo URL:", photoUrl);
+        }
+    }
+
+    /* ================= ID PHOTO ================= */
+    if(idFile){
+        const { error } = await supabaseClient.storage
+            .from("profile-photos")
+            .upload("id_" + user.id + ".jpg", idFile, { upsert: true });
+
+        if(error){
+            console.log("ID Upload error:", error);
+        } else {
+            const publicUrl = supabaseClient.storage
+                .from("profile-photos")
+                .getPublicUrl("id_" + user.id + ".jpg");
+
+            idUrl = publicUrl.data.publicUrl;
+            console.log("ID URL:", idUrl);
+        }
+    }
+
+    /* ================= KEEP OLD ================= */
+    const { data: existing } = await supabaseClient
+        .from("profiles")
+        .select("photo_url, id_proof_url")
+        .eq("id", user.id)
+        .single();
+
+    const finalPhoto = photoUrl || existing?.photo_url || null;
+    const finalID = idUrl || existing?.id_proof_url || null;
+
+    console.log("Final Photo:", finalPhoto);
+    console.log("Final ID:", finalID);
+
+    const { error } = await supabaseClient
+        .from("profiles")
+        .upsert({
+            id: user.id,
+            email: user.email,
+            name: document.getElementById("name").value,
+            phone: document.getElementById("phone").value,
+            blood_group: document.getElementById("blood").value,
+            address: document.getElementById("address").value,
+            emergency_contact1: document.getElementById("ec1").value,
+            emergency_contact2: document.getElementById("ec2").value,
+            id_proof_number: document.getElementById("idnum").value,
+            date_of_birth: document.getElementById("dob").value,
+            gender: document.getElementById("gender").value,
+            photo_url: finalPhoto,
+            id_proof_url: finalID
+        });
+
+    if(error){
+        console.log("DB error:", error);
+        msg.innerText = "❌ Error saving profile";
+    }else{
+        msg.innerText = "✅ Profile saved successfully";
+    }
+}
+
+/* ================= INIT ================= */
+
+loadProfile();
+
+===== emergency.css =====
+.main-content{
+    padding: 5px 5px 20px;
+    text-align:center;
+}
+
+
+
+#map{
+    width:calc(100% - 10px);
+    height:calc(100vh - 220px);
+    border-radius:14px;
+    margin:10px 5px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.5);
+    border:1px solid #222;
+}
+
+.footer{
+    
+    bottom:0;
+    left:0;
+    width:100%;
+    padding:10px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:12px;
+    border-top:1px solid #222;
+}
+
+.map-wrapper{
+    position:relative;
+}
+
+/* Button */
+.scroll-down-btn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    z-index:1000;
+
+    pointer-events:auto;   /* ✅ FIX */
+
+    background:#00bfff;
+    color:#000;
+    border:none;
+    border-radius:50%;
+    width:40px;
+    height:40px;
+    font-size:18px;
+    cursor:pointer;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.5);
+}
+.scroll-down-btn:hover{
+    background:#00ffcc;
+}
+
+body, html{
+    height:100%;
+}
+
+.main-content{
+    min-height:calc(100vh - 120px); /* pushes footer down */
+}
+
+/* BUTTON WRAPPER */
+.map-buttons{
+    position:relative;
+}
+
+/* 🔴 EMERGENCY BUTTON (CENTER BOTTOM) */
+.emergency-btn{
+    position:absolute;
+    bottom:20px;   /* keep original */
+    left:50%;
+    transform:translateX(-50%);
+    z-index:1000;
+
+    width:75px;
+    height:75px;
+    padding: 0;
+    border-radius:50%;
+    border:none;
+
+    background:#ff3b3b;
+    color:white;
+    font-size:50px;
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:0 8px 25px rgba(255,0,0,0.5);
+}
+
+
+/* Hover */
+.emergency-btn:hover{
+    transform:translateX(-50%) scale(1.1);
+    box-shadow:0 12px 35px rgba(255,0,0,0.8);
+}
+.emergency-btn:active{
+    transform:translateX(-50%) scale(0.92);
+}
+
+/* 📍 LOCATE BUTTON (RIGHT SIDE) */
+.locate-btn{
+    position:absolute;
+    bottom:30px;
+    right:20px;
+    z-index:1000;
+
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    border:none;
+
+    background:#04eb6c;
+    color:#333;
+    font-size:25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.4);
+    cursor:pointer;
+}
+/* Hover */
+.locate-btn:hover{
+    background: #02c95a;
+    transform:scale(1.08);
+}
+
+===== emergency.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Emergency - Safe Link</title>
+
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="emergency.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">`
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+</div>
+
+<!-- TOP NAV -->  <div class="top-nav">    
+    <div class="nav-left">    
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>    
+        <button class="nav-btn" onclick="goHome()">⌂</button>    
+        <button id="headerProfileBtn" class="nav-btn" onclick="goProfile()">👤</button>
+        <button class="nav-btn">🔍</button>    
+        <button class="nav-btn">⚙</button>    
+    </div>  <div class="nav-right">    
+    <button class="nav-btn">❤️</button>    
+    <button class="nav-btn" onclick="goAbout()">!</button>    
+    <button class="nav-btn">📞</button>    
+    <button class="nav-btn" onclick="goNotification()">🔔</button>   
+    <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+    <button class="nav-btn" onclick="goBack()">🔙</button>    
+</div>  </div> 
+<!-- SIDEBAR -->  <div id="sidebar" class="sidebar">  <div class="sidebar-header">    <div class="sidebar-logo">    
+    <img src="../logo.png" alt="Safe Link Logo">    
+    <div class="logo-text">    
+        <h2>SAFE LINK</h2>    
+        <p>Tech Gen</p>    
+    </div>    
+</div>    
+<button class="close-btn" onclick="toggleSidebar()">✖</button>
+
+</div>    <div id="userEmailDisplay" class="user-email"></div>    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+<button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+<button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+<hr style="border:1px solid #222; margin:10px 0;">  <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+<button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
+<button class="side-btn">⚙ Settings</button>
+<button class="side-btn">🔔 Notification</button> <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+<button class="side-btn" >🔍 Search</button>
+<button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+<button class="side-btn">📞 Contact Us</button>
+<button class="side-btn">💬 Feedback / Suggestion</button>
+<button class="side-btn">📅 Meeting</button>
+<button class="side-btn">📢 Report</button>
+<button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+
+<div class="sidebar-footer">    
+    Thank you for using our app ❤️    
+</div> </div>
+<!-- ================= MAIN ================= -->
+<div class="main-content">
+
+    <h1>🚨 Emergency</h1>
+<div class="map-wrapper">
+    <div id="map"></div>
+    <!-- FLOATING BUTTONS -->
+    <div class="map-buttons">
+
+    <!-- Emergency Button -->
+    <button class="emergency-btn">🚨</button>
+
+    <!-- Locate Me Button -->
+    <button class="locate-btn">📍</button>
+
+</div>
+    <button class="scroll-down-btn" onclick="scrollBelowMap()">⬇</button>
+    
+
+</div>
+
+<!-- ================= LIVE CLOCK ================= -->
+<div class="live-clock-box">
+    <div id="liveTime">00:00:00</div>
+    <div id="liveDate">Loading...</div>
+</div>
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div>Designed & Developed by Tech Gen</div>
+    <div>
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
+        </a>
+    </div>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+</script>
+
+<script src="../options.js"></script>
+<script src="../app.js"></script>
+<script src="emergency.js"></script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</body>
+</html>
+
+===== emergency.js =====
+let userMarker = null;
+
+// ================= SHARE =================
+function shareSite(){
+    const shareData = {
+        title: "Safe Link – Emergency Support",
+        text: "🚨 Emergency features coming soon. Stay connected with Safe Link.",
+        url: "https://safe-link.techgen.online/"
+    };
+
+    if(navigator.share){
+        navigator.share(shareData);
+    }else{
+        const message = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
+        navigator.clipboard.writeText(message);
+        alert("Link copied!");
+    }
+}
+
+// ================= CLOCK =================
+function updateClock(){
+    const now = new Date();
+
+    document.getElementById("liveTime").innerText =
+        now.toLocaleTimeString();
+
+    document.getElementById("liveDate").innerText =
+        now.toDateString();
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+let map;
+
+// ================= MAP =================
+window.onload = function(){
+    map = L.map('map').setView([22.5726, 88.3639], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap',
+    }).addTo(map);
+};
+
+function scrollBelowMap(){
+    const target = document.querySelector('.emergency-box');
+    if(target){
+        target.scrollIntoView({ behavior: 'smooth' });
+    }else{
+        console.log("Target element not found for scrolling.");
+    }
+}
+
+// ================= LOCATE =================
+const locateBtn = document.querySelector(".locate-btn");
+
+locateBtn.addEventListener("click", () => {
+
+    if (!navigator.geolocation) {
+        alert("❌ Geolocation not supported");
+        return;
+    }
+
+    locateBtn.innerText = "⏳";
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            map.flyTo([lat, lng], 16);
+
+            if(userMarker){
+                map.removeLayer(userMarker);
+            }
+
+            userMarker = L.marker([lat, lng]).addTo(map)
+                .bindPopup("You are here").openPopup();
+
+            locateBtn.innerText = "📍";
+        },
+        () => {
+            alert("❌ Location access denied");
+            locateBtn.innerText = "📍";
+        }
+    );
+});
+
+// ================= SOS =================
+const sosBtn = document.querySelector(".emergency-btn");
+
+sosBtn.addEventListener("click", async () => {
+
+    // Auto trigger locate
+    locateBtn.click();
+
+    // ✅ Cooldown
+    const lastSOS = localStorage.getItem("lastSOS");
+
+    if (lastSOS) {
+        const elapsed = Math.floor((Date.now() - lastSOS) / 1000);
+        const remaining = 60 - elapsed;
+
+        if (remaining > 0) {
+            alert(`⏳ Wait ${remaining}s before sending again`);
+            return;
+        }
+    }
+
+    localStorage.setItem("lastSOS", Date.now());
+
+    if (!navigator.geolocation) {
+        alert("❌ Location not supported");
+        return;
+    }
+
+    sosBtn.innerText = "⏳";
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        try {
+
+            // 🌐 Get IP
+            const res = await fetch("https://api.ipify.org?format=json");
+            const ipData = await res.json();
+            const ip = ipData.ip;
+
+            // ✅ CORRECT IST TIME FIX
+            const now = new Date();
+            const istOffset = 5.5 * 60 * 60 * 1000;
+            const istDate = new Date(now.getTime() + istOffset).toISOString();
+
+            // ✅ SINGLE CLEAN INSERT
+            const { error } = await supabaseClient
+                .from("sos_alerts")
+                .insert([
+                    {
+                        ip_address: ip,
+                        latitude: lat,
+                        longitude: lng,
+                        message: "I need help , please help me",
+                        created_at: istDate
+                    }
+                ]);
+
+            if (error) {
+                console.error(error);
+                alert("❌ Failed to send SOS");
+                sosBtn.innerText = "🚨";
+                return;
+            }
+
+            alert("🚨 SOS Sent Successfully!");
+            sosBtn.innerText = "🚨";
+
+        } catch (err) {
+            console.error(err);
+            alert("❌ Error sending SOS");
+            sosBtn.innerText = "🚨";
+        }
+
+    }, () => {
+        alert("❌ Location permission denied");
+        sosBtn.innerText = "🚨";
+    });
+
+});
+
+===== help.css =====
+/* ================= MAP STYLE ================= */
+
+.map-wrapper{
+    position:relative;
+}
+
+#map{
+    width:calc(100% - 10px);
+    height:calc(100vh - 220px);
+    border-radius:14px;
+    margin:10px 5px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.5);
+    border:1px solid #222;
+}
+
+/* 🔴 SOS Pulse Marker */
+.sos-marker{
+    width:20px;
+    height:20px;
+    background:red;
+    border-radius:50%;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* 💓 Outer pulse */
+.sos-marker::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:red;
+    opacity:0.6;
+    animation:pulse 1.5s infinite;
+}
+
+/* 🎯 CENTER DOT (new) */
+.sos-marker::before{
+    content:"";
+    width:4px;
+    height:4px;
+    background:#fff;
+    border-radius:50%;
+    z-index:2;
+    animation:blink 0.8s infinite;
+}
+
+/* Pulse animation */
+@keyframes pulse{
+    0%{
+        transform:scale(1);
+        opacity:0.8;
+    }
+    70%{
+        transform:scale(2.5);
+        opacity:0;
+    }
+    100%{
+        transform:scale(1);
+        opacity:0;
+    }
+}
+
+/* Blink animation */
+@keyframes blink{
+    0%, 100%{
+        opacity:1;
+    }
+    50%{
+        opacity:0.2;
+    }
+}
+
+/* 🟢 USER LIVE LOCATION */
+.user-marker{
+    width:14px;
+    height:14px;
+    background:#00ff88;
+    border-radius:50%;
+    position:relative;
+    box-shadow:0 0 10px #00ff88;
+}
+
+.user-marker::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:#00ff88;
+    opacity:0.5;
+    animation:userPulse 2s infinite;
+}
+
+@keyframes userPulse{
+    0%{
+        transform:scale(1);
+        opacity:0.7;
+    }
+    70%{
+        transform:scale(2);
+        opacity:0;
+    }
+    100%{
+        transform:scale(1);
+        opacity:0;
+    }
+}
+
+===== help.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Help - Safe Link</title>
+<!-- 🔴 FAVICON (REPLACE LATER) -->
+<link rel="icon" href="../favicon.png">
+<link rel="icon" href="../logo.png">
+
+<!-- 🔴 GLOBAL CSS -->
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="notification.css">
+<link rel="stylesheet" href="help.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+</head>
+
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+</div>
+
+<!-- TOP NAV -->  <div class="top-nav">    
+    <div class="nav-left">    
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>    
+        <button class="nav-btn" onclick="goHome()">⌂</button>    
+        <button id="headerProfileBtn" class="nav-btn" onclick="goProfile()">👤</button>
+        <button class="nav-btn">🔍</button>    
+        <button class="nav-btn">⚙</button>    
+    </div>  <div class="nav-right">    
+    <button class="nav-btn">❤️</button>    
+    <button class="nav-btn" onclick="goAbout()">!</button>    
+    <button class="nav-btn">📞</button>    
+    <button class="nav-btn" onclick="goNotification()">🔔</button>   
+    <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+    <button class="nav-btn" onclick="goBack()">🔙</button>    
+</div>  </div> 
+<!-- SIDEBAR -->  <div id="sidebar" class="sidebar">  <div class="sidebar-header">    <div class="sidebar-logo">    
+    <img src="../logo.png" alt="Safe Link Logo">    
+    <div class="logo-text">    
+        <h2>SAFE LINK</h2>    
+        <p>Tech Gen</p>    
+    </div>    
+</div>    
+<button class="close-btn" onclick="toggleSidebar()">✖</button>
+
+</div>    <div id="userEmailDisplay" class="user-email"></div>    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+<button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+<button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+<hr style="border:1px solid #222; margin:10px 0;">  <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+<button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
+<button class="side-btn">⚙ Settings</button>
+ <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+<button class="side-btn" >🔍 Search</button>
+<button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+<button class="side-btn">📞 Contact Us</button>
+<button class="side-btn">💬 Feedback / Suggestion</button>
+<button class="side-btn">📅 Meeting</button>
+<button class="side-btn">📢 Report</button>
+<button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+
+<div class="sidebar-footer">    
+    Thank you for using our app ❤️    
+</div> </div>
+
+<!-- ================= MAIN ================= -->
+<div class="main-content">
+
+    <h1>🆘 Help</h1>
+<div id="routeInfo" style="
+    background:#111;
+    padding:10px;
+    border-radius:10px;
+    margin:10px;
+    font-size:14px;
+">
+    📏 Distance: --
+    <br>
+    🧭 Direction: --
+</div>
+    <div class="map-wrapper">
+        <div id="map"></div>
+    </div>
+
+</div>
+
+<!-- ================= LIVE CLOCK ================= -->
+<div class="live-clock-box">
+    <div id="liveTime">00:00:00</div>
+    <div id="liveDate">Loading...</div>
+</div>
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div>Designed & Developed by Tech Gen</div>
+    <div>
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
+        </a>
+    </div>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+</script>
+
+<script src="../options.js"></script>
+<script src="../app.js"></script>
+<script src="help.js"></script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    if(loader){
+        loader.style.display = "none";
+    }
+});
+</script>
+</body>
+</html>
+
+===== help.js =====
+// ================= GLOBAL =================
+let lat;
+let lng;
+let map;
+let routeLine;
+let userMarker;
+
+// ================= MAP WITH LOCATION =================
+window.onload = function(){
+
+    const params = new URLSearchParams(window.location.search);
+
+    lat = parseFloat(params.get("lat")) || 22.5726;
+    lng = parseFloat(params.get("lng")) || 88.3639;
+
+    map = L.map('map').setView([lat, lng], 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap',
+    }).addTo(map);
+
+    // 🔴 SOS marker
+    const pulseIcon = L.divIcon({
+        className: '',
+        html: '<div class="sos-marker"></div>',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+    });
+
+    L.marker([lat, lng], { icon: pulseIcon })
+        .addTo(map)
+        .bindPopup("🚨 SOS Location")
+        .openPopup();
+
+    // ================= USER LIVE LOCATION =================
+    if(navigator.geolocation){
+
+        navigator.geolocation.watchPosition(position => {
+
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+
+            const userIcon = L.divIcon({
+                className: '',
+                html: '<div class="user-marker"></div>',
+                iconSize: [14,14],
+                iconAnchor: [7,7]
+            });
+
+            if(userMarker){
+                map.removeLayer(userMarker);
+            }
+
+            userMarker = L.marker([userLat, userLng], { icon: userIcon })
+                .addTo(map)
+                .bindPopup("📍 You are here");
+
+            map.flyTo([userLat, userLng], 16);
+
+            // 📏 Distance + Direction
+            const result = getDistanceAndDirection(userLat, userLng, lat, lng);
+
+            document.getElementById("routeInfo").innerHTML = `
+                📏 Distance: ${result.distance.toFixed(2)} km<br>
+                🧭 Direction: ${result.bearing.toFixed(0)}°
+            `;
+
+            // 🧭 Draw route
+            drawRoute(userLat, userLng, lat, lng);
+
+        });
+    }
+};
+
+// ================= ROUTE =================
+async function drawRoute(userLat, userLng, sosLat, sosLng){
+
+    const url = `https://router.project-osrm.org/route/v1/driving/${userLng},${userLat};${sosLng},${sosLat}?overview=full&geometries=geojson`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const coords = data.routes[0].geometry.coordinates;
+
+    const latlngs = coords.map(c => [c[1], c[0]]);
+
+    if(routeLine){
+        map.removeLayer(routeLine);
+    }
+
+    routeLine = L.polyline(latlngs, {
+        color: '#00bfff',
+        weight: 5
+    }).addTo(map);
+
+    map.fitBounds(routeLine.getBounds());
+}
+
+// ================= DISTANCE + DIRECTION =================
+function getDistanceAndDirection(lat1, lon1, lat2, lon2){
+
+    const R = 6371;
+
+    const dLat = (lat2 - lat1) * Math.PI/180;
+    const dLon = (lon2 - lon1) * Math.PI/180;
+
+    const a =
+        Math.sin(dLat/2)**2 +
+        Math.cos(lat1*Math.PI/180) *
+        Math.cos(lat2*Math.PI/180) *
+        Math.sin(dLon/2)**2;
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const distance = R * c;
+
+    const y = Math.sin(dLon) * Math.cos(lat2*Math.PI/180);
+    const x =
+        Math.cos(lat1*Math.PI/180) * Math.sin(lat2*Math.PI/180) -
+        Math.sin(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.cos(dLon);
+
+    const bearing = (Math.atan2(y, x) * 180/Math.PI + 360) % 360;
+
+    return { distance, bearing };
+}
+
+===== notification.css =====
+body{
+    background:#0d0d0d;
+    color:white;
+    font-family:sans-serif;
+}
+
+.main-content{
+    text-align:center;
+    padding:20px;
+}
+
+h1{
+    margin-bottom:30px;
+}
+
+.footer{
+    bottom:0;
+    left:0;
+    width:100%;
+    padding:10px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:12px;
+    border-top:1px solid #222;
+}
+
+body, html{
+    height:100%;
+}
+
+.main-content{
+    min-height:calc(100vh - 120px);
+}
+
+/* 🔔 Notification Cards */
+#notificationList{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    padding:10px;
+}
+
+.notification-card{
+    position:relative; /* ✅ VERY IMPORTANT */
+    background:#1a1a1a;
+    border:1px solid #333;
+    border-radius:12px;
+    padding:15px;
+    text-align:left;
+    box-shadow:0 4px 15px rgba(0,0,0,0.5);
+}
+
+.notification-card .msg{
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.notification-card .time{
+    font-size:12px;
+    color:#aaa;
+}
+
+/* 🔘 Buttons */
+.btn-group{
+    margin-top:10px;
+    display:flex;
+    gap:10px;
+}
+
+.help-btn{
+    flex:1;
+    padding:8px;
+    border:none;
+    border-radius:8px;
+    background:#ff3b3b;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.sorry-btn{
+    flex:1;
+    padding:8px;
+    border:none;
+    border-radius:8px;
+    background:#555;
+    color:white;
+    cursor:pointer;
+}
+
+/* 🔴 BIG ALERT CIRCLE */
+.alert-circle{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+
+    width:60px;
+    height:60px;
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:26px;
+    color:white;
+    z-index:10;
+}
+
+/* 🔥 VERY CLOSE */
+.circle-danger{
+    background:red;
+    box-shadow:0 0 25px red;
+    animation: blinkFast 0.5s infinite;
+}
+
+/* ⚠ MEDIUM */
+.circle-warning{
+    background:#ff4d4d;
+    box-shadow:0 0 15px #ff4d4d;
+    animation: blinkMedium 1s infinite;
+}
+
+/* 🟡 FAR */
+.circle-light{
+    background:#ff9999;
+    box-shadow:0 0 10px #ff9999;
+    animation: blinkSlow 2s infinite;
+}
+
+/* 🔴 VERY FAR */
+.circle-normal{
+    background:#ff3b3b;
+}
+
+/* Animations */
+@keyframes blinkFast{
+    0%,100%{opacity:1;}
+    50%{opacity:0.2;}
+}
+@keyframes blinkMedium{
+    0%,100%{opacity:1;}
+    50%{opacity:0.4;}
+}
+@keyframes blinkSlow{
+    0%,100%{opacity:1;}
+    50%{opacity:0.6;}
+}
+
+===== notification.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Notifications - Safe Link</title>
+
+<!-- 🔴 FAVICON (REPLACE LATER) -->
+<link rel="icon" href="../favicon.png">
+<link rel="icon" href="../logo.png">
+
+<!-- 🔴 GLOBAL CSS -->
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="notification.css">
+
+</head>
+
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">`
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+</div>
+
+<!-- TOP NAV -->  <div class="top-nav">    
+    <div class="nav-left">    
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>    
+        <button class="nav-btn" onclick="goHome()">⌂</button>    
+        <button id="headerProfileBtn" class="nav-btn" onclick="goProfile()">👤</button>
+        <button class="nav-btn">🔍</button>    
+        <button class="nav-btn">⚙</button>    
+    </div>  <div class="nav-right">    
+    <button class="nav-btn">❤️</button>    
+    <button class="nav-btn" onclick="goAbout()">!</button>    
+    <button class="nav-btn">📞</button>    
+    <button class="nav-btn" onclick="goNotification()">🔔</button>   
+    <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+    <button class="nav-btn" onclick="goBack()">🔙</button>    
+</div>  </div> 
+<!-- SIDEBAR -->  <div id="sidebar" class="sidebar">  <div class="sidebar-header">    <div class="sidebar-logo">    
+    <img src="../logo.png" alt="Safe Link Logo">    
+    <div class="logo-text">    
+        <h2>SAFE LINK</h2>    
+        <p>Tech Gen</p>    
+    </div>    
+</div>    
+<button class="close-btn" onclick="toggleSidebar()">✖</button>
+
+</div>    <div id="userEmailDisplay" class="user-email"></div>    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+<button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+<button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+<hr style="border:1px solid #222; margin:10px 0;">  <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+<button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
+<button class="side-btn">⚙ Settings</button>
+ <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+<button class="side-btn" >🔍 Search</button>
+<button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+<button class="side-btn">📞 Contact Us</button>
+<button class="side-btn">💬 Feedback / Suggestion</button>
+<button class="side-btn">📅 Meeting</button>
+<button class="side-btn">📢 Report</button>
+<button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+
+<div class="sidebar-footer">    
+    Thank you for using our app ❤️    
+</div> </div>
+
+<!-- ================= MAIN ================= -->
+<div class="main-content">
+
+    <h1>🔔 Notifications</h1>
+
+    <div id="notificationList"></div>
+
+</div>
+
+<!-- ================= LIVE CLOCK ================= -->
+<div class="live-clock-box">
+    <div id="liveTime">00:00:00</div>
+    <div id="liveDate">Loading...</div>
+</div>
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div>Designed & Developed by Tech Gen</div>
+    <div>
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
+        </a>
+    </div>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+</script>
+
+<script src="../options.js"></script>
+<script src="../app.js"></script>
+<script src="notification.js"></script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</body>
+</html>
+
+===== notification.js =====
+const list = document.getElementById("notificationList");
+
+// 📏 Calculate distance
+function getDistance(lat1, lon1, lat2, lon2) {
+
+    const R = 6371;
+
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+
+    const a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    return R * c;
+}
+
+// USER LOCATION
+let userLat = null;
+let userLng = null;
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(pos => {
+        userLat = pos.coords.latitude;
+        userLng = pos.coords.longitude;
+    });
+}
+
+// LOAD DATA
+async function loadNotifications(){
+
+    const { data, error } = await supabaseClient
+        .from("sos_alerts")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if(error){
+        console.error("Fetch Error:", error);
+        return;
+    }
+
+    list.innerHTML = "";
+
+    if(data.length === 0){
+        list.innerHTML = "<p style='color:#aaa'>No alerts yet</p>";
+        return;
+    }
+
+    data.forEach(item => {
+
+        const card = document.createElement("div");
+        card.className = "notification-card";
+
+        let distanceText = "📏 Calculating...";
+        let circleClass = "circle-normal";
+
+        if(userLat !== null && userLng !== null){
+
+            const dist = getDistance(userLat, userLng, item.latitude, item.longitude);
+
+            distanceText = dist < 1
+                ? `📏 ${(dist * 1000).toFixed(0)} meters away`
+                : `📏 ${dist.toFixed(2)} km away`;
+
+            if(dist <= 1){
+                circleClass = "circle-danger";
+            }
+            else if(dist <= 3){
+                circleClass = "circle-warning";
+            }
+            else if(dist <= 10){
+                circleClass = "circle-light";
+            }
+        }
+
+        card.innerHTML = `
+            <div class="msg">🚨 ${item.message}</div>
+            <div class="time">🕒 ${new Date(item.created_at).toLocaleString()}</div>
+            <div class="time">📍 ${item.latitude}, ${item.longitude}</div>
+            <div class="time">${distanceText}</div>
+
+            <div class="btn-group">
+                <button class="help-btn" onclick="openHelpPage(${item.latitude}, ${item.longitude})">Help</button>
+                <button class="sorry-btn" onclick="sendSorry()">Sorry</button>
+            </div>
+
+            <div class="alert-circle ${circleClass}">🚨</div>
+        `;
+
+        list.appendChild(card);
+    });
+}
+
+// AUTO REFRESH
+setInterval(loadNotifications, 5000);
+loadNotifications();
+
+function openHelpPage(lat, lng){
+    window.location.href = `./help.html?lat=${lat}&lng=${lng}`;
+}
+
+function sendSorry(){
+    alert("🙏 Sorry! Unable to help right now.");
+}
+
+===== notice.css =====
+.main{
+    padding:80px 15px;
+}
+
+#noticeContainer{
+    max-width:700px;
+    margin:auto;
+}
+
+/* CARD */
+.notice-card{
+    background:#1a1a1a;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:10px;
+    border:1px solid #222;
+    transition:0.3s;
+}
+
+.notice-card:hover{
+    border-color:#00ffcc;
+}
+
+/* TITLE */
+.notice-card h3{
+    margin-bottom:5px;
+}
+
+/* META */
+.notice-card small{
+    color:#aaa;
+}
+
+/* ATTACHMENT */
+.notice-card a{
+    color:#00ffcc;
+    text-decoration:none;
+}
+
+/* URGENT */
+.urgent{
+    color:red;
+    font-weight:bold;
+
+
+
+}
+
+.main-content{
+    padding:110px 16px 20px;
+    text-align:center;
+    max-width:100%;
+    margin: auto;
+}
+
+h1{
+    font-size:26px;
+}
+
+p{
+    line-height:1.6;
+}
+
+===== notice.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Notices - Safe Link</title>
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="notice.css">
+
+</head>
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+</div>
+
+<!-- ================= TOP NAV ================= -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button id="headerProfileBtn" class="nav-btn">👤</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn" onclick="goAbout()">!</button>
+        <button class="nav-btn" onclick="goContact()">📞</button>
+        <button class="nav-btn">🔔</button>
+        <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="../logo.png" alt="Safe Link Logo">
+            <div class="logo-text">
+                <h2>SAFE LINK</h2>
+                <p>Tech Gen</p>
+            </div>
+        </div>
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <button class="side-btn side-btn-dashboard" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button class="side-btn" onclick="goEmg_all(); closeSidebar();">🚨 Emergency without Login</button>
+    <button id="profileBtn" class="side-btn">👤 Profile</button>
+    <button class="side-btn">⚙ Settings</button>
+    <button class="side-btn">🔔 Notification</button> <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn" onclick="goAbout()">ℹ About</button>
+    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+    <button class="side-btn" onclick="goContact()">📞 Contact Us</button>
+    <button class="side-btn">💬 Feedback / Suggestion</button>
+    <button class="side-btn">📅 Meeting</button>
+    <button class="side-btn">📢 Report</button>
+
+    <div class="sidebar-footer">
+        Thank you for using our app ❤️
+    </div>
+
+</div>
+
+<!-- ================= MAIN ================= -->
+<div class="main">
+
+    <h2>📢 Notices</h2>
+
+    <div id="noticeContainer">
+        Loading notices...
+    </div>
+
+</div>
+
+    <div style="margin-top:30px;">
+        <button onclick="window.location.href='https://techgen.online'" style="
+            padding:12px 25px;
+            font-size:16px;
+            background:#00bfff;
+            color:#000;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+        ">
+            Contact Our Team
+        </button>
+    </div>
+
+</div>
+<!-- ================= LIVE CLOCK ================= -->
+<div class="live-clock-box">
+    <div id="liveTime">00:00:00</div>
+    <div id="liveDate">Loading...</div>
+</div>
+<!-- ================= FOOTER ================= -->
+<footer style="
+    margin-top:10px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div>Designed & Developed by Tech Gen</div>
+    <div>
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
+        </a>
+    </div>
+</footer>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+    "https://amvjwubiaedasynbiuua.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
+);
+
+</script>
+
+<script src="../options.js"></script>
+<script src="../app.js"></script>
+<script src="notice.js"></script>
+
+</body>
+</html>
+
+===== notice.js =====
+document.addEventListener("DOMContentLoaded", loadNotices);
+
+async function loadNotices(){
+
+    const container = document.getElementById("noticeContainer");
+
+    const userId = localStorage.getItem("userId"); // 👈 IMPORTANT
+    const isLoggedIn = !!userId;
+
+    try{
+
+        const { data, error } = await supabaseClient
+            .from("notices")
+            .select("*")
+            .order("post_date", { ascending:false });
+
+        if(error){
+            console.error(error);
+            container.innerHTML = "❌ Error loading notices";
+            return;
+        }
+
+        if(!data || data.length === 0){
+            container.innerHTML = "No notices available";
+            return;
+        }
+
+        let filtered = [];
+
+        data.forEach(n => {
+
+            // 🔴 NOT LOGGED IN → ONLY EVERYONE
+            if(!isLoggedIn){
+                if(n.target === "everyone"){
+                    filtered.push(n);
+                }
+            }
+
+            // 🟢 LOGGED IN
+            else{
+
+                // everyone
+                if(n.target === "everyone"){
+                    filtered.push(n);
+                }
+
+                // registered
+                else if(n.target === "registered"){
+                    filtered.push(n);
+                }
+
+                // specific users
+                else if(n.target === "specific"){
+
+                    if(n.user_ids && n.user_ids.includes(userId)){
+                        filtered.push(n);
+                    }
+                }
+            }
+
+        });
+
+        if(filtered.length === 0){
+            container.innerHTML = "No notices for you";
+            return;
+        }
+
+        // 🔥 RENDER
+        let html = "";
+
+        filtered.forEach(n => {
+
+            html += `
+                <div class="notice-card">
+
+                    <h3>${n.subject}</h3>
+
+                    <p>${n.content}</p>
+
+                    <small>
+                        📅 ${n.post_date || "N/A"}
+                        ${n.urgent ? `<span class="urgent">🔥 Urgent</span>` : ""}
+                    </small>
+
+                    <br>
+
+                    ${
+                        n.attachment_url
+                        ? `<a href="${n.attachment_url}" target="_blank">📎 View Attachment</a>`
+                        : ""
+                    }
+
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+
+    }catch(err){
+        console.error(err);
+        container.innerHTML = "❌ Unexpected error";
+    }
+}
+
+===== faq.css =====
+/* ===== GOOGLE FONT (PREMIUM LOOK) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.faq-container {
+  
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px 40px; /* 🔥 reduced top space */
+  text-align: left;
+
+}
+.main-content {
+  padding-top: 20px !important;
+}
+
+/* ===== TITLE ===== */
+.faq-container h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+/* ===== TABS ===== */
+.faq-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.tab {
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: #111;
+  color: #ccc;
+  border: 1px solid #222;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab:hover {
+  background: #1a1a1a;
+}
+
+.tab.active {
+  background: #00cfff;
+  color: #000;
+  font-weight: 500;
+}
+
+/* ===== FAQ CARD ===== */
+.faq-item {
+  background: linear-gradient(145deg, #0f0f0f, #141414);
+  border: 1px solid #222;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+/* HOVER EFFECT */
+.faq-item:hover {
+  border-color: #00cfff;
+  transform: translateY(-2px);
+}
+
+/* ===== QUESTION ===== */
+.faq-question {
+  padding: 18px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* ARROW */
+.faq-question span {
+  transition: 0.3s;
+}
+
+/* ROTATE ARROW */
+.faq-item.active .faq-question span {
+  transform: rotate(180deg);
+}
+
+/* ===== ANSWER ===== */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.35s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 300px;
+  padding: 15px 20px 20px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== LINKS ===== */
+.faq-answer a {
+  color: #00cfff;
+  text-decoration: none;
+}
+
+.faq-answer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 600px) {
+
+  .faq-container {
+    padding: 90px 15px;
+  }
+
+  .faq-container h1 {
+    font-size: 1.6rem;
+  }
+
+  .faq-question {
+    font-size: 0.9rem;
+  }
+}
+
+===== faq.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FAQs | Safe Link</title>
+<link rel="icon" href="../../logo.png">
+<!-- ✅ FAVICON -->
+<link rel="icon" href="../../favicon.png">
+
+
+<link rel="icon" href="../../logo.png">
+<!-- ✅ MAIN CSS (IMPORTANT) -->
+<link rel="stylesheet" href="../../style.css">
+
+<!-- ✅ FAQ CSS -->
+<link rel="stylesheet" href="faq.css">
+
+</head>
+
+<body>
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<div class="top-nav">    
+    <div class="nav-left">    
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>    
+        <button class="nav-btn" onclick="goHome()">⌂</button>    
+        <button id="headerProfileBtn" class="nav-btn" onclick="goProfile()">👤</button>
+        <button class="nav-btn">🔍</button>    
+        <button class="nav-btn">⚙</button>    
+    </div>
+
+    <div class="nav-right">    
+        <button class="nav-btn">❤️</button>    
+        <button class="nav-btn" onclick="goAbout()">!</button>    
+        <button class="nav-btn">📞</button>    
+        <button class="nav-btn" onclick="goNotification()">🔔</button>   
+        <button class="nav-btn" onclick="shareSite()" title="Share">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+                <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+            </svg>
+        </button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>    
+    </div>  
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">    
+            <img src="../../logo.png" alt="Safe Link Logo">    
+            <div class="logo-text">    
+                <h2>SAFE LINK</h2>    
+                <p>Tech Gen</p>    
+            </div>    
+        </div>    
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
+    <button class="side-btn">⚙ Settings</button>
+    <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+    <button class="side-btn">📞 Contact Us</button>
+    <button class="side-btn">💬 Feedback / Suggestion</button>
+    <button class="side-btn">📅 Meeting</button>
+    <button class="side-btn">📢 Report</button>
+    <button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+
+    <div class="sidebar-footer">    
+        Thank you for using our app ❤️    
+    </div>
+</div>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="main-content">
+
+<section class="faq-container">
+
+<h1>Frequently Asked Questions (FAQs)</h1>
+<p class="subtitle">SAFE LINK – Community Based Emergency Response & Public Safety System</p>
+
+<!-- CATEGORY BUTTONS -->
+<div class="faq-tabs">
+  <button class="tab active" data-category="general">General</button>
+  <button class="tab" data-category="privacy">Privacy</button>
+  <button class="tab" data-category="technical">Technical</button>
+</div>
+
+<!-- GENERAL -->
+<div class="faq-content active" id="general">
+
+<div class="faq-item">
+<div class="faq-question">What is Safe Link? <span>▼</span></div>
+<div class="faq-answer">
+Safe Link is a community-based emergency response system that allows users to send instant SOS alerts with live location to nearby users, volunteers, and authorities for faster assistance.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Who can use Safe Link? <span>▼</span></div>
+<div class="faq-answer">
+Anyone can use Safe Link, including students, women, elderly people, travelers, and individuals who want quick help during emergencies.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">What problems does Safe Link solve? <span>▼</span></div>
+<div class="faq-answer">
+Safe Link reduces emergency response time by instantly notifying nearby people and authorities, ensuring quicker help during critical situations.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">What happens when I press the SOS button? <span>▼</span></div>
+<div class="faq-answer">
+When you press the SOS button, your live GPS location is captured and an emergency alert is sent instantly.
+</div>
+</div>
+
+</div>
+
+<!-- PRIVACY -->
+<div class="faq-content" id="privacy">
+
+<div class="faq-item">
+<div class="faq-question">What personal information does Safe Link collect? <span>▼</span></div>
+<div class="faq-answer">
+We collect name, phone number, email ID, and profile details.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Is my location tracked all the time? <span>▼</span></div>
+<div class="faq-answer">
+No, location is only accessed during emergencies or when permission is granted.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Does Safe Link sell my data? <span>▼</span></div>
+<div class="faq-answer">
+No, Safe Link does not sell or share user data.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Is my data secure? <span>▼</span></div>
+<div class="faq-answer">
+Yes, data is secured using Supabase, HTTPS, and authentication systems.
+</div>
+</div>
+
+</div>
+
+<!-- TECHNICAL -->
+<div class="faq-content" id="technical">
+
+<div class="faq-item">
+<div class="faq-question">Does Safe Link work on all devices? <span>▼</span></div>
+<div class="faq-answer">
+Safe Link works on most smartphones and modern browsers.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Does it require internet? <span>▼</span></div>
+<div class="faq-answer">
+Yes, internet is required for real-time alerts.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">What happens if GPS is off? <span>▼</span></div>
+<div class="faq-answer">
+Location accuracy may reduce and delay help.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">How can I contact support? <span>▼</span></div>
+<div class="faq-answer">
+<a href="mailto:contact_us@techgen.online">contact_us@techgen.online</a>
+</div>
+</div>
+
+</div>
+</section>
+
+</div>
+<!-- ================= LIVE CLOCK ================= -->
+<div class="live-clock-box">
+    <div id="liveTime">00:00:00</div>
+    <div id="liveDate">Loading...</div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer style="
+    margin-top:10px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div>Designed & Developed by Tech Gen</div>
+    <div>
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
+        </a>
+    </div>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+</script>
+
+<script src="../../options.js"></script>
+<script src="../../app.js"></script>
+<script src="faq.js"></script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- ================= LOADER FIX JS ================= -->
+<script>
+window.addEventListener("load", () => {
+    document.getElementById("loader").style.display = "none";
+});
+</script>
+
+</body>
+</html>
+
+===== faq.js =====
+// ===== WAIT FOR PAGE LOAD (VERY IMPORTANT) =====
+document.addEventListener("DOMContentLoaded", () => {
+
+  // ===== INITIAL FIX (ONLY GENERAL SHOW) =====
+  document.querySelectorAll(".faq-content").forEach(content => {
+    content.style.display = "none";
+  });
+
+  document.getElementById("general").style.display = "block";
+
+
+  // ===== TAB SWITCH =====
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      document.querySelectorAll(".faq-content").forEach(c => c.style.display = "none");
+      document.getElementById(tab.dataset.category).style.display = "block";
+    };
+  });
+
+
+  // ===== ACCORDION (AUTO CLOSE) =====
+  document.querySelectorAll(".faq-question").forEach(q => {
+    q.onclick = () => {
+
+      let currentItem = q.parentElement;
+
+      document.querySelectorAll(".faq-item").forEach(item => {
+        if (item !== currentItem) {
+          item.classList.remove("active");
+        }
+      });
+
+      currentItem.classList.toggle("active");
+    };
+  });
+
+});
+
+===== pvc.css =====
+/* ================= GLOBAL RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================= BODY ================= */
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #333;
+}
+
+/* ================= MAIN CONTENT ================= */
+.main-content {
+    padding: 10px 16px 20px;
+    text-align: left;
+    max-width: 100%;
+    margin: auto;
+}
+
+/* ================= HEADINGS ================= */
+.main-content h1 {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    color: #e8eaec;
+}
+
+/* ================= SECTIONS ================= */
+section {
+    background: rgb(237, 201, 142);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+
+    /* animation */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease;
+}
+
+/* fallback if JS fails */
+.no-js section {
+    opacity: 1;
+    transform: none;
+}
+
+section.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ================= TEXT ================= */
+h2 {
+    color: #0b3d91;
+    margin-bottom: 10px;
+}
+
+h3 {
+    margin-top: 10px;
+}
+
+ul {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+/* ================= HIGHLIGHTS ================= */
+.highlight {
+    color: #d9534f;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.important {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* ================= BUTTON FIX ================= */
+/* only style buttons inside popup */
+.popup-box button {
+    padding: 10px 20px;
+    border: none;
+    background: #0b3d91;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.popup-box button:hover {
+    background: #092f6d;
+}
+
+/* ================= POPUP ================= */
+.privacy-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* higher than navbar */
+}
+
+.popup-box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 320px;
+    text-align: center;
+    animation: popupFade 0.4s ease;
+}
+
+.popup-box h2 {
+    margin-bottom: 10px;
+}
+
+/* ================= POPUP ANIMATION ================= */
+@keyframes popupFade {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ================= LOADER ================= */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f4f7fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20000; /* highest */
+}
+
+/* ECG wrapper */
+.ecg-wrapper {
+    width: 200px;
+}
+
+/* SVG styling */
+.ecg-svg {
+    width: 100%;
+    height: 100px;
+}
+
+/* ECG line */
+.ecg-path {
+    fill: none;
+    stroke: #0b3d91;
+    stroke-width: 3;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: ecgMove 2s linear infinite;
+}
+
+/* ECG animation */
+@keyframes ecgMove {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Button */
+.scroll-down-btn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    z-index:1000;
+
+    pointer-events:auto;   /* ✅ FIX */
+
+    background:#00bfff;
+    color:#000;
+    border:none;
+    border-radius:50%;
+    width:40px;
+    height:40px;
+    font-size:18px;
+    cursor:pointer;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.5);
+}
+.scroll-down-btn:hover{
+    background:#00ffcc;
+}
+
+===== pvc.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Privacy Policy | Safe Link</title>
+
+<link rel="icon" href="../favicon.png">
+<link rel="icon" href="../logo.png">
+
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="pvc.css">
+
+</head>
+
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<div class="top-nav">    
+    <div class="nav-left">    
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>    
+        <button class="nav-btn" onclick="goHome()">⌂</button>    
+        <button id="headerProfileBtn" class="nav-btn" onclick="goProfile()">👤</button>
+        <button class="nav-btn">🔍</button>    
+        <button class="nav-btn">⚙</button>    
+    </div>
+
+    <div class="nav-right">    
+        <button class="nav-btn">❤️</button>    
+        <button class="nav-btn" onclick="goAbout()">!</button>    
+        <button class="nav-btn">📞</button>    
+        <button class="nav-btn" onclick="goNotification()">🔔</button>   
+        <button class="nav-btn" onclick="shareSite()" title="Share">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+                <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+            </svg>
+        </button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>    
+    </div>  
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">    
+            <img src="../logo.png" alt="Safe Link Logo">    
+            <div class="logo-text">    
+                <h2>SAFE LINK</h2>    
+                <p>Tech Gen</p>    
+            </div>    
+        </div>    
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
+    <button class="side-btn">⚙ Settings</button>
+    <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+    <button class="side-btn">📞 Contact Us</button>
+    <button class="side-btn">💬 Feedback / Suggestion</button>
+    <button class="side-btn">📅 Meeting</button>
+    <button class="side-btn">📢 Report</button>
+    <button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+
+    <div class="sidebar-footer">    
+        Thank you for using our app ❤️    
+    </div>
+</div>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="main-content">
+
+<h1>🔐 Privacy Policy</h1>
+
+<section>
+<h2>1. Information We Collect</h2>
+
+<h3>🔹 Personal Information</h3>
+<ul>
+<li>Name</li>
+<li>Phone number</li>
+<li>Email ID</li>
+<li>Profile details</li>
+</ul>
+
+<h3>🔹 Location Data (Highly Sensitive)</h3>
+<ul>
+<li>Real-time GPS location during SOS activation</li>
+<li>Background location (with permission)</li>
+</ul>
+<p>👉 Used only during emergencies</p>
+
+<h3>🔹 Device Information</h3>
+<ul>
+<li>Device type</li>
+<li>Operating system</li>
+<li>App usage logs</li>
+</ul>
+
+<h3>🔹 Emergency Data</h3>
+<ul>
+<li>SOS alerts</li>
+<li>Time of alert</li>
+<li>Location history</li>
+<li>Audio/video recordings (optional)</li>
+</ul>
+</section>
+
+<section>
+<h2>2. How We Use the Information</h2>
+<ul>
+<li>Provide emergency assistance</li>
+<li>Share location with nearby users, volunteers & authorities</li>
+<li>Send notifications</li>
+<li>Improve system performance</li>
+<li>Ensure safety</li>
+</ul>
+<p>👉 We DO NOT use data for advertising or selling</p>
+</section>
+
+<section>
+<h2>3. Data Sharing Policy</h2>
+
+<h3>✔ During Emergency</h3>
+<ul>
+<li>Location shared with nearby users & volunteers</li>
+<li>Alerts sent to authorities</li>
+</ul>
+
+<h3>✔ Legal Requirements</h3>
+<p>Shared if required by law</p>
+
+<h3>❌ We DO NOT</h3>
+<ul>
+<li>Sell user data</li>
+<li>Share with advertisers</li>
+</ul>
+</section>
+
+<section>
+<h2>4. Data Storage & Security</h2>
+<ul>
+<li>Firebase secure database</li>
+<li>HTTPS encryption</li>
+<li>Firebase Authentication</li>
+<li>Restricted access</li>
+</ul>
+<p>👉 Stored only as necessary</p>
+</section>
+
+<section>
+<h2>5. User Control & Rights</h2>
+<ul>
+<li>Access data</li>
+<li>Update profile</li>
+<li>Delete account</li>
+<li>Disable location</li>
+<li>Cancel SOS</li>
+</ul>
+</section>
+
+<section>
+<h2>6. Permissions Required</h2>
+<ul>
+<li>📍 Location</li>
+<li>📷 Camera</li>
+<li>🎤 Microphone</li>
+<li>📶 Internet</li>
+</ul>
+<p>👉 Used only for safety</p>
+</section>
+
+<section>
+<h2>7. Data Retention Policy</h2>
+<ul>
+<li>Temporary storage</li>
+<li>Logs for analysis</li>
+<li>User deletion allowed</li>
+</ul>
+</section>
+
+<section>
+<h2>8. Changes to Policy</h2>
+<p>We may update this policy.</p>
+</section>
+
+<section>
+<h2>9. Contact</h2>
+ <p>
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
+        </a>
+    </p>
+<p>Location: India</p>
+</section>
+
+</div>
+
+<!-- ================= LIVE CLOCK ================= -->
+<div class="live-clock-box">
+    <div id="liveTime">00:00:00</div>
+    <div id="liveDate">Loading...</div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer style="
+    margin-top:10px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div>Designed & Developed by Tech Gen</div>
+    <div>
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
+        </a>
+    </div>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+</script>
+
+<script src="../options.js"></script>
+<script src="../app.js"></script>
+<script src="pvc.js"></script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- ================= LOADER FIX JS ================= -->
+<script>
+window.addEventListener("load", () => {
+    document.getElementById("loader").style.display = "none";
+});
+</script>
+
+</body>
+</html>
+
+===== pvc.js =====
+/* ================= SCROLL ANIMATION ================= */
+const sections = document.querySelectorAll("section");
+
+function revealOnScroll() {
+    sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+            sec.classList.add("show");
+        }
+    });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+
+
+/* ================= LOADER FIX ================= */
+window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    if (loader) {
+        loader.style.display = "none";
+    }
+});
+
+===== about.html =====
+<!DOCTYPE html>  <html lang="en">    <head>  <meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1">  <title>About - Safe Link</title>  <link rel="icon" href="favicon.png">    
+<link rel="stylesheet" href="style.css">  </head>    
+<body>  <!-- ECG LOADER -->  <div id="loader">    
+    <div class="ecg-wrapper">    
+        <svg viewBox="0 0 500 100" class="ecg-svg">    
+            <polyline     
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"    
+                class="ecg-path"/>    
+        </svg>    
+    </div>    
+    <audio id="heartbeatSound"    
+    src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-1055.mp3"    
+    preload="auto"></audio>    
+</div>  
+<!-- TOP NAV -->  <div class="top-nav">    
+    <div class="nav-left">    
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>    
+        <button class="nav-btn" onclick="goHome()">⌂</button>    
+        <button id="headerProfileBtn" class="nav-btn" onclick="goProfile()">👤</button>
+        <button class="nav-btn">🔍</button>    
+        <button class="nav-btn">⚙</button>    
+    </div>  <div class="nav-right">    
+    <button class="nav-btn">❤️</button>    
+    <button class="nav-btn" onclick="goAbout()">!</button>    
+    <button class="nav-btn">📞</button>    
+    <button class="nav-btn" onclick="goNotification()">🔔</button>   
+    <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+    <button class="nav-btn" onclick="goBack()">🔙</button>    
+</div>  </div>  <div style="    
+    position:absolute;    
+    top:80px;    
+    right:30px;    
+    display:flex;    
+    gap:8px;    
+    z-index:10;    
+">  <button id="btnENG" onclick="setActiveLang('eng')" style="    
+    padding:6px 14px;    
+    font-size:13px;    
+    border-radius:20px;    
+    border:1px solid #00bfff;    
+    background:#00bfff;    
+    color:#000;    
+    cursor:pointer;    
+    transition:0.3s;    
+">    
+    ENG    
+</button>    <button id="btnHIN" onclick="setActiveLang('hin')" style="    
+padding:6px 14px;    
+font-size:13px;    
+border-radius:20px;    
+border:1px solid #444;    
+background:#1a1a1a;    
+color:#aaa;    
+cursor:pointer;    
+transition:0.3s;    
+">
+हिंदी
+</button>
+
+<button id="btnBN" onclick="setActiveLang('bn')" style="    
+padding:6px 14px;    
+font-size:13px;    
+border-radius:20px;    
+border:1px solid #444;    
+background:#1a1a1a;    
+color:#aaa;    
+cursor:pointer;    
+transition:0.3s;    
+">
+বাংলা
+</button>
+<script>
+function setActiveLang(lang){
+
+    const eng = document.getElementById("btnENG");
+    const hin = document.getElementById("btnHIN");
+    const bn = document.getElementById("btnBN");
+
+    const contentENG = document.getElementById("contentENG");
+    const contentBN = document.getElementById("contentBN");
+    const contentHIN = document.getElementById("contentHIN");
+
+    // RESET BUTTONS
+    [eng, hin, bn].forEach(btn => {
+        btn.style.background = "#1a1a1a";
+        btn.style.color = "#aaa";
+        btn.style.border = "1px solid #444";
+    });
+
+    // HIDE ALL
+    contentENG.style.display = "none";
+    contentBN.style.display = "none";
+    contentHIN.style.display = "none";
+
+
+    if(lang === "eng"){
+        eng.style.background = "#00bfff";
+        eng.style.color = "#000";
+        eng.style.border = "1px solid #00bfff";
+
+        contentENG.style.display = "block";
+    }
+
+    else if(lang === "bn"){
+        bn.style.background = "#00bfff";
+        bn.style.color = "#000";
+        bn.style.border = "1px solid #00bfff";
+
+        contentBN.style.display = "block";
+    }
+
+    else if(lang === "hin"){
+        hin.style.background = "#00bfff";
+        hin.style.color = "#000";
+        hin.style.border = "1px solid #00bfff";
+
+        contentHIN.style.display = "block";
+    }
+}
+</script>
+ </div> 
+ <!-- SIDEBAR -->  <div id="sidebar" class="sidebar">  <div class="sidebar-header">    <div class="sidebar-logo">    
+    <img src="logo.png" alt="Safe Link Logo">    
+    <div class="logo-text">    
+        <h2>SAFE LINK</h2>    
+        <p>Tech Gen</p>    
+    </div>    
+</div>    
+<button class="close-btn" onclick="toggleSidebar()">✖</button>
+
+</div>    <div id="userEmailDisplay" class="user-email"></div>    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+<button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+<button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+<hr style="border:1px solid #222; margin:10px 0;">  <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+<button class="side-btn" onclick="goEmergency();closeSidebar();">🚨 Emergency Alert</button>
+<button class="side-btn" onclick="goEmg_all(); closeSidebar();">🚨 Emergency without Login</button>
+<button id="profileBtn" class="side-btn" onclick="goProfile()">👤 Profile</button>
+<button class="side-btn">⚙ Settings</button>
+<button class="side-btn" onclick="goNotification()">🔔 Notification</button> 
+<button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+<button class="side-btn" >🔍 Search</button>
+<button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+<button class="side-btn">📞 Contact Us</button>
+<button class="side-btn">💬 Feedback / Suggestion</button>
+<button class="side-btn">📅 Meeting</button>
+<button class="side-btn">📢 Report</button>
+<button id="donationBtn" class="side-btn disabled">💰 Donation</button>
+
+<div class="sidebar-footer">    
+    Thank you for using our app ❤️    
+</div>
+  </div>  
+<!-- ================= CONTENT ================= -->  
+ <!-- ================= CONTENT ================= -->
+
+<!-- ENGLISH CONTENT -->
+<div id="contentENG" style="padding:20px 20px 20px 20px; max-width:1000px; margin:0 auto;">
+    <img src="logo.png" style="width:100px; margin-bottom: 10px; display:block;">
+    <h1 style="text-align:left; margin-bottom: 10px;">About SafeLink</h1>
+
+    <p style="margin-top:10px; color:#ccc; line-height:1.8; font-size:16px; text-align: justify;">
+
+<br>
+
+SafeLink is an advanced emergency response and public safety platform designed to provide immediate assistance during critical situations. In moments of danger—such as harassment, stalking, medical emergencies, accidents, or public threats—every second is crucial. SafeLink empowers users to trigger a one-tap SOS alert that instantly shares their live location with nearby trusted users, community responders, and relevant authorities.
+
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+Real-Time Protection. Community-Driven Response.
+</span>
+
+<br>
+
+By integrating GPS tracking, cloud-based infrastructure, and real-time alert systems, SafeLink builds a responsive safety network where people can help each other instantly. Unlike traditional systems that rely solely on official services, SafeLink bridges the gap between individuals and emergency responders—significantly reducing response time when it matters most.
+
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+Built for Accessibility & Reliability
+</span>
+
+<br>
+
+The platform is optimized to run smoothly across a wide range of devices, including low-end smartphones, ensuring accessibility for all users. Its lightweight design and scalable architecture make it reliable even in high-demand scenarios.
+
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+Future-Ready Safety Ecosystem
+</span>
+
+<br>
+
+SafeLink is continuously evolving with upcoming features such as:
+<br>• Live emergency tracking
+<br>• Smart alert notifications
+<br>• Volunteer-based rapid response
+<br>• Evidence recording during incidents
+<br>• AI-powered safety heatmaps
+
+<br>
+
+<span style="font-size:17px; color:#fff; font-weight:600;">
+SafeLink is not just an application — it is a mission to build safer communities through technology, awareness, and collective responsibility.
+</span>
+
+</p>
+</div>
+<!-- HINDI CONTENT -->
+<div id="contentHIN" style="padding:20px 20px 20px 20px; max-width:1000px; margin:0 auto; display:none;">
+    <img src="logo.png" style="width:100px; margin-bottom: 10px; display:block;">
+    <h1 style="text-align:left; margin-bottom: 10px;">सेफलिंक के बारे में</h1>
+
+    <p style="margin-top:10px; color:#ccc; line-height:1.8; font-size:16px; text-align: justify;">
+
+<br>
+
+SafeLink एक एडवांस्ड इमरजेंसी रिस्पॉन्स और पब्लिक सेफ्टी प्लेटफ़ॉर्म है, जिसे गंभीर स्थितियों के दौरान तुरंत मदद पहुँचाने के लिए डिज़ाइन किया गया है। खतरे के पलों में—जैसे कि उत्पीड़न, पीछा करना, मेडिकल इमरजेंसी, दुर्घटनाएँ या सार्वजनिक खतरे—हर एक सेकंड कीमती होता है। SafeLink यूज़र्स को एक-टैप SOS अलर्ट भेजने की सुविधा देता है, जो तुरंत उनकी लाइव लोकेशन आस-पास के भरोसेमंद यूज़र्स, कम्युनिटी रिस्पॉन्डर्स और संबंधित अधिकारियों के साथ शेयर कर देता है।
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+रीयल-टाइम सुरक्षा। समुदाय-संचालित प्रतिक्रिया।
+</span>
+
+<br>
+GPS ट्रैकिंग, क्लाउड-आधारित इंफ्रास्ट्रक्चर और रियल-टाइम अलर्ट सिस्टम को इंटीग्रेट करके, SafeLink एक ऐसा रिस्पॉन्सिव सुरक्षा नेटवर्क तैयार करता है, जहाँ लोग एक-दूसरे की तुरंत मदद कर सकते हैं। पारंपरिक सिस्टम के विपरीत, जो पूरी तरह से आधिकारिक सेवाओं पर निर्भर रहते हैं, SafeLink व्यक्तियों और आपातकालीन रिस्पॉन्डर्स के बीच की खाई को भरता है—जिससे सबसे ज़रूरी समय पर रिस्पॉन्स टाइम में काफ़ी कमी आती है।
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+पहुँच और विश्वसनीयता के लिए निर्मित
+</span>
+
+<br>
+यह प्लेटफ़ॉर्म कई तरह के डिवाइस पर, जिनमें कम क्षमता वाले स्मार्टफ़ोन भी शामिल हैं, आसानी से चलने के लिए ऑप्टिमाइज़ किया गया है, जिससे सभी यूज़र्स के लिए इसकी पहुँच सुनिश्चित होती है। इसका हल्का डिज़ाइन और स्केलेबल आर्किटेक्चर, ज़्यादा माँग वाले हालातों में भी इसे भरोसेमंद बनाता है।
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+भविष्य के लिए तैयार सुरक्षा तंत्र
+</span>
+
+<br>
+
+SafeLink लगातार विकसित हो रहा है, जिसमें आने वाले फ़ीचर्स शामिल हैं:
+<br>• लाइव इमरजेंसी ट्रैकिंग
+<br>• स्मार्ट अलर्ट नोटिफ़िकेशन
+<br>• वॉलंटियर-आधारित त्वरित प्रतिक्रिया
+<br>• घटनाओं के दौरान सबूतों की रिकॉर्डिंग
+<br>• AI-पावर्ड सेफ़्टी हीटमैप
+
+<br>
+
+<span style="font-size:17px; color:#fff; font-weight:600;">
+SafeLink सिर्फ़ एक एप्लिकेशन नहीं है — यह टेक्नोलॉजी, जागरूकता और सामूहिक ज़िम्मेदारी के ज़रिए ज़्यादा सुरक्षित समुदाय बनाने का एक मिशन है।
+</span>
+
+</p>
+</div>
+
+
+<!-- BENGALI CONTENT -->
+<div id="contentBN" style="padding:20px 20px 20px 20px; max-width:1000px; margin:0 auto; display:none;">
+    <img src="logo.png" style="width:100px; margin-bottom: 10px; display:block;">
+    <h1 style="text-align:left; margin-bottom: 10px;">সেফলিঙ্ক সম্পর্কে</h1>
+
+    <p style="margin-top:10px; color:#ccc; line-height:1.8; font-size:16px; text-align: justify;">
+
+<br>
+
+সেফলিঙ্ক একটি উন্নত জরুরি প্রতিক্রিয়া এবং জননিরাপত্তা প্ল্যাটফর্ম, যা সংকটময় পরিস্থিতিতে তাৎক্ষণিক সহায়তা প্রদানের জন্য ডিজাইন করা হয়েছে। বিপদের মুহূর্তে—যেমন হয়রানি, পিছু ধাওয়া, চিকিৎসা সংক্রান্ত জরুরি অবস্থা, দুর্ঘটনা বা জননিরাপত্তার হুমকি—প্রতিটি সেকেন্ড অত্যন্ত গুরুত্বপূর্ণ। সেফলিঙ্ক ব্যবহারকারীদের এক-ট্যাপে একটি SOS অ্যালার্ট চালু করার ক্ষমতা দেয়, যা তাৎক্ষণিকভাবে তাদের লাইভ অবস্থান নিকটবর্তী বিশ্বস্ত ব্যবহারকারী, কমিউনিটি রেসপন্ডার এবং সংশ্লিষ্ট কর্তৃপক্ষের সাথে শেয়ার করে।
+
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+রিয়েল-টাইম সুরক্ষা। কমিউনিটি-চালিত প্রতিক্রিয়া।
+</span>
+
+<br>
+
+GPS ট্র্যাকিং, ক্লাউড-ভিত্তিক পরিকাঠামো এবং রিয়েল-টাইম অ্যালার্ট সিস্টেমকে একীভূত করে সেফলিঙ্ক একটি প্রতিক্রিয়াশীল নিরাপত্তা নেটওয়ার্ক তৈরি করে, যেখানে মানুষ একে অপরকে তাৎক্ষণিকভাবে সাহায্য করতে পারে। প্রচলিত সিস্টেমগুলো শুধুমাত্র সরকারি পরিষেবার উপর নির্ভর করে, কিন্তু সেফলিঙ্ক ব্যক্তি এবং জরুরি প্রতিক্রিয়া প্রদানকারীদের মধ্যে ব্যবধান কমিয়ে আনে—যার ফলে সবচেয়ে গুরুত্বপূর্ণ মুহূর্তে প্রতিক্রিয়ার সময় উল্লেখযোগ্যভাবে হ্রাস পায়।
+
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+সহজলভ্যতা ও নির্ভরযোগ্যতার জন্য নির্মিত</span>
+
+<br>
+
+এই প্ল্যাটফর্মটি লো-এন্ড স্মার্টফোনসহ বিভিন্ন ডিভাইসে মসৃণভাবে চলার জন্য অপ্টিমাইজ করা হয়েছে, যা সকল ব্যবহারকারীর জন্য সহজলভ্যতা নিশ্চিত করে। এর হালকা ডিজাইন এবং স্কেলেবল আর্কিটেকচার এটিকে উচ্চ-চাহিদার পরিস্থিতিতেও নির্ভরযোগ্য করে তোলে।
+
+<br>
+
+<span style="color:#00bfff; font-weight:600;">
+ভবিষ্যৎ-প্রস্তুত নিরাপত্তা ইকোসিস্টেম</span>
+
+<br>
+
+সেফলিঙ্ক ক্রমাগত বিকশিত হচ্ছে এবং এতে আসছে বিভিন্ন ফিচার, যেমন:
+<br>• লাইভ জরুরি অবস্থা ট্র্যাকিং
+<br>• স্মার্ট অ্যালার্ট নোটিফিকেশন
+<br>• স্বেচ্ছাসেবক-ভিত্তিক দ্রুত প্রতিক্রিয়া
+<br>• ঘটনার সময় প্রমাণ রেকর্ডিং
+<br>• এআই-চালিত সেফটি হিটম্যাপ।
+
+<br>
+
+<span style="font-size:17px; color:#fff; font-weight:600;">
+সেফলিঙ্ক শুধু একটি অ্যাপ্লিকেশন নয় — এটি প্রযুক্তি, সচেতনতা এবং সম্মিলিত দায়িত্বের মাধ্যমে নিরাপদ সম্প্রদায় গড়ে তোলার একটি মিশন।
+</span>
+
+</p>
+</div>
+<div style="text-align:center; margin-top:20px;">
+    
+    <button onclick="goPrivacy()" style="
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding:12px 22px;
+        border-radius:30px;
+        border:none;
+        background:#81afce;
+        color:#d71319;
+        font-size:20px;
+        cursor:pointer;
+        box-shadow:0 4px 12px rgba(0,0,0,0.15);
+        transition:0.3s;
+    "
+    onmouseover="this.style.transform='scale(1.05)'"
+    onmouseout="this.style.transform='scale(1)'">
+
+        <!-- ICON -->
+        <span style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:26px;
+            height:26px;
+            border-radius:50%;
+            background:#0b0600;
+            color:#b40a0a;
+            font-weight:bold;
+        ">i</span>
+
+        Privacy Policy
+    </button>
+
+</div>
+
+<br>
+<div style="text-align:center; margin-top:20px;">
+    
+    <button onclick="gofaqsS()" style="
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding:12px 22px;
+        border-radius:30px;
+        border:none;
+        background:#81afce;
+        color:#d71319;
+        font-size:20px;
+        cursor:pointer;
+        box-shadow:0 4px 12px rgba(0,0,0,0.15);
+        transition:0.3s;
+    "
+    onmouseover="this.style.transform='scale(1.05)'"
+    onmouseout="this.style.transform='scale(1)'">
+
+        FAQs
+    </button>
+
+</div>
+<br>
+<div style="text-align:center; margin-top:20px 0;">    
+    <a href="https://techgen.online/" target="_blank">    
+        <button style="    
+            padding:12px 25px;    
+            font-size:16px;    
+            background:#00bfff;    
+            color:#000;    
+            border:none;    
+            border-radius:8px;    
+            cursor:pointer;    
+            transition:0.3s;    
+        "    
+        onmouseover="this.style.background='#009acd'"    
+        onmouseout="this.style.background='#00bfff'">    
+            Contact Our Team    
+        </button>    
+    </a>    
+</div>    
+<!-- ================= PROFESSIONAL FOOTER ================= -->    
+<footer style="    
+    margin-top:30px;    
+    padding:25px 0;    
+    background:#0d0d0d;    
+    color:#aaa;    
+    text-align:center;    
+    font-size:14px;    
+    border-top:1px solid #222;    
+">    
+    <div style="margin-bottom:8px;">    
+        © <span id="year"></span> Safe Link. All Rights Reserved.    
+    </div>    
+    <div style="font-size:13px; color:#666;">    
+        Designed & Developed by Tech Gen    
+    </div>    
+    <div style="margin-bottom:8px;">    
+        Contact Us:    
+        <a href="mailto:contact_us@techgen.online"    
+           style="color:#0c5e79; text-decoration:none;">    
+           contact_us@techgen.online    
+        </a>    
+    </div>    
+</footer>  
+<script src="options.js"></script> 
+<script src="app.js">   </script>
+
+ <script>    
+function goAbout(){    
+    window.location.href = "about.html";    
+}    
+</script>
+<script>    
+function goPrivacy(){    
+    window.location.href = "privacy/pvc.html";    
+}    
+</script>
+<script>    
+function gofaqsS(){    
+    window.location.href = "privacy/faqs/faq.html";    
+}    
+</script>
+  </body>    
+</html>
+
+===== app.js =====
+function shareSite(){
+
+    const shareData = {
+        title: "Safe Link – Your Safety Companion",
+        text: "🚨 Stay Safe Anytime, Anywhere!\n\nSafe Link helps you connect quickly in emergencies, stay informed, and protect what matters most.\n\n👉 Try it now:",
+        url: "https://safe-link.techgen.online/"
+    };
+
+    if(navigator.share){
+        navigator.share(shareData);
+    }else{
+        // fallback for desktop
+        const message = `${shareData.title}\n\n${shareData.text}\n${shareData.url}`;
+        navigator.clipboard.writeText(message);
+        alert("✅ Link copied! Share it with others.");
+    }
+}
+
+
+
+function updateClock(){
+
+    const timeEl = document.getElementById("liveTime");
+    const dateEl = document.getElementById("liveDate");
+
+    if(!timeEl || !dateEl) return; // 🛑 prevent crash
+
+    const now = new Date();
+
+    timeEl.innerText = now.toLocaleTimeString();
+    dateEl.innerText = now.toDateString();
+}
+
+// run after page loads
+window.addEventListener("DOMContentLoaded", () => {
+    updateClock();
+    setInterval(updateClock, 1000);
+});
+
+
+function handleEmergencyClick(){
+
+    const userId = localStorage.getItem("userId");
+
+    // ✅ LOGGED IN
+    if(userId){
+        window.location.href = "/emg_log/emergency.html";
+    }
+    // ❌ NOT LOGGED IN
+    else{
+        goEmg_all();
+    }
+}
+
+===== index.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Home - Safe Link</title>
+
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+</div>
+
+<!-- ================= TOP NAV ================= -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button id="headerProfileBtn" class="nav-btn">👤</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn" onclick="goAbout()">!</button>
+        <button class="nav-btn" onclick="goContact()">📞</button>
+        <button class="nav-btn" onclick="goNotification()">🔔</button>
+        <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+    </div>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Safe Link Logo">
+            <div class="logo-text">
+                <h2>SAFE LINK</h2>
+                <p>Tech Gen</p>
+            </div>
+        </div>
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <button class="side-btn side-btn-dashboard" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+    <button class="side-btn" onclick="goEmg_all(); closeSidebar();">🚨 Emergency without Login</button>
+    <button id="profileBtn" class="side-btn">👤 Profile</button>
+    <button class="side-btn">⚙ Settings</button>
+    <button class="side-btn" onclick="goNotification()">🔔 Notification</button> 
+    <button class="side-btn" onclick="goNotices()">🔔 Notices</button>
+    <button class="side-btn">🔍 Search</button>
+    <button class="side-btn" onclick="goAbout()">ℹ About</button>
+    <button class="side-btn disabled">🌐 Change Language (Coming Soon)</button>
+    <button class="side-btn" onclick="goContact()">📞 Contact Us</button>
+    <button class="side-btn">💬 Feedback / Suggestion</button>
+    <button class="side-btn">📅 Meeting</button>
+    <button class="side-btn">📢 Report</button>
+
+    <div class="sidebar-footer">
+        Thank you for using our app ❤️
+    </div>
+
+</div>
+
+<!-- ================= PAGE CONTENT ================= -->
+<div class="main-content">
+
+    <h1>Welcome to Safe Link</h1>
+
+<p style="margin-top:20px; font-size:18px; color:#ccc;">
+    Your safety, our priority.
+</p>
+
+<!-- 🚨 EMERGENCY BUTTON -->
+<div class="emergency-wrapper">
+    <button class="emergency-btn" onclick="handleEmergencyClick()">
+        <span class="emg-icon">🚨</span>
+    </button>
+    <p style="color:#FF0000;">For Emergency alert, press the above button ☝️ </p>
+</div>
+
+    <p style="margin-top:15px; font-size:16px; color:#aaa;">
+        Our service is under upgradation, please wait for publishing.
+    </p>
+
+    <div style="margin-top:30px;">
+        <button onclick="window.location.href='https://techgen.online'" style="
+            padding:12px 25px;
+            font-size:16px;
+            background:#00bfff;
+            color:#000;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+        ">
+            Contact Our Team
+        </button>
+    </div>
+
+</div>
+<!-- ================= LIVE CLOCK ================= -->
+<div class="live-clock-box">
+    <div id="liveTime">00:00:00</div>
+    <div id="liveDate">Loading...</div>
+</div>
+<!-- ================= FOOTER ================= -->
+<footer style="
+    margin-top:10px;
+    padding:25px 0;
+    background:#0d0d0d;
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+    border-top:1px solid #222;
+">
+    <div>© <span id="year"></span> Safe Link. All Rights Reserved.</div>
+    <div>Designed & Developed by Tech Gen</div>
+    <div>
+        <a href="mailto:contact_us@techgen.online" style="color:#00bfff;">
+            contact_us@techgen.online
+        </a>
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+    "https://amvjwubiaedasynbiuua.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g"
+);
+</script>
+<script src="options.js"></script>
+<script src="app.js"></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
+
+===== login.css =====
+/* ================= LOGIN PAGE ================= */
+
+.auth-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:85vh;
+    padding:20px;
+}
+
+.auth-box{
+    background:#1a1a1a;
+    padding:30px;
+    border-radius:12px;
+    width:350px;
+    box-shadow:0 0 25px rgba(0,0,0,0.6);
+    text-align:center;
+}
+
+/* ================= TOGGLE ================= */
+
+.auth-toggle{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.auth-toggle button{
+    width:32%; /* ✅ fixed for 3 buttons */
+    padding:10px;
+    border:none;
+    background:#222;
+    color:white;
+    cursor:pointer;
+    border-radius:6px;
+    transition:0.3s;
+    font-weight:bold;
+}
+
+.auth-toggle button:hover{
+    background:#333;
+}
+
+.auth-toggle button.active{
+    background:#00bfff;
+    color:#000;
+}
+
+/* ================= INPUT FIELDS ================= */
+
+.auth-box input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:6px;
+    outline:none;
+    background:#222;
+    color:#ffffff !important;   /* ✅ force visible text */
+    font-size:14px;
+}
+
+/* 🔥 FIX PLACEHOLDER VISIBILITY */
+.auth-box input::placeholder{
+    color:#cccccc !important;
+    opacity:1; /* important for some browsers */
+}
+
+/* FOR ALL BROWSERS */
+.auth-box input::-webkit-input-placeholder{
+    color:#cccccc;
+}
+.auth-box input:-ms-input-placeholder{
+    color:#cccccc;
+}
+.auth-box input::placeholder{
+    color:#cccccc;
+}
+
+/* ================= CAPTCHA ================= */
+
+.captcha-box{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#222;
+    padding:10px;
+    margin:10px 0;
+    border-radius:6px;
+}
+
+/* ALL CAPTCHA TEXT */
+#loginCaptchaText,
+#signupCaptchaText,
+#adminCaptchaText{
+    font-weight:bold;
+    letter-spacing:3px;
+    font-size:18px;
+    color:#00ffcc;
+    user-select:none;
+    pointer-events:none;
+}
+
+.captcha-box button{
+    background:none;
+    border:none;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+/* ================= UNIFIED BUTTON STYLE ================= */
+
+.auth-btn,
+.admin-btn{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    font-size:15px;
+    transition:0.3s;
+
+    background:#2b2b2b;
+    color:#00bfff;
+    border:1px solid #00bfff;
+}
+
+.auth-btn:hover,
+.admin-btn:hover{
+    background:#00bfff;
+    color:#000;
+}
+
+/* ================= RESET ================= */
+
+.reset-btn{
+    margin-top:10px;
+    background:none;
+    border:none;
+    color:#00bfff;
+    cursor:pointer;
+    font-size:13px;
+}
+
+/* ================= PASSWORD STRENGTH ================= */
+
+.strength-meter{
+    height:6px;
+    background:#333;
+    border-radius:5px;
+    margin-bottom:10px;
+}
+
+#strengthBar{
+    height:6px;
+    width:0%;
+    border-radius:5px;
+    transition:0.3s;
+}
+
+/* ================= MESSAGE ================= */
+
+#authMsg{
+    margin-top:15px;
+    font-size:14px;
+    color:orange;
+    min-height:18px;
+}
+
+/* ================= SIDEBAR USER EMAIL ================= */
+
+.user-email{
+    padding:12px;
+    font-size:12px;
+    color:#00ffcc;
+    text-align:center;
+    border-bottom:1px solid #222;
+    word-wrap:break-word;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:480px){
+
+    .auth-box{
+        width:100%;
+        padding:20px;
+    }
+
+    .auth-toggle button{
+        font-size:12px;
+    }
+
+    .nav-btn{
+        font-size:16px;
+        margin: 0 3px;
+    }
+
+}
+
+/* ================= AUTH LOGO ================= */
+
+.auth-logo{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.auth-logo img{
+    width:70px;
+    height:70px;
+    margin-bottom:10px;
+}
+
+.auth-logo h2{
+    margin:0;
+    font-size:20px;
+    letter-spacing:1px;
+}
+
+.auth-logo p{
+    margin:0;
+    font-size:12px;
+    color:#aaa;
+}
+
+/* ================= FIX HEADER OVERLAP ================= */
+
+.auth-container{
+    margin-top:80px;
+    padding-bottom:60px;
+}
+
+@media(max-width:768px){
+    .auth-container{
+        margin-top:90px;
+    }
+}
+.main-content{
+    padding:110px 16px 20px;
+    text-align:center;
+    max-width:100%;
+    margin: auto;
+}
+
+===== login.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Auth - Safe Link</title>
+
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="login.css">
+
+</head>
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+    <div class="ecg-wrapper">
+        <svg viewBox="0 0 500 100" class="ecg-svg">
+            <polyline 
+                points="0,50 40,50 60,20 80,80 100,50 140,50 160,30 180,70 200,50 500,50"
+                class="ecg-path"/>
+        </svg>
+    </div>
+    <audio id="heartbeatSound"
+    src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-1055.mp3"
+    preload="auto"></audio>
+</div>
+
+<!-- ================= TOP NAV ================= -->
+<div class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+        <button class="nav-btn" onclick="goHome()">⌂</button>
+        <button class="nav-btn">🔍</button>
+        <button class="nav-btn">⚙</button>
+    </div>
+
+    <div class="nav-right">
+        <button class="nav-btn">❤️</button>
+        <button class="nav-btn" onclick="goAbout()">!</button>
+        <button class="nav-btn">📞</button>
+        <button class="nav-btn" onclick="goNotification()">🔔</button>
+        <button class="nav-btn" onclick="shareSite()" title="Share">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.7" y1="10.7" x2="15.3" y2="6.3"/>
+        <line x1="8.7" y1="13.3" x2="15.3" y2="17.7"/>
+    </svg>
+</button>
+        <button class="nav-btn" onclick="goBack()">🔙</button>
+    </div>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="logo.png">
+            <div class="logo-text">
+                <h2>SAFE LINK</h2>
+                <p>Tech Gen</p>
+            </div>
+        </div>
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <div id="userEmailDisplay" class="user-email"></div>
+
+    <button class="side-btn side-btn-dashboard" style="display:none;" onclick="goDashboard();closeSidebar();">📊 Dashboard</button>
+    <button class="side-btn side-btn-login" onclick="goLogin();closeSidebar();">🔐 Login / Signup</button>
+    <button class="side-btn side-btn-logout" style="display:none;" onclick="logoutUser();closeSidebar();">🚪 Logout</button>
+
+    <hr style="border:1px solid #222; margin:10px 0;">
+
+    <button class="side-btn" onclick="goHome();closeSidebar();">🏠 Home</button>
+</div>
+
+<!-- ================= AUTH ================= -->
+<div class="auth-container">
+<div class="auth-box">
+
+<div class="auth-logo">
+<img src="logo.png">
+<h2>SAFE LINK</h2>
+<p>Tech Gen</p>
+</div>
+
+<div class="auth-toggle">
+<button id="loginTab" class="active" onclick="showLogin()">Login</button>
+<button id="signupTab" onclick="showSignup()">Signup</button>
+<button id="adminTab" onclick="showAdmin()">Admin Corner</button>
+</div>
+
+<div id="loginBlock">
+<input type="email" id="loginEmail" placeholder="Email Address">
+<input type="password" id="loginPassword" placeholder="Password">
+
+<div class="captcha-box">
+<span id="loginCaptchaText"></span>
+<button onclick="generateLoginCaptcha()">↻</button>
+</div>
+
+<input type="text" id="loginCaptchaInput" placeholder="Enter CAPTCHA">
+
+<button class="auth-btn" onclick="login()">Login</button>
+</div>
+
+<div id="signupBlock" style="display:none;">
+<input type="email" id="signupEmail" placeholder="Email Address">
+<input type="password" id="signupPassword" placeholder="Password">
+
+<div class="captcha-box">
+<span id="signupCaptchaText"></span>
+<button onclick="generateSignupCaptcha()">↻</button>
+</div>
+
+<input type="text" id="signupCaptchaInput" placeholder="Enter CAPTCHA">
+
+<button class="auth-btn" onclick="signup()">Create Account</button>
+</div>
+<div id="adminBlock" style="display:none;">
+
+<input type="text" id="adminUser" placeholder="Admin ID">
+<input type="password" id="adminPass" placeholder="Admin Password">
+
+<div class="captcha-box">
+<span id="adminCaptchaText"></span>
+<button onclick="generateAdminCaptcha()">↻</button>
+</div>
+
+<input type="text" id="adminCaptchaInput" placeholder="Enter CAPTCHA">
+
+<button class="admin-btn" onclick="adminLogin()">Enter Admin Panel</button>
+
+</div>
+<p id="authMsg"></p>
+
+</div>
+</div>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://amvjwubiaedasynbiuua.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdmp3dWJpYWVkYXN5bmJpdXVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDI0ODcsImV4cCI6MjA4OTU3ODQ4N30.f3so0jML0hoBEfSzSzTvN27mPSZRmze-01RzG0-Ll_g";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+</script>
+
+<script src="options.js"></script>
+<script src="login.js"></script>
+<script src="app.js">   </script>
+
+</body>
+</html>
+
+===== login.js =====
+function setActive(tab){
+    document.getElementById("loginTab").classList.remove("active");
+    document.getElementById("signupTab").classList.remove("active");
+    document.getElementById("adminTab").classList.remove("active");
+
+    tab.classList.add("active");
+}
+
+function showLogin(){
+    document.getElementById("loginBlock").style.display = "block";
+    document.getElementById("signupBlock").style.display = "none";
+    document.getElementById("adminBlock").style.display = "none";
+    setActive(document.getElementById("loginTab"));
+}
+
+function showSignup(){
+    document.getElementById("loginBlock").style.display = "none";
+    document.getElementById("signupBlock").style.display = "block";
+    document.getElementById("adminBlock").style.display = "none";
+    setActive(document.getElementById("signupTab"));
+}
+
+function showAdmin(){
+    document.getElementById("loginBlock").style.display = "none";
+    document.getElementById("signupBlock").style.display = "none";
+    document.getElementById("adminBlock").style.display = "block";
+    setActive(document.getElementById("adminTab"));
+}
+
+let loginCaptcha="";
+let signupCaptcha="";
+let adminCaptcha = "";
+
+function generateAdminCaptcha(){
+    adminCaptcha = generateCaptcha();
+    document.getElementById("adminCaptchaText").innerText = adminCaptcha;
+}
+function generateCaptcha(){
+    return Math.random().toString(36).substring(2,7).toUpperCase();
+}
+
+function generateLoginCaptcha(){
+    loginCaptcha = generateCaptcha();
+    document.getElementById("loginCaptchaText").innerText = loginCaptcha;
+}
+
+function generateSignupCaptcha(){
+    signupCaptcha = generateCaptcha();
+    document.getElementById("signupCaptchaText").innerText = signupCaptcha;
+}
+
+window.onload = function(){
+    generateLoginCaptcha();
+    generateSignupCaptcha();
+    generateAdminCaptcha();
+};
+
+async function signup(){
+
+    const email = document.getElementById("signupEmail").value;
+    const password = document.getElementById("signupPassword").value;
+    const captchaInput = document.getElementById("signupCaptchaInput").value;
+    const msg = document.getElementById("authMsg");
+    const btn = document.querySelector("#signupBlock .auth-btn");
+
+    if(captchaInput !== signupCaptcha){
+        msg.innerText = "❌ Invalid CAPTCHA";
+        return;
+    }
+
+    // 🔄 LOADING START
+    btn.innerText = "Processing...";
+    btn.disabled = true;
+
+    const { error } = await supabaseClient.auth.signUp({
+        email,
+        password
+    });
+
+    if(error){
+        msg.innerText = "❌ " + error.message;
+
+        btn.innerText = "Create Account";
+        btn.disabled = false;
+    }else{
+        msg.innerText = "✅ Signup successful!";
+
+        btn.innerText = "Create Account";
+        btn.disabled = false;
+    }
+}
+
+async function login(){
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+    const captchaInput = document.getElementById("loginCaptchaInput").value;
+    const msg = document.getElementById("authMsg");
+    const btn = document.querySelector("#loginBlock .auth-btn");
+
+    if(captchaInput !== loginCaptcha){
+        msg.innerText = "❌ Invalid CAPTCHA";
+        return;
+    }
+
+    // 🔄 LOADING START
+    btn.innerText = "Processing...";
+    btn.disabled = true;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+    });
+
+    if(error){
+        msg.innerText = "❌ " + error.message;
+
+        btn.innerText = "Login";
+        btn.disabled = false;
+    }else{
+    msg.innerText = "✅ Login successful";
+
+    // ✅ DIRECT USER FROM LOGIN RESPONSE (BEST WAY)
+    const user = data.user;
+
+    if(user){
+        localStorage.setItem("userId", user.id);
+        console.log("Saved userId:", user.id); // debug
+    }else{
+        console.log("User not found in login response");
+    }
+
+    setTimeout(()=>{
+        window.location.href="/dashboard/dashboard.html";
+    },1000);
+}
+}
+
+async function adminLogin(){
+
+    const adminId = document.getElementById("adminUser").value;
+    const password = document.getElementById("adminPass").value;
+    const captchaInput = document.getElementById("adminCaptchaInput").value;
+    const msg = document.getElementById("authMsg");
+    const btn = document.querySelector("#adminBlock .admin-btn");
+
+    if(captchaInput !== adminCaptcha){
+        msg.innerText = "❌ Invalid CAPTCHA";
+        return;
+    }
+
+    btn.innerText = "Verifying...";
+    btn.disabled = true;
+
+    try{
+
+        const { data, error } = await supabaseClient
+            .from("admins")
+            .select("*")
+            .eq("admin_id", adminId)
+            .eq("password", password);
+
+        if(error){
+            console.error(error);
+        }
+
+        if(!data || data.length === 0){
+            msg.innerText = "❌ Invalid Admin ID or Password";
+            btn.innerText = "Enter Admin Panel";
+            btn.disabled = false;
+            return;
+        }
+
+        const admin = data[0];
+
+        msg.innerText = "✅ Admin Login Successful";
+
+        // ✅ IMPORTANT FIX
+        localStorage.setItem("adminLoggedIn", "true");
+        localStorage.setItem("adminId", admin.admin_id); // UUID ✅
+        localStorage.setItem("adminRole", admin.admin_role || "ADMIN");
+        localStorage.setItem("adminName", admin.admin_name);
+
+        setTimeout(()=>{
+            window.location.href = "/admin/dashboard.html";
+        },1000);
+
+    }catch(err){
+        console.error(err);
+        msg.innerText = "❌ Something went wrong";
+        btn.innerText = "Enter Admin Panel";
+        btn.disabled = false;
+    }
+}
+
+===== OneSignalSDKWorker.js =====
+importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
+
+===== options.js =====
+/* ================= SIDEBAR ================= */
+function toggleSidebar(){
+    const sidebar = document.getElementById("sidebar");
+    if(sidebar){
+        sidebar.classList.toggle("active");
+    }
+}
+
+function closeSidebar(){
+    const sidebar = document.getElementById("sidebar");
+    if(sidebar){
+        sidebar.classList.remove("active");
+    }
+}
+
+/* ================= SMOOTH REDIRECT ================= */
+
+function smoothRedirect(page){
+    document.body.style.opacity = 0;
+    setTimeout(()=>{
+        window.location.href = page;
+    },300);
+}
+
+function goHome(){
+    if(window.location.pathname.includes("/dashboard/")){
+        smoothRedirect("../index.html");
+    } else {
+        smoothRedirect("/index.html");
+    }
+}
+
+function goAbout(){
+    smoothRedirect("/about.html");
+}
+
+function goNotices(){
+    if(window.location.pathname.includes("/dashboard/")){
+        smoothRedirect("../notice/notice.html");
+    } else {
+        smoothRedirect("/notice/notice.html");
+    }
+}
+
+function goLogin(){
+    if(window.location.pathname.includes("/dashboard/")){
+        smoothRedirect("../login.html");
+    } else {
+        smoothRedirect("/login.html");
+    }
+}
+
+function goProfile(){
+    if(window.location.pathname.includes("/dashboard/")){
+        smoothRedirect("../profile.html");
+    } else {
+        smoothRedirect("/dashboard/profile.html");
+    }
+}
+
+function goDashboard(){
+    if(window.location.pathname.includes("/dashboard/")){
+        smoothRedirect("/dashboard.html");
+    } else {
+        smoothRedirect("/dashboard/dashboard.html");
+    }
+}
+
+function goEmergency(){
+    if(window.location.pathname.includes("/dashboard/")){
+        smoothRedirect("/emergency.html");
+    } else {
+        smoothRedirect("dashboard/emergency.html");
+    }
+}
+
+/* ================= CONTACT ================= */
+
+function goContact(){
+    if(window.location.pathname.includes("/dashboard/")){
+        smoothRedirect("../contact.html");
+    } else {
+        smoothRedirect("/contact.html");
+    }
+}
+
+/* ================= BACK ================= */
+
+function goBack(){
+    if(window.history.length > 1){
+        window.history.back();
+    } else {
+        goHome();
+    }
+}
+
+/* ================= DONATION ================= */
+
+function openDonation(){
+    window.open("https://razorpay.me/@digirock", "_blank");
+}
+
+/* ================= LOADER ================= */
+
+window.addEventListener("load", function(){
+
+    const loader = document.getElementById("loader");
+    const sound = document.getElementById("heartbeatSound");
+
+    if(sound){
+        sound.play().catch(()=>{});
+    }
+
+    if(loader){
+        setTimeout(()=>{
+            loader.style.display="none";
+            if(sound){
+                try{
+                    sound.pause();
+                    sound.currentTime = 0;
+                }catch(e){}
+            }
+        },1200);
+    }
+
+});
+
+/* ================= AUTH UI CONTROL ================= */
+
+/* ================= AUTH UI CONTROL (FINAL) ================= */
+
+async function handleAuthUI(){
+
+    if(typeof supabaseClient === "undefined") return;
+
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    const isLoggedIn = !!session;
+
+    const loginBtn = document.querySelector(".side-btn-login");
+    const logoutBtn = document.querySelector(".side-btn-logout");
+    const dashboardBtn = document.querySelector(".side-btn-dashboard");
+    const profileBtn = document.getElementById("profileBtn");
+
+    const allSideBtns = document.querySelectorAll(".side-btn");
+    const navBtns = document.querySelectorAll(".nav-btn");
+
+    let settingsBtn = null;
+    let emergencyAlertBtn = null;
+    let emergencyNoLoginBtn = null;
+
+    allSideBtns.forEach(btn=>{
+        const text = btn.innerText.toLowerCase();
+
+        if(text.includes("settings")) settingsBtn = btn;
+        if(text.includes("emergency alert")) emergencyAlertBtn = btn;
+        if(text.includes("without login")) emergencyNoLoginBtn = btn;
+    });
+
+    let settingsIcon = null;
+    const headerProfileBtn = document.getElementById("headerProfileBtn");
+
+    navBtns.forEach(btn=>{
+        if(btn.innerText.includes("⚙")) settingsIcon = btn;
+    });
+
+    /* ================= LOGGED IN ================= */
+    if(isLoggedIn){
+
+        if(loginBtn) loginBtn.style.display = "none";
+        if(logoutBtn) logoutBtn.style.display = "block";
+        if(dashboardBtn) dashboardBtn.style.display = "block";
+        if(profileBtn) profileBtn.style.display = "block";
+
+        if(emergencyNoLoginBtn) emergencyNoLoginBtn.style.display = "none";
+
+        if(settingsBtn) settingsBtn.style.display = "block";
+        if(settingsIcon) settingsIcon.style.display = "inline-block";
+
+        if(headerProfileBtn) headerProfileBtn.onclick = goProfile;
+    }
+
+    /* ================= NOT LOGGED IN ================= */
+    else{
+
+        if(loginBtn) loginBtn.style.display = "block";
+        if(logoutBtn) logoutBtn.style.display = "none";
+
+        // ❌ HIDE THESE
+        if(dashboardBtn) dashboardBtn.style.display = "none";
+        if(profileBtn) profileBtn.style.display = "none";
+        if(settingsBtn) settingsBtn.style.display = "none";
+        if(settingsIcon) settingsIcon.style.display = "none";
+
+        // ❌ hide emergency alert
+        if(emergencyAlertBtn) emergencyAlertBtn.style.display = "none";
+
+        // ✔ keep this visible
+        if(emergencyNoLoginBtn) emergencyNoLoginBtn.style.display = "block";
+
+        if(headerProfileBtn){
+            headerProfileBtn.onclick = goLogin;
+        }
+    }
+}
+
+handleAuthUI();
+
+/* ================= LOGOUT ================= */
+
+async function logoutUser(){
+    try{
+        if(typeof supabaseClient !== "undefined"){
+            await supabaseClient.auth.signOut();
+        }
+    }catch(e){}
+
+    if(window.location.pathname.includes("/dashboard/")){
+        window.location.href = "../index.html";
+    } else {
+        window.location.href = "/index.html";
+    }
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+}
+
+function goEmg_all(){
+    window.location.href = window.location.origin + "/emergency_all/emergency.html";
+}
+
+function goNotification(){
+    window.location.href = window.location.origin + "/emergency_all/notification.html";
+}
+
+===== style.css =====
+*{
+    box-sizing: border-box;
+}
+
+html, body{
+    width:100%;
+    overflow-x:hidden; /* 🚨 FIX SIDE SCROLL */
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background:#111;
+    color:white;
+    margin:0;
+    text-align:center;
+}
+
+/* ================= TOP NAV ================= */
+
+.top-nav{
+    width:100%;
+    background:#000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:8px 10px;
+
+    position:sticky;
+    top:0;
+    z-index:1500;
+    overflow: hidden;
+}
+
+.nav-left, .nav-right{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.nav-btn{
+    background:none;
+    border:none;
+    color:white;
+    font-size:18px;
+    margin:0 4px;
+    cursor:pointer;
+    padding:6px;
+    border-radius:6px;
+    transition:0.3s;
+}
+
+.nav-btn:hover{
+    background:#222;
+    color:red;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-280px;
+    width:260px;
+    height:100vh;
+    background:#0d0d0d;
+    transition:0.3s ease;
+    z-index:2000;
+    box-shadow:3px 0 15px rgba(0,0,0,0.6);
+    overflow-y:auto;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+/* Header */
+.sidebar-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px;
+    border-bottom:1px solid #222;
+}
+
+.sidebar-logo{
+    display:flex;
+    align-items:center;
+}
+
+.sidebar-logo img{
+    width:55px;
+    height:55px;
+    margin-right:10px;
+}
+
+.logo-text h2{
+    margin:0;
+    font-size:16px;
+}
+
+.logo-text p{
+    margin:0;
+    font-size:11px;
+    color:#bbb;
+}
+
+.close-btn{
+    background:none;
+    border:none;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+/* Buttons */
+.side-btn{
+    display:block;
+    width:85%;
+    margin:10px auto;
+    padding:10px;
+    background:#111;
+    border:1px solid #222;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    text-align:left;
+    transition:0.3s;
+}
+
+.side-btn:hover{
+    background:red;
+}
+
+.side-btn.disabled{
+    opacity:0.5;
+    cursor:not-allowed;
+}
+
+.sidebar-footer{
+    margin:20px;
+    font-size:12px;
+    color:#bbb;
+}
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar{
+    width:6px;
+}
+.sidebar::-webkit-scrollbar-thumb{
+    background:red;
+    border-radius:10px;
+}
+
+/* ================= MAIN ================= */
+
+.main-title{
+    margin-top:5px;
+}
+
+#sosBtn{
+    background:red;
+    color:white;
+    padding:16px 35px;
+    font-size:20px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+#status{
+    margin-top:10px;
+    color:lightgreen;
+    font-weight:bold;
+}
+
+.banner{
+    position:fixed;
+    top:55px;
+    width:100%;
+    background:red;
+    color:white;
+    padding:10px;
+    font-weight:bold;
+    z-index:1400;
+}
+
+.hidden{
+    display:none;
+}
+
+#map{
+    height:380px;
+    width:92%;
+    margin:20px auto;
+    border-radius:12px;
+}
+
+/* Responsive */
+@media (max-width:768px){
+    #map{
+        height:300px;
+    }
+}
+/* ================= ECG HEARTBEAT LOADER ================= */
+
+#loader{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+/* ECG Container */
+.ecg-container{
+    width:80%;
+    max-width:500px;
+    height:80px;
+    overflow:hidden;
+    position:relative;
+}
+
+/* ECG Line */
+.ecg-line{
+    position:absolute;
+    width:200%;
+    height:100%;
+    background:
+        linear-gradient(to right,
+            transparent 0%,
+            transparent 10%,
+            #00ff4c 10%,
+            #00ff4c 12%,
+            transparent 12%,
+            transparent 20%,
+            #00ff4c 20%,
+            #00ff4c 22%,
+            transparent 22%,
+            transparent 30%,
+            #00ff4c 30%,
+            #00ff4c 35%,
+            transparent 35%,
+            transparent 100%
+        );
+    background-size:200px 100%;
+    animation: ecgMove 1.5s linear infinite;
+}
+
+/* Moving effect */
+@keyframes ecgMove{
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(-50%);
+    }
+}
+
+/* Glow Effect */
+.ecg-line::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:inherit;
+    filter:blur(6px);
+    opacity:0.6;
+}
+
+/* ================= REAL ECG LOADER ================= */
+
+#loader{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    flex-direction:column;
+}
+
+.ecg-wrapper{
+    width:80%;
+    max-width:600px;
+}
+
+.ecg-svg{
+    width:100%;
+    height:100px;
+}
+
+.ecg-path{
+    fill:none;
+    stroke:#00ff4c;
+    stroke-width:3;
+    stroke-dasharray:600;
+    stroke-dashoffset:600;
+    animation: drawECG 2s linear infinite;
+}
+
+@keyframes drawECG{
+    to{
+        stroke-dashoffset:0;
+    }
+}
+
+
+/* ================= FLOATING BOX ================= */
+.floating-box{
+    position:fixed;
+    bottom:20px;
+    right:15px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    z-index:2000;
+}
+
+/* BUTTON */
+.float-btn{
+    width:45px;
+    height:45px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#0f172a; /* dark professional */
+    color:#00ffcc;
+
+    border:1px solid rgba(0,255,200,0.2);
+    border-radius:50%;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.4);
+    transition:all 0.25s ease;
+}
+
+/* hover effect */
+.float-btn:hover{
+    transform:translateY(-3px) scale(1.05);
+    box-shadow:0 6px 20px rgba(0,255,200,0.25);
+    background:#111827;
+}
+
+/* click */
+.float-btn:active{
+    transform:scale(0.95);
+}
+/* INFO BOX */
+.float-info{
+    background:#1a1a1a;
+    color:#fff;
+    padding:8px 12px;
+    border-radius:8px;
+    font-size:12px;
+    text-align:center;
+    border:1px solid #333;
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+/* ================= LIVE CLOCK ================= */
+.live-clock-box{
+    margin-top:10px;
+    margin-bottom: 1px;
+    padding:5px;
+    background:#111;
+    border-top:1px solid #222;
+    text-align:center;
+}
+
+#liveTime{
+    font-size:22px;
+    color:#00ffcc;
+    font-weight:bold;
+}
+
+#liveDate{
+    font-size:14px;
+    color:#aaa;
+}
+/* SAME STYLE AS BUTTON */
+.float-circle{
+    width:45px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:11px;
+    color:#00ffcc;
+
+    background:#0f172a;
+    border:1px solid rgba(0,255,200,0.2);
+    border-radius:50%;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.4);
+    transition:0.25s ease;
+
+    text-align:center;
+}
+
+/* hover effect */
+.float-circle:hover{
+    transform:translateY(-3px) scale(1.05);
+    box-shadow:0 6px 20px rgba(0,255,200,0.25);
+}
+
+.main-content{
+    padding:110px 16px 20px;
+    text-align:center;
+    max-width:100%;
+    margin: auto;
+}
+
+/* ================= EMERGENCY BUTTON ================= */
+
+.emergency-wrapper{
+    margin-top:25px;
+}
+
+.emergency-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    padding:14px 28px;
+
+    font-size:16px;
+    font-weight:500;
+
+    color:#fff;
+    background:linear-gradient(135deg,#ff3b3b,#b30000);
+
+    border:none;
+    border-radius:12px;
+
+    cursor:pointer;
+
+    box-shadow:0 6px 20px rgba(255,0,0,0.3);
+    transition:all 0.25s ease;
+}
+
+/* hover */
+.emergency-btn:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 8px 25px rgba(255,0,0,0.5);
+}
+
+/* click */
+.emergency-btn:active{
+    transform:scale(0.95);
+}
+
+/* icon */
+.emg-icon{
+    font-size:50px;
+}
+

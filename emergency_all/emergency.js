@@ -1,4 +1,6 @@
 let userMarker = null;
+let currentSOSId = null;
+let watchId = null;
 
 // ================= SHARE =================
 function shareSite(){
@@ -92,7 +94,7 @@ const sosBtn = document.querySelector(".emergency-btn");
 
 sosBtn.addEventListener("click", async () => {
 
-    // Auto trigger locate
+    // Auto trigger locate (UI only)
     locateBtn.click();
 
     // ✅ Cooldown
@@ -117,45 +119,69 @@ sosBtn.addEventListener("click", async () => {
 
     sosBtn.innerText = "⏳";
 
-    navigator.geolocation.getCurrentPosition(async (position) => {
+    // 🔄 START LIVE TRACKING
+    if (watchId) {
+        navigator.geolocation.clearWatch(watchId);
+    }
+
+    watchId = navigator.geolocation.watchPosition(async (position) => {
 
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
 
         try {
 
-            // 🌐 Get IP
-            const res = await fetch("https://api.ipify.org?format=json");
-            const ipData = await res.json();
-            const ip = ipData.ip;
+            // FIRST TIME → INSERT
+            if (!currentSOSId) {
 
-            // ✅ CORRECT IST TIME FIX
-            const now = new Date();
-            const istOffset = 5.5 * 60 * 60 * 1000;
-            const istDate = new Date(now.getTime() + istOffset).toISOString();
+                const res = await fetch("https://api.ipify.org?format=json");
+                const ipData = await res.json();
+                const ip = ipData.ip;
 
-            // ✅ SINGLE CLEAN INSERT
-            const { error } = await supabaseClient
-                .from("sos_alerts")
-                .insert([
-                    {
-                        ip_address: ip,
-                        latitude: lat,
-                        longitude: lng,
-                        message: "I need help , please help me",
-                        created_at: istDate
-                    }
-                ]);
+                const now = new Date();
+                const istOffset = 5.5 * 60 * 60 * 1000;
+                const istDate = new Date(now.getTime() + istOffset).toISOString();
 
-            if (error) {
-                console.error(error);
-                alert("❌ Failed to send SOS");
+                const { data, error } = await supabaseClient
+                    .from("sos_alerts")
+                    .insert([
+                        {
+                            ip_address: ip,
+                            latitude: lat,
+                            longitude: lng,
+                            message: "I need help , please help me",
+                            created_at: istDate
+                        }
+                    ])
+                    .select()
+                    .single();
+
+                if (error) {
+                    console.error(error);
+                    alert("❌ Failed to send SOS");
+                    sosBtn.innerText = "🚨";
+                    return;
+                }
+
+                currentSOSId = data.id;
+
+                alert("🚨 SOS Sent Successfully!");
                 sosBtn.innerText = "🚨";
-                return;
-            }
 
-            alert("🚨 SOS Sent Successfully!");
-            sosBtn.innerText = "🚨";
+            } else {
+                // 🔄 UPDATE LIVE LOCATION
+                const { error } = await supabaseClient
+                    .from("sos_alerts")
+                    .update({
+                        latitude: lat,
+                        longitude: lng
+                    })
+                    .eq("id", currentSOSId);
+
+                if (error) {
+                    console.error(error);
+                }
+            }
 
         } catch (err) {
             console.error(err);
@@ -166,6 +192,10 @@ sosBtn.addEventListener("click", async () => {
     }, () => {
         alert("❌ Location permission denied");
         sosBtn.innerText = "🚨";
+    }, {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 5000
     });
 
 });
