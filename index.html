@@ -94,6 +94,7 @@
 </div>
 
 <!-- ================= PAGE CONTENT ================= -->
+ 
 <div class="main-content">
 
     <h1>Welcome to Safe Link</h1>
@@ -101,6 +102,19 @@
 <p style="margin-top:20px; font-size:18px; color:#ccc;">
     Your safety, our priority.
 </p>
+<button onclick="initPermissions()" style="
+    margin-top:20px;
+    padding:10px 20px;
+    background:#00bfff;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+">
+    🔔 Enable Alerts
+</button>
+
+
+
 
 <!-- 🚨 EMERGENCY BUTTON -->
 <div class="emergency-wrapper">
@@ -152,7 +166,32 @@
         </a>
     </div>
 </footer>
-
+<!-- 🔔 Notification Permission Box -->
+<div id="permissionBox" style="
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#1a1a1a;
+    padding:15px 20px;
+    border-radius:12px;
+    border:1px solid #333;
+    z-index:9999;
+    display:none;
+">
+    <p style="margin-bottom:10px;">
+        🔔 Enable alerts to receive nearby emergency notifications
+    </p>
+    <button onclick="enableNotifications()" style="
+        padding:8px 15px;
+        background:#00bfff;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+    ">
+        Enable
+    </button>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 

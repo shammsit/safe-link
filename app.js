@@ -51,3 +51,69 @@ function handleEmergencyClick(){
         goEmg_all();
     }
 }
+
+async function initPermissions(){
+
+    // 🔔 Ask Notification Permission
+    const permission = await Notification.requestPermission();
+
+    if(permission !== "granted"){
+        alert("❌ Please allow notifications to receive alerts");
+        return;
+    }
+
+    console.log("✅ Notification permission granted");
+
+    // 📍 Ask Location Permission
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            pos => {
+                console.log("✅ Location allowed");
+                localStorage.setItem("lat", pos.coords.latitude);
+                localStorage.setItem("lng", pos.coords.longitude);
+            },
+            err => {
+                console.log("❌ Location denied");
+            }
+        );
+    }
+}
+
+// 🔔 Show popup after 2 sec
+window.addEventListener("DOMContentLoaded", () => {
+
+    setTimeout(() => {
+
+        if(Notification.permission !== "granted"){
+            document.getElementById("permissionBox").style.display = "block";
+        }
+
+    }, 2000);
+
+});
+
+
+// 🔔 Ask permission on button click
+async function enableNotifications(){
+
+    const permission = await Notification.requestPermission();
+
+    if(permission === "granted"){
+
+        alert("✅ Notifications enabled!");
+        document.getElementById("permissionBox").style.display = "none";
+
+        // 📍 Ask location also
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(pos => {
+                localStorage.setItem("lat", pos.coords.latitude);
+                localStorage.setItem("lng", pos.coords.longitude);
+            });
+        }
+
+    } else {
+
+        alert("❌ You blocked notifications.\nPlease allow from browser settings (🔒 icon)");
+
+    }
+}
