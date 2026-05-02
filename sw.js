@@ -26,3 +26,4 @@ self.addEventListener("notificationclick", event => {
         clients.openWindow("/notification/notification.html")
     );
 });
+

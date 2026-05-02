@@ -103,7 +103,7 @@ async function enableNotifications(){
         alert("✅ Notifications enabled!");
         document.getElementById("permissionBox").style.display = "none";
 
-        // 📍 Ask location
+        // 📍 Location
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(pos => {
                 localStorage.setItem("lat", pos.coords.latitude);
@@ -111,16 +111,32 @@ async function enableNotifications(){
             });
         }
 
-        // 🔧 Register Service Worker (ONLY AFTER GRANTED)
+        // 🔧 Service Worker
         if("serviceWorker" in navigator){
-
             try{
-                const reg = await navigator.serviceWorker.register("/sw.js");
+                await navigator.serviceWorker.register("/firebase-messaging-sw.js");
                 console.log("✅ Service Worker Registered");
             }catch(err){
                 console.error("❌ SW Error:", err);
             }
+        }
 
+        // 🔑 Get FCM Token (ONLY HERE)
+        try{
+            const token = await messaging.getToken({
+                vapidKey: "BIeDKhE_7uqqznB_VtJHa-JOeZ3MRlKl3bGaAaOWe9y1cd1m1Xdg2wAi5U1oAzrkOcJPNMni08e2q-Mwn0klXjA"
+            });
+
+            console.log("🔥 FCM TOKEN:", token);
+
+            if(token){
+                await supabaseClient
+                    .from("fcm_tokens")
+                    .insert([{ token }]);
+            }
+
+        }catch(err){
+            console.error("❌ Token Error:", err);
         }
 
     } else {
@@ -129,3 +145,14 @@ async function enableNotifications(){
 
     }
 }
+// 🔥 Firebase Init
+firebase.initializeApp({
+  apiKey: "AIzaSyCvP1NP1aMoiuJJsz_F4EgAC4JkHnv4VB8",
+  authDomain: "safe-link-4d72d.firebaseapp.com",
+  projectId: "safe-link-4d72d",
+  storageBucket: "safe-link-4d72d.firebasestorage.app",
+  messagingSenderId: "990848246096",
+  appId: "1:990848246096:web:5d1c4d726cbae07520cc55"
+});
+
+const messaging = firebase.messaging();
