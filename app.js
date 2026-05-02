@@ -103,12 +103,24 @@ async function enableNotifications(){
         alert("✅ Notifications enabled!");
         document.getElementById("permissionBox").style.display = "none";
 
-        // 📍 Ask location also
+        // 📍 Ask location
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(pos => {
                 localStorage.setItem("lat", pos.coords.latitude);
                 localStorage.setItem("lng", pos.coords.longitude);
             });
+        }
+
+        // 🔧 Register Service Worker (ONLY AFTER GRANTED)
+        if("serviceWorker" in navigator){
+
+            try{
+                const reg = await navigator.serviceWorker.register("/sw.js");
+                console.log("✅ Service Worker Registered");
+            }catch(err){
+                console.error("❌ SW Error:", err);
+            }
+
         }
 
     } else {

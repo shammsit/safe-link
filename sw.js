@@ -1,49 +1,28 @@
+// 🔔 Listen for push events
 self.addEventListener("push", event => {
 
-    const data = event.data.json();
+    const data = event.data ? event.data.json() : {};
 
     const options = {
-        body: data.message,
+        body: data.message || "🚨 Emergency Alert!",
         icon: "/logo.png",
         badge: "/logo.png",
         vibrate: [200, 100, 200],
-        data: {
-            lat: data.latitude,
-            lng: data.longitude
-        }
+        data: data
     };
 
     event.waitUntil(
-        self.registration.showNotification("🚨 Emergency Alert", options)
+        self.registration.showNotification("🚨 Safe Link Alert", options)
     );
 });
 
-// Click action
+
+// 🔁 When user clicks notification
 self.addEventListener("notificationclick", event => {
+
     event.notification.close();
 
     event.waitUntil(
         clients.openWindow("/notification/notification.html")
     );
 });
-async function subscribeUser(){
-
-    const reg = await navigator.serviceWorker.ready;
-
-    const subscription = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: "YOUR_VAPID_PUBLIC_KEY"
-    });
-
-    console.log("Subscribed:", subscription);
-
-    // Save to Supabase
-    await supabaseClient
-        .from("push_subscriptions")
-        .insert([{ subscription }]);
-}
-webpush.sendNotification(subscription, JSON.stringify({
-    message: "Help needed!",
-    latitude: 22.57,
-    longitude: 88.36
-}));
