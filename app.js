@@ -112,19 +112,28 @@ async function enableNotifications(){
         }
 
         // 🔧 Service Worker
+        let registration;
+
         if("serviceWorker" in navigator){
             try{
                 await navigator.serviceWorker.register("/firebase-messaging-sw.js");
                 console.log("✅ Service Worker Registered");
+
+                // 🔥 WAIT until active
+                registration = await navigator.serviceWorker.ready;
+
             }catch(err){
                 console.error("❌ SW Error:", err);
+                return;
             }
         }
 
-        // 🔑 Get FCM Token (ONLY HERE)
+        // 🔑 Get FCM Token (FIXED)
         try{
+
             const token = await messaging.getToken({
-                vapidKey: "BIeDKhE_7uqqznB_VtJHa-JOeZ3MRlKl3bGaAaOWe9y1cd1m1Xdg2wAi5U1oAzrkOcJPNMni08e2q-Mwn0klXjA"
+                vapidKey: "BIeDKhE_7uqqznB_VtJHa-JOeZ3MRlKl3bGaAaOWe9y1cd1m1Xdg2wAi5U1oAzrkOcJPNMni08e2q-Mwn0klXjA",
+                serviceWorkerRegistration: registration
             });
 
             console.log("🔥 FCM TOKEN:", token);
